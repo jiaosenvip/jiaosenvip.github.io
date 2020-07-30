@@ -1,0 +1,85 @@
+<head>
+    <title>Markdown编辑器</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="/image/avatar.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/css/editormd.min.css" />
+	
+	
+	<style>
+	a {
+    color: #161209;
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+    cursor: pointer;
+}
+	</style>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+    <div id="test-editor">
+        <textarea style="display:none;">
+</textarea>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/editor.md@1.5.0/editormd.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            editormd("test-editor", {
+                width: "100%",
+                height: 650,
+                path: "https://cdn.jsdelivr.net/npm/editor.md@1.5.0/lib/",
+                codeFold: true,
+                saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+                searchReplace: true,
+                htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+                emoji: true,
+                taskList: true,
+                tocm: true,
+                placeholder: "一起书写新时代美好篇章...",
+                onload: function () {
+                    this.fullscreen();
+                },
+                toolbarIcons: function () {
+                    // Or return editormd.toolbarModes[name]; // full, simple, mini
+                    // Using "||" set icons align right.
+                    return ["home", "|", "undo", "redo", "|",
+                        "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                        "h1", "h2", "h3", "h4", "h5", "h6", "|",
+                        "list-ul", "list-ol", "hr", "|",
+                        "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|",
+                        "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|","help"]
+                },
+                toolbarIconsClass: {
+                    home: "fa-home"  // 指定一个FontAawsome的图标类
+                },
+                toolbarIconTexts: {
+                    home: "回到首页"  // 如果没有图标，则可以这样直接插入内容，可以是字符串或HTML标签
+                },
+                // 自定义工具栏按钮的事件处理
+                toolbarHandlers: {
+                    home: function () {
+                        window.location.href = "/"
+                    }
+                }
+
+            });
+            editormd.emoji = {
+                path: "https://www.webfx.com/tools/emoji-cheat-sheet/graphics/emojis/",
+                ext: ".png"
+            };
+            editormd.twemoji = {
+                path: "https://twemoji.maxcdn.com/72x72/",
+                ext: ".png"
+            };
+        })
+    </script>
+
+    <!-- require APlayer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <!-- require MetingJS -->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <meting-js id="4955014375" server="netease" order="random" type="playlist" fixed="true"
+        list-olded="true">
+    </meting-js>
+</body>
