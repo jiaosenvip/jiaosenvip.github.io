@@ -144,7 +144,7 @@
 	.s-input{border-right:0;border-radius:0;}
 	.am-btn-default:focus, .am-btn-default:hover, .am-dropdown.am-active .am-btn-default.am-dropdown-toggle{border-color:#0e90d2;background-color:#eee;}
 	.start{float:right;margin-top:-38px}
-	#player{margin-bottom:.3em;height:548px;width:100%}
+	#player{margin-bottom:.3em;width:100%}
 	</style>
   </head>
   <body class="" style="display: block;">
@@ -192,6 +192,16 @@
           <button class="am-btn am-btn-primary" type="submit"><span class="am-icon-play"></span></button>
         </span>
     </form>
+	<div class="row row-cols-4 row-cols-sm-4 row-cols-md-4 row-cols-lg-4">
+	<div class="col" onclick=playM3u8("http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8")>CCTV-1</div>
+	<div class="col" onclick=playM3u8("http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8")>CCTV-6</div>
+	<div class="col" onclick=playM3u8("http://ivi.bupt.edu.cn/hls/cctv10hd.m3u8")>CCTV-10</div>
+	<div class="col" onclick=playM3u8("https://iptv.tsinghua.edu.cn/hls/cctv13hd.m3u8")>CCTV-13</div>
+	<div class="col" onclick=playM3u8("http://ivi.bupt.edu.cn/hls/hunanhd.m3u8")>湖南卫视</div>
+	<div class="col" onclick=playM3u8("http://ivi.bupt.edu.cn/hls/btv1hd.m3u8")>北京卫视</div>
+	<div class="col" onclick=playM3u8("https://iptv.tsinghua.edu.cn/hls/fhzw.m3u8")>凤凰中文</div>
+	<div class="col" onclick=playM3u8("https://iptv.tsinghua.edu.cn/hls/fhzx.m3u8")>凤凰资讯</div>
+	</div>
     </div>
     <video id="player" controls=""></video>
   </div>
