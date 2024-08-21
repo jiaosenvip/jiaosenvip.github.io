@@ -214,6 +214,7 @@
           document.getElementById("time").innerHTML =
             new Date().toLocaleTimeString();
         }, 1000);
+        document.getElementById("year").innerHTML = new Date().getFullYear();
       </script>
     </nav>
     <div id="search_bg" class="container so">
@@ -556,6 +557,9 @@
           </div>
           <div class="col">
             <a href="https://github.dev/" target="_blank" rel="noopener noreferrer">github.dev</a>
+          </div>
+          <div class="col">
+            <a href="https://github1s.com/" target="_blank" rel="noopener noreferrer">github1s</a>
           </div>
           <div class="col">
             <a href="https://www.marscode.cn/introduction-of-ide" target="_blank" rel="noopener noreferrer">豆包在线IDE</a>
@@ -964,8 +968,14 @@
               rel="noopener noreferrer">Linux命令</a>
           </div>
           <div class="col">
+            <a href="https://learnku.com/docs/the-way-to-go" target="_blank" rel="noopener noreferrer">Go入门指南</a>
+          </div>
+          <div class="col">
+            <a href="https://sbox.cn/doc/lang/goexample" target="_blank" rel="noopener noreferrer">Go语言练习题</a>
+          </div>
+          <div class="col">
             <a href="https://chai2010.cn/advanced-go-programming-book/" target="_blank"
-              rel="noopener noreferrer">Go语言编程</a>
+              rel="noopener noreferrer">Go语言高级编程</a>
           </div>
           <div class="col">
             <a href="https://web.qianguyihao.com/" target="_blank" rel="noopener noreferrer">前端进阶</a>
@@ -1042,6 +1052,10 @@
           <div class="col">
             <a href="https://learn.microsoft.com/zh-cn/dotnet/csharp/tour-of-csharp/" target="_blank"
               rel="noopener noreferrer">C#文档</a>
+          </div>
+          <div class="col">
+            <a href="https://linux-kernel-labs-zh.xyz/lectures/intro.html" target="_blank"
+              rel="noopener noreferrer">linux系统内核</a>
           </div>
           <div class="col">
             <a href="https://www.hello-algo.com/chapter_hello_algo/" target="_blank"
@@ -1128,7 +1142,11 @@
             <a href="https://www.osgeo.cn/pillow/index.html" target="_blank" rel="noopener noreferrer">pillow</a>
           </div>
           <div class="col">
-            <a href="https://fastapi.tiangolo.com/zh/" target="_blank" rel="noopener noreferrer">Fastapi</a>
+            <a href="https://fastapi.tiangolo.com/zh/" target="_blank" rel="noopener noreferrer">fastapi</a>
+          </div>
+          <div class="col">
+            <a href="https://sanic.dev/en/guide/getting-started.html" target="_blank"
+              rel="noopener noreferrer">sanic</a>
           </div>
           <div class="col">
             <a href="https://cycleuser.gitbooks.io/kivy-guide-chinese/content/" target="_blank"
@@ -1148,6 +1166,9 @@
           <div class="col">
             <a href="https://reactpy.dev/docs/guides/getting-started/index.html" target="_blank"
               rel="noopener noreferrer">reactpy</a>
+          </div>
+          <div class="col">
+            <a href="https://nuitka.net/" target="_blank" rel="noopener noreferrer">nuitka</a>
           </div>
           <div class="col">
             <a href="https://github.com/JushuangQiao/Python-LeetCode" target="_blank"
@@ -1186,6 +1207,9 @@
           </div>
           <div class="col">
             <a href="https://dev.to/t/python" target="_blank" rel="noopener noreferrer">dev论坛Python</a>
+          </div>
+          <div class="col">
+            <a href="https://www.cnblogs.com/traditional" target="_blank" rel="noopener noreferrer">古明地觉的Python</a>
           </div>
         </div>
       </div>
@@ -1444,7 +1468,7 @@
   <footer style="text-align: center; height: 6rem">
     <div class="copyright">
       ©
-      <span itemprop="copyrightYear"><a href="/cmatrix.html">2024</a></span>
+      <span itemprop="copyrightYear"><a href="/cmatrix.html" id="year">2024</a></span>
       <span class="with-love">
         <i class="fa fa-heart"></i>
       </span>
