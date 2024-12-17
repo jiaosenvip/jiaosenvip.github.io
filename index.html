@@ -228,7 +228,6 @@
           </div>
         </form>
       </div>
-      </div>
       <div id="button_bg">
         <form class="input-group" action="https://www.baidu.com/s" method="GET" target="_blank" id="searchCheck">
           <input class="form-control" type="text" value="" autofocus="autofocus" x-webkit-speech="" lang="zh-CN"
@@ -238,7 +237,6 @@
               style="background-color: #4e6ef2; width: 125px" />
           </div>
         </form>
-      </div>
       </div>
       <div id="button_bg">
         <form class="input-group" action="https://www.bing.com/search" method="GET" target="_blank" id="searchCheck">
@@ -250,26 +248,27 @@
           </div>
         </form>
       </div>
-      <br />
-      <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-      <div id="poem_sentence" style="text-align: center"></div>
-      <div id="poem_info" style="text-align: center"></div>
-      <script type="text/javascript">
-        jinrishici.load(function (result) {
-          var sentence = document.querySelector("#poem_sentence");
-          var info = document.querySelector("#poem_info");
-          sentence.innerHTML = result.data.content;
-          info.innerHTML =
-            "【" +
-            result.data.origin.dynasty +
-            "】" +
-            result.data.origin.author +
-            "《" +
-            result.data.origin.title +
-            "》";
-        });
-      </script>
     </div>
+    <br />
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence" style="text-align: center"></div>
+    <div id="poem_info" style="text-align: center"></div>
+    <script type="text/javascript">
+      jinrishici.load(function (result) {
+        var sentence = document.querySelector("#poem_sentence");
+        var info = document.querySelector("#poem_info");
+        sentence.innerHTML = result.data.content;
+        info.innerHTML =
+          "【" +
+          result.data.origin.dynasty +
+          "】" +
+          result.data.origin.author +
+          "《" +
+          result.data.origin.title +
+          "》";
+      });
+    </script>
+  </div>
   </div>
   <div class="container content" data-spy="scroll" data-target="#list-example" data-offset="0">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
@@ -556,7 +555,8 @@
             <a href="https://sspai.com/" target="_blank" rel="noopener noreferrer">少数派</a>
           </div>
           <div class="col">
-            <a href="https://hn.buzzing.cc/" target="_blank" rel="noopener noreferrer" class="text-danger">Hacker News</a>
+            <a href="https://hn.buzzing.cc/" target="_blank" rel="noopener noreferrer" class="text-danger">Hacker
+              News</a>
           </div>
           <div class="col">
             <a href="https://www.freebuf.com/" target="_blank" rel="noopener noreferrer">FreeBuf网安</a>
@@ -1192,8 +1192,7 @@
               rel="noopener noreferrer">oss2</a>
           </div>
           <div class="col">
-            <a href="https://pyo3.rs/" target="_blank"
-              rel="noopener noreferrer">pyo3</a>
+            <a href="https://pyo3.rs/" target="_blank" rel="noopener noreferrer">pyo3</a>
           </div>
           <div class="col">
             <a href="https://nbviewer.jupyter.org/github/LearnXu/pydata-notebook/tree/master/" target="_blank"
