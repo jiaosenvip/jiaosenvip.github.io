@@ -65,7 +65,6 @@
     }
 
     .top-cont {
-      overflow: hidden;
       width: 100%;
       height: 180px;
       background: #ad0000;
@@ -102,8 +101,8 @@
     }
 
     .top-cont .so .input-group .btn-outline-secondary {
-      border: 1px solid #f80;
-      background-color: #f80;
+      border: 1px solid #007bff;
+      background-color: #007bff;
       color: #fff;
     }
 
@@ -217,39 +216,97 @@
         document.getElementById("year").innerHTML = new Date().getFullYear();
       </script>
     </nav>
-    <div id="search_bg" class="container so">
-      <div id="button_bg">
-        <form class="input-group" action="https://yandex.com/search/" method="GET" target="_blank" id="searchCheck">
-          <input class="form-control" type="text" value="" autofocus="autofocus" x-webkit-speech="" lang="zh-CN"
-            placeholder="请输入搜索内容" name="text" id="search" autocomplete="off" />
-          <div class="input-group-append">
-            <input class="btn btn-outline-secondary" type="submit" value="Yandex 搜索" id="searchBtn"
-              style="background-color: #4e6ef2; width: 125px" />
-          </div>
-        </form>
-      </div>
-      <div id="button_bg">
-        <form class="input-group" action="https://www.baidu.com/s" method="GET" target="_blank" id="searchCheck">
-          <input class="form-control" type="text" value="" autofocus="autofocus" x-webkit-speech="" lang="zh-CN"
-            placeholder="请输入搜索内容" name="wd" id="search" autocomplete="off" />
-          <div class="input-group-append">
-            <input class="btn btn-outline-secondary" type="submit" value="百度搜索" id="searchBtn"
-              style="background-color: #4e6ef2; width: 125px" />
-          </div>
-        </form>
-      </div>
-      <div id="button_bg">
-        <form class="input-group" action="https://www.bing.com/search" method="GET" target="_blank" id="searchCheck">
-          <input class="form-control" type="text" value="" autofocus="autofocus" x-webkit-speech="" lang="zh-CN"
-            placeholder="请输入搜索内容" name="q" id="search" autocomplete="off" />
-          <div class="input-group-append">
-            <input class="btn btn-outline-secondary" type="submit" value="必应搜索" id="searchBtn"
-              style="background-color: #4e6ef2; width: 125px" />
-          </div>
-        </form>
+    <div id="input-group" class="container so">
+      <div class="input-group">
+        <input class="form-control" type="text" value="" autofocus="autofocus" x-webkit-speech="" lang="zh-CN"
+          placeholder="请输入内容" name="wd" id="searchInput" autocomplete="off" />
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="searchEngineDropdown"
+          data-bs-toggle="dropdown">🔍百度</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#" data-search-engine="yandex">🔍Yandex</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="bing">🔍必应</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="google">🔍谷歌</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="baidu">🔍百度</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="sogou">🔍搜狗</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="baidukaifa">🔍百度开发者</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="nami">🤖纳米AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="tiangong">🤖天工AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="metaso">🤖秘塔AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="wiki">📖维基百科</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="github">📖Github</a></li>
+        </ul>
+        <button class="btn btn-outline-secondary" type="button" id="searchBtn">搜索</button>
       </div>
     </div>
     <br />
+
+    <script>
+
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      const dropdownItems = document.querySelectorAll('.dropdown-item');
+      let currentSearchEngine = 'baidu';
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', function () {
+          currentSearchEngine = this.getAttribute('data-search-engine');
+          document.getElementById('searchEngineDropdown').innerText = this.innerText;
+        });
+      });
+
+      searchBtn.addEventListener('click', performSearch);
+
+      searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          performSearch();
+        }
+      });
+
+      function performSearch() {
+        const searchQuery = searchInput.value.trim();
+        if (searchQuery) {
+          switch (currentSearchEngine) {
+            case 'google':
+              window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'bing':
+              window.open(`https://www.bing.com/search?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'baidu':
+              window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'baidukaifa':
+              window.open(`https://kaifa.baidu.com/searchPage?wd=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'yandex':
+              window.open(`https://yandex.com/search/?text=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'sogou':
+              window.open(`https://www.sogou.com/web?query=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'wiki':
+              window.open(`https://zh.wikipedia.org/wiki/${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'github':
+              window.open(`https://github.com/search?type=repositories&q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'nami':
+              window.open(`https://n.cn/?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'tiangong':
+              window.open(`https://tiangong.cn/result/?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'metaso':
+              window.open(`https://metaso.cn/?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            default:
+              window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(searchQuery)}`);
+          }
+        } else {
+          alert('请输入搜索内容');
+        }
+      }
+
+    </script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
     <div id="poem_sentence" style="text-align: center"></div>
     <div id="poem_info" style="text-align: center"></div>
@@ -1545,6 +1602,8 @@
   <script type="text/javascript"
     src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/bootstrap/5.1.3/js/bootstrap.bundle.min.js"
+    type="application/javascript"></script>
 
   <footer style="text-align: center; height: 6rem">
     <div class="copyright">
@@ -1633,5 +1692,4 @@
     </script>
   </footer>
 </body>
-
 </html>
