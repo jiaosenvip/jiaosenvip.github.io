@@ -7,12 +7,12 @@
 	<meta http-equiv="X-UA-compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width" initial-scale="1.0" />
 	<link rel="stylesheet" type="text/css"
-		href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/5.15.2/css/all.css" />
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
 	<link rel="stylesheet" type="text/css"
-		href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/bootstrap/4.5.3/css/bootstrap.css" />
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap.css" />
 	<link rel="stylesheet" type="text/css"
-		href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/bootstrap/4.5.3/css/bootstrap-grid.css" />
-	<link rel="Shortcut Icon" type="image/x-icon" href="https://github.com/fluidicon.png" />
+		href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap-grid.min.css" />
+	<link rel="Shortcut Icon" type="image/x-icon" href="/fluidicon.png" />
 	<title>未知领域</title>
 	<style>
 		a {
@@ -215,25 +215,29 @@
 	<div class="container content text-center" data-spy="scroll" data-target="#list-example" data-offset="0">
 		<img src="https://random.imagecdn.app/500/300" style="max-width: 100%;" title="点击左上角日期即可回到主页">
 	</div>
-	<script type="text/javascript"
-		src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/animejs/3.2.1/anime.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
 	<br>
 	<footer style="text-align: center;height: 6rem;">
 		<div class="copyright">
 
 			©
-			<span itemprop="copyrightYear"><a href="/cmatrix.html">2024</a></span>
+			<span itemprop="copyrightYear"><a href="/cmatrix.html" id="year">2024</a></span>
+			<script>
+				// 获取当前年份
+				const currentYear = new Date().getFullYear();
+				// 将年份写入到id为"year"的元素中
+				document.getElementById('year').textContent = currentYear;
+			</script>
 			<span class="with-love">
 				<i class="fa fa-heart"></i>
 			</span>
 			<span class="author" itemprop="copyrightHolder">jiaosenvip</span>
 		</div>
 		<!-- 音乐播放器 -->
-		<link rel="stylesheet"
-			href="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.css" />
-		<script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/aplayer/1.10.1/APlayer.min.js"></script>
-		<!-- require MetingJS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
 		<script src="https://unpkg.com/meting@2.0.1/dist/Meting.min.js"></script>
 		<meting-js id="4955014375" server="netease" order="random" type="playlist" fixed="true">
 		</meting-js>
