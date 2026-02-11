@@ -209,7 +209,7 @@
           <li><a class="dropdown-item" href="#" data-search-engine="google">🔍谷歌</a></li>
           <li><a class="dropdown-item" href="#" data-search-engine="baidu">🔍百度</a></li>
           <li><a class="dropdown-item" href="#" data-search-engine="sogou">🔍搜狗</a></li>
-          <li><a class="dropdown-item" href="#" data-search-engine="baidukaifa">🔍百度开发者</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="baiduai">🤖百度AI搜索</a></li>
           <li><a class="dropdown-item" href="#" data-search-engine="nami">🤖纳米AI搜索</a></li>
           <li><a class="dropdown-item" href="#" data-search-engine="tiangong">🤖天工AI搜索</a></li>
           <li><a class="dropdown-item" href="#" data-search-engine="metaso">🤖秘塔AI搜索</a></li>
@@ -254,8 +254,8 @@
             case 'baidu':
               window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(searchQuery)}`);
               break;
-            case 'baidukaifa':
-              window.open(`https://kaifa.baidu.com/searchPage?wd=${encodeURIComponent(searchQuery)}`);
+            case 'baiduai':
+              window.open(`https://chat.baidu.com/search?word=${encodeURIComponent(searchQuery)}`);
               break;
             case 'yandex':
               window.open(`https://yandex.com/search/?text=${encodeURIComponent(searchQuery)}`);
@@ -440,10 +440,6 @@
             <a href="https://www.marxists.org/chinese/" target="_blank" rel="noopener noreferrer">马克思文库</a>
           </div>
           <div class="col">
-            <a href="http://eastlawlibrary.court.gov.cn/court-digital-library-search/page/portal/portalHomepage.html"
-              target="_blank" rel="noopener noreferrer">最高法图书馆</a>
-          </div>
-          <div class="col">
             <a href="https://data.stats.gov.cn/index.htm" target="_blank" rel="noopener noreferrer">国家数据</a>
           </div>
           <div class="col">
@@ -451,9 +447,6 @@
           </div>
           <div class="col">
             <a href="https://mzh.moegirl.org.cn/Mainpage" target="_blank" rel="noopener noreferrer">萌娘百科</a>
-          </div>
-          <div class="col">
-            <a href="https://www.mvyxws.com/" target="_blank" rel="noopener noreferrer">医学微视</a>
           </div>
           <div class="col">
             <a href="https://youquhome.com/" target="_blank" rel="noopener noreferrer">有趣网址</a>
@@ -469,7 +462,8 @@
             <a href="https://pycoders.com/latest" target="_blank" rel="noopener noreferrer">PyCoder周刊</a>
           </div>
           <div class="col">
-            <a href="https://python.libhunt.com/newsletter/archive" target="_blank" rel="noopener noreferrer">libhunt Python周刊</a>
+            <a href="https://python.libhunt.com/newsletter/archive" target="_blank" rel="noopener noreferrer">libhunt
+              Python周刊</a>
           </div>
           <div class="col">
             <a href="https://pythonhub.dev/digest/" target="_blank" rel="noopener noreferrer">pythonhub周刊</a>
@@ -610,12 +604,6 @@
             <a href="https://segmentfault.com/" target="_blank" rel="noopener noreferrer">思否sf</a>
           </div>
           <div class="col">
-            <a href="https://www.csdn.net" target="_blank" rel="noopener noreferrer">CSDN</a>
-          </div>
-          <div class="col">
-            <a href="https://juejin.im" target="_blank" rel="noopener noreferrer">掘金</a>
-          </div>
-          <div class="col">
             <a href="https://www.infoq.cn/" target="_blank" rel="noopener noreferrer">infoQ</a>
           </div>
           <div class="col">
@@ -629,9 +617,6 @@
           </div>
           <div class="col">
             <a href="https://www.freebuf.com/" target="_blank" rel="noopener noreferrer">FreeBuf网安</a>
-          </div>
-          <div class="col">
-            <a href="https://www.cnblogs.com/" target="_blank" rel="noopener noreferrer">博客园</a>
           </div>
           <div class="col">
             <a href="https://linux.do/" target="_blank" rel="noopener noreferrer">linux.do 社区</a>
@@ -658,9 +643,6 @@
           <i class="fas fa-coffee" style="color: #7ccd7c"></i> 开发者
         </h5>
         <div class="row row-cols-2">
-          <div class="col">
-            <a href="https://kaifa.baidu.com/" target="_blank" rel="noopener noreferrer">百度开发者搜索</a>
-          </div>
           <div class="col">
             <a href="https://github.com/explore" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
@@ -1228,35 +1210,19 @@
             <a href="https://pypi.org" target="_blank" rel="noopener noreferrer">pypi仓库</a>
           </div>
           <div class="col">
-            <a href="https://libraries.io/pypi" target="_blank" rel="noopener noreferrer">libraries | 统计pypi</a>
+            <a href="https://libraries.io/pypi" target="_blank" rel="noopener noreferrer">libraries | pypi</a>
           </div>
           <div class="col">
-            <a href="https://pyoven.org/" target="_blank" rel="noopener noreferrer">pyoven | 预览pypi</a>
+            <a href="https://pyoven.org/" target="_blank" rel="noopener noreferrer">pyoven | pypi</a>
           </div>
           <div class="col">
-            <a href="https://flet.qiannianlu.com/docs/" target="_blank" rel="noopener noreferrer">flet中文教程</a>
+            <a href="https://flet.qiannianlu.com/docs/" target="_blank" rel="noopener noreferrer">flet</a>
           </div>
           <div class="col">
-            <a href="https://github.com/taizilongxu/interview_python" target="_blank"
-              rel="noopener noreferrer">python面试</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/facert/python-data-structure-cn" target="_blank"
-              rel="noopener noreferrer">python数据结构</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/jackfrued/Python-100-Days" target="_blank"
-              rel="noopener noreferrer">100天Python</a>
-          </div>
-          <div class="col">
-            <a href="https://docs.djangoproject.com/zh-hans/" target="_blank" rel="noopener noreferrer">Django</a>
+            <a href="https://docs.djangoproject.com/zh-hans/" target="_blank" rel="noopener noreferrer">django</a>
           </div>
           <div class="col">
             <a href="https://pypi.org/project/diskcache/" target="_blank" rel="noopener noreferrer">diskcache</a>
-          </div>
-          <div class="col">
-            <a href="https://dormousehole.readthedocs.io/en/latest/index.html" target="_blank"
-              rel="noopener noreferrer">flask</a>
           </div>
           <div class="col">
             <a href="https://flask-appbuilder.readthedocs.io/en/latest/index.html" target="_blank"
@@ -1264,13 +1230,16 @@
           </div>
           <div class="col">
             <a href="https://tensorflow.google.cn/resources/learn-ml/basics-of-machine-learning?hl=zh-cn"
-              target="_blank" rel="noopener noreferrer">机器学习基础</a>
+              target="_blank" rel="noopener noreferrer">tf机器学习基础</a>
           </div>
           <div class="col">
-            <a href="https://pandas.pydata.org/" target="_blank" rel="noopener noreferrer">Pandas</a>
+            <a href="https://duckdb.org/docs/" target="_blank" rel="noopener noreferrer">duckdb</a>
           </div>
           <div class="col">
-            <a href="https://numpy.org/" target="_blank" rel="noopener noreferrer">Numpy</a>
+            <a href="https://pandas.pydata.org/" target="_blank" rel="noopener noreferrer">pandas</a>
+          </div>
+          <div class="col">
+            <a href="https://docs.polars.org.cn/" target="_blank" rel="noopener noreferrer">polars</a>
           </div>
           <div class="col">
             <a href="https://pypi.org/project/sshtunnel/" target="_blank" rel="noopener noreferrer">sshtunnel</a>
@@ -1293,12 +1262,7 @@
             <a href="https://pyo3.rs/" target="_blank" rel="noopener noreferrer">pyo3</a>
           </div>
           <div class="col">
-            <a href="https://nbviewer.jupyter.org/github/LearnXu/pydata-notebook/tree/master/" target="_blank"
-              rel="noopener noreferrer">Pandas jupyter</a>
-          </div>
-          <div class="col">
-            <a href="https://www.osgeo.cn/matplotlib/index.html" target="_blank"
-              rel="noopener noreferrer">Matplotlib</a>
+            <a href="https://pyecharts.org/" target="_blank" rel="noopener noreferrer">pyecharts</a>
           </div>
           <div class="col">
             <a href="https://www.osgeo.cn/pillow/index.html" target="_blank" rel="noopener noreferrer">pillow</a>
@@ -1312,14 +1276,10 @@
           </div>
           <div class="col">
             <a href="https://cycleuser.gitbooks.io/kivy-guide-chinese/content/" target="_blank"
-              rel="noopener noreferrer">
-              kivy</a>
+              rel="noopener noreferrer"> kivy</a>
           </div>
           <div class="col">
             <a href="https://chadsmith.dev/termpair/" target="_blank" rel="noopener noreferrer">termpair</a>
-          </div>
-          <div class="col">
-            <a href="https://duckdb.org/docs/guides/python/install" target="_blank" rel="noopener noreferrer">duckdb</a>
           </div>
           <div class="col">
             <a href="https://rich.readthedocs.io/en/latest/introduction.html" target="_blank"
@@ -1333,22 +1293,7 @@
             <a href="https://nuitka.net/" target="_blank" rel="noopener noreferrer">nuitka | 编译打包</a>
           </div>
           <div class="col">
-            <a href="https://pypi.org/project/beartype/" target="_blank" rel="noopener noreferrer">beartype | 静态类型检测</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/JushuangQiao/Python-LeetCode" target="_blank"
-              rel="noopener noreferrer">python-leetcode</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/JushuangQiao/Python-Offer" target="_blank" rel="noopener noreferrer">剑指Offer</a>
-          </div>
-          <div class="col">
-            <a href="https://ryancheunggit.gitbooks.io/calculus-with-python/content/" target="_blank"
-              rel="noopener noreferrer">python微积分</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/hustcc/JS-Sorting-Algorithm" target="_blank"
-              rel="noopener noreferrer">十大排序算法</a>
+            <a href="https://pypi.org/project/beartype/" target="_blank" rel="noopener noreferrer">beartype|静态类型检测</a>
           </div>
           <div class="col">
             <a href="https://fasionchan.com/python-source/" target="_blank" rel="noopener noreferrer">Python源码剖析</a>
@@ -1358,7 +1303,7 @@
               rel="noopener noreferrer">Cpython实现原理</a>
           </div>
           <div class="col">
-            <a href="https://realpython.com/ref/" target="_blank" rel="noopener noreferrer">RealPython参考</a>
+            <a href="https://realpython.com/ref/" target="_blank" rel="noopener noreferrer">realpython参考</a>
           </div>
           <div class="col">
             <a href="https://www.cnblogs.com/traditional" target="_blank" rel="noopener noreferrer">古明地觉的Python</a>
@@ -1383,19 +1328,25 @@
             <a href="https://pypi.org/project/curl-cffi/" target="_blank" rel="noopener noreferrer">curl_cffi</a>
           </div>
           <div class="col">
-            <a href="https://beautifulsoup.readthedocs.io" target="_blank" rel="noopener noreferrer">BeautifulSoup4</a>
+            <a href="https://pypi.org/project/primp/" target="_blank" rel="noopener noreferrer">primp</a>
           </div>
           <div class="col">
-            <a href="https://www.drissionpage.cn/" target="_blank" rel="noopener noreferrer">DrissionPage</a>
+            <a href="https://beautifulsoup.readthedocs.io" target="_blank" rel="noopener noreferrer">beautifulsoup4</a>
           </div>
           <div class="col">
-            <a href="https://feapder.com/#/README" target="_blank" rel="noopener noreferrer">feapder</a>
+            <a href="https://seleniumbase.io/" target="_blank" rel="noopener noreferrer">seleniumbase</a>
+          </div>
+          <div class="col">
+            <a href="https://playwright.dev/python/docs/intro" target="_blank" rel="noopener noreferrer">playwright</a>
+          </div>
+          <div class="col">
+            <a href="https://pydoll.tech/docs/" target="_blank" rel="noopener noreferrer">pydoll</a>
+          </div>
+          <div class="col">
+            <a href="https://www.drissionpage.cn/" target="_blank" rel="noopener noreferrer">drissionpage</a>
           </div>
           <div class="col">
             <a href="https://crawlee.dev/python/docs/introduction" target="_blank" rel="noopener noreferrer">crawlee</a>
-          </div>
-          <div class="col">
-            <a href="https://pypi.org/project/seleniumbase/" target="_blank" rel="noopener noreferrer">seleniumbase</a>
           </div>
           <div class="col">
             <a href="https://docs.scrapy.org/en/latest/" target="_blank" rel="noopener noreferrer">scrapy</a>
@@ -1411,7 +1362,7 @@
             <a href="https://gt4.geetest.com/" target="_blank" rel="noopener noreferrer">极验demo1</a>
           </div>
           <div class="col">
-            <a href="https://www.geetest.com/demo/" target="_blank" rel="noopener noreferrer">极验demo2</a>
+            <a href="https://demos.geetest.com/" target="_blank" rel="noopener noreferrer">极验demo2</a>
           </div>
           <div class="col">
             <a href="https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/" target="_blank"
@@ -1424,13 +1375,6 @@
             <a href="https://kekee000.github.io/fonteditor/" target="_blank" rel="noopener noreferrer">百度字体编辑器</a>
           </div>
           <div class="col">
-            <a href="https://dencode.com/en/" target="_blank" rel="noopener noreferrer">字符串编解码</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/HiddenStrawberry/Crawler_Illegal_Cases_In_China" target="_blank"
-              rel="noopener noreferrer">爬虫法规库</a>
-          </div>
-          <div class="col">
             <a href="https://www.kgtools.cn/" target="_blank" rel="noopener noreferrer">k哥爬虫工具集</a>
           </div>
           <div class="col">
@@ -1440,16 +1384,7 @@
             <a href="https://www.liaoxuefeng.com/" target="_blank" rel="noopener noreferrer">廖雪峰教程</a>
           </div>
           <div class="col">
-            <a href="https://devtool.tech/html-md" target="_blank" rel="noopener noreferrer">html转markdown</a>
-          </div>
-          <div class="col">
             <a href="https://curlconverter.com/python/" target="_blank" rel="noopener noreferrer">Curl转Python</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/pyppeteer/pyppeteer" target="_blank" rel="noopener noreferrer">pyppeteer</a>
-          </div>
-          <div class="col">
-            <a href="https://playwright.dev/python/docs/intro" target="_blank" rel="noopener noreferrer">playwright</a>
           </div>
           <div class="col">
             <a href="https://en.kali.tools/" target="_blank" rel="noopener noreferrer">kali逆向工具库</a>
@@ -1467,17 +1402,10 @@
             <a href="https://substack.thewebscraping.club/" target="_blank" rel="noopener noreferrer">外国爬虫论坛</a>
           </div>
           <div class="col">
-            <a href="https://andrewji8-9527.xlog.app/shen-tou-ce-shi-ren-yuan-he-hei-ke-you-yong-de-wang-zhan"
-              target="_blank" rel="noopener noreferrer">黑客常用网站</a>
-          </div>
-          <div class="col">
             <a href="https://www.exploit-db.com/" target="_blank" rel="noopener noreferrer">exploit-db漏洞库</a>
           </div>
           <div class="col">
             <a href="https://x.threatbook.com/" target="_blank" rel="noopener noreferrer">微步情报社区</a>
-          </div>
-          <div class="col">
-            <a href="https://www.hacking-tutorial.com/" target="_blank" rel="noopener noreferrer">黑客教程</a>
           </div>
           <div class="col">
             <a href="https://ecapture.cc/zh/" target="_blank" rel="noopener noreferrer">ecapture</a>
@@ -1501,15 +1429,8 @@
             <a href="https://fbidb.io/" target="_blank" rel="noopener noreferrer">idb | ios自动化</a>
           </div>
           <div class="col">
-            <a href="https://ctf-wiki.org/" target="_blank" rel="noopener noreferrer">ctf-wiki</a>
-          </div>
-          <div class="col">
             <a href="https://github.com/WuFengXue/android-reverse" target="_blank"
               rel="noopener noreferrer">安卓逆向工具汇总</a>
-          </div>
-          <div class="col">
-            <a href="https://www.52pojie.cn/forum.php?mod=forumdisplay&fid=5&filter=typeid&typeid=378" target="_blank"
-              rel="noopener noreferrer">web逆向</a>
           </div>
         </div>
       </div>
@@ -1531,22 +1452,16 @@
             <a href="https://metaso.cn/" target="_blank" rel="noopener noreferrer">秘塔AI搜索</a>
           </div>
           <div class="col">
-            <a href="https://felo.ai/search" target="_blank" rel="noopener noreferrer">felo搜索</a>
-          </div>
-          <div class="col">
-            <a href="https://poe.com/ChatGPT" target="_blank" rel="noopener noreferrer">poe.com</a>
+            <a href="https://poe.com/" target="_blank" rel="noopener noreferrer">poe.com</a>
           </div>
           <div class="col">
             <a href="https://www.doubao.com/" target="_blank" rel="noopener noreferrer">豆包</a>
           </div>
           <div class="col">
-            <a href="https://yuanbao.tencent.com/chat" target="_blank" rel="noopener noreferrer">腾讯元宝</a>
+            <a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener noreferrer">腾讯元宝</a>
           </div>
           <div class="col">
-            <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener noreferrer">kimi.ai</a>
-          </div>
-          <div class="col">
-            <a href="https://www.deepl.com/translator" target="_blank" rel="noopener noreferrer">DeepL翻译</a>
+            <a href="https://www.kimi.com/" target="_blank" rel="noopener noreferrer">kimi</a>
           </div>
           <div class="col">
             <a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">perplexity</a>
@@ -1558,16 +1473,10 @@
             <a href="https://build.nvidia.com/explore/discover" target="_blank" rel="noopener noreferrer">nvidia模型广场</a>
           </div>
           <div class="col">
-            <a href="https://llm.juejin.cn/" target="_blank" rel="noopener noreferrer">掘金大模型导航</a>
-          </div>
-          <div class="col">
             <a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer">huggingface</a>
           </div>
           <div class="col">
             <a href="https://ai.hao.360.com/" target="_blank" rel="noopener noreferrer">360AI导航</a>
-          </div>
-          <div class="col">
-            <a href="https://codeium.com/" target="_blank" rel="noopener noreferrer">codeium编程助手</a>
           </div>
           <div class="col">
             <a href="https://aicodeconvert.com/" target="_blank" rel="noopener noreferrer">AI 代码生成</a>
@@ -1584,12 +1493,6 @@
           <div class="col">
             <a href="https://xiaoyi.huawei.com/chat/" target="_blank" rel="noopener noreferrer">华为小艺</a>
           </div>
-          <div class="col">
-            <a href="https://www.lianqiai.cn/" target="_blank" rel="noopener noreferrer">链企AI</a>
-          </div>
-          <div class="col">
-            <a href="https://www.blackbox.ai/" target="_blank" rel="noopener noreferrer">blackbox</a>
-          </div>
         </div>
       </div>
       <div class="col subs">
@@ -1597,9 +1500,6 @@
           <i class="fas fa-gamepad" style="color: #008cff"></i> 网盘搜索
         </h5>
         <div class="row row-cols-2">
-          <div class="col">
-            <a href="https://www.pansearch.me/" target="_blank" rel="noopener noreferrer">pansearch</a>
-          </div>
           <div class="col">
             <a href="https://xiongdipan.com/" target="_blank" rel="noopener noreferrer">兄弟盘</a>
           </div>
