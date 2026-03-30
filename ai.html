@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap-grid.min.css" />
+  <link rel="Shortcut Icon" type="image/x-icon" href="/fluidicon.png" />
+  <title>AI导航</title>
+  <style>
+    /*html {//灰色默哀主题
+          -webkit-filter: grayscale(100%);
+          -moz-filter: grayscale(100%);
+          -ms-filter: grayscale(100%);
+          -o-filter: grayscale(100%);
+          filter: grayscale(100%);
+          filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+      } */
+    a {
+      outline: 0;
+      color: #555;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #f70;
+    }
+
+    .with-love {
+      color: #ff0000;
+      display: inline-block;
+      margin: 0 5px;
+      animation: iconAnimate 1.33s ease-in-out infinite;
+    }
+
+    @keyframes iconAnimate {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      10%,
+      30% {
+        transform: scale(0.9);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: scale(1.1);
+      }
+
+      50%,
+      70% {
+        transform: scale(1.1);
+      }
+    }
+
+    .top-cont {
+      width: 100%;
+      height: 180px;
+      background: #ad0000;
+      background-size: cover;
+      color: #eee;
+    }
+
+    .top-cont .navbar .navbar-brand {
+      color: #fff;
+    }
+
+    .top-cont .navbar .align-top {
+      border-radius: 3px;
+    }
+
+    .top-cont .navbar .nav .nav-item .nav-link {
+      color: #ddd;
+    }
+
+    .top-cont .bg-light {
+      background-color: transparent !important;
+    }
+
+    #search {
+      height: 42px;
+      border: 1 solid #fff;
+      border-radius: 3px 0 0 3px;
+      text-indent: 25px;
+    }
+
+    .top-cont .so .input-group .form-control:focus {
+      border-color: #fff;
+      box-shadow: 0 0 0 0 transparent;
+    }
+
+    .top-cont .so .input-group .btn-outline-secondary {
+      border: 1px solid #007bff;
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .top-cont .so h6 {
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .content {
+      margin-top: 25px;
+      padding-left: 15px;
+    }
+
+    .content .btn-toolbar {
+      margin-bottom: 6px;
+      width: 100%;
+      min-height: 30px;
+    }
+
+    .content .btn-toolbar .btn-group {
+      margin-bottom: 9px;
+      width: 130px;
+    }
+
+    .content .btn-toolbar .btn-group .btn-warning:hover {
+      border-color: #ffc107;
+      background-color: #ffc107;
+    }
+
+    .content .btn-toolbar .btn-group .wn {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 15px;
+    }
+
+    .content .btn-toolbar .btn-group .dropdown-toggle {
+      color: #bbb;
+    }
+
+    .content .btn-toolbar .btn-group .t {
+      border: 1px dashed #ddd;
+      color: #999;
+    }
+
+    .content .btn-toolbar .btn-group .dropdown-menu {
+      min-width: 30px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .content .row .subs {
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+
+    .content .row .subs .tit {
+      margin-bottom: 10px;
+      padding: 5px 0;
+      border-bottom: 1px dashed #ddd;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .content .row .subs .col {
+      overflow: hidden;
+      height: 32px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 32px;
+    }
+  </style>
+</head>
+
+<body class="" style="display: block">
+  <div class="top-cont">
+    <nav class="navbar navbar-light bg-light">
+      <script>
+        var weekDayLabels = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var currentime = '<div class="special"><a href="/" style="color:white;">' + year + '年' + month + '月' + day + '日 ' + weekDayLabels[now.getDay()] + '</a></div>'
+        document.write(currentime);
+      </script>
+      <div id="time"></div>
+      <script>
+        setInterval(function () {
+          document.getElementById("time").innerHTML = new Date().toLocaleTimeString();
+        }, 1000)
+      </script>
+    </nav>
+    <div id="input-group" class="container so">
+      <div class="input-group">
+        <input class="form-control" type="text" value="" autofocus="autofocus" x-webkit-speech="" lang="zh-CN"
+          placeholder="请输入内容" name="wd" id="searchInput" autocomplete="off" />
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="searchEngineDropdown"
+          data-bs-toggle="dropdown">🔍百度</button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#" data-search-engine="yandex">🔍Yandex</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="bing">🔍必应</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="google">🔍谷歌</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="baidu">🔍百度</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="sogou">🔍搜狗</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="baiduai">🤖百度AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="nami">🤖纳米AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="tiangong">🤖天工AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="metaso">🤖秘塔AI搜索</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="wiki">📖维基百科</a></li>
+          <li><a class="dropdown-item" href="#" data-search-engine="github">📖Github</a></li>
+        </ul>
+        <button class="btn btn-outline-secondary" type="button" id="searchBtn">搜索</button>
+      </div>
+    </div>
+    <br />
+
+    <script>
+      const searchInput = document.getElementById('searchInput');
+      const searchBtn = document.getElementById('searchBtn');
+      const dropdownItems = document.querySelectorAll('.dropdown-item');
+      let currentSearchEngine = 'baidu';
+      dropdownItems.forEach(item => {
+        item.addEventListener('click', function () {
+          currentSearchEngine = this.getAttribute('data-search-engine');
+          document.getElementById('searchEngineDropdown').innerText = this.innerText;
+        });
+      });
+
+      searchBtn.addEventListener('click', performSearch);
+
+      searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          performSearch();
+        }
+      });
+
+      function performSearch() {
+        const searchQuery = searchInput.value.trim();
+        if (searchQuery) {
+          switch (currentSearchEngine) {
+            case 'google':
+              window.open(`https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'bing':
+              window.open(`https://www.bing.com/search?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'baidu':
+              window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'baiduai':
+              window.open(`https://chat.baidu.com/search?word=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'yandex':
+              window.open(`https://yandex.com/search/?text=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'sogou':
+              window.open(`https://www.sogou.com/web?query=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'wiki':
+              window.open(`https://zh.wikipedia.org/wiki/${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'github':
+              window.open(`https://github.com/search?type=repositories&q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'nami':
+              window.open(`https://n.cn/?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'tiangong':
+              window.open(`https://tiangong.cn/result/?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            case 'metaso':
+              window.open(`https://metaso.cn/?q=${encodeURIComponent(searchQuery)}`);
+              break;
+            default:
+              window.open(`https://www.baidu.com/s?wd=${encodeURIComponent(searchQuery)}`);
+          }
+        } else {
+          alert('请输入搜索内容');
+        }
+      }
+
+    </script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <div id="poem_sentence" style="text-align: center"></div>
+    <div id="poem_info" style="text-align: center"></div>
+    <script type="text/javascript">
+      jinrishici.load(function (result) {
+        var sentence = document.querySelector("#poem_sentence");
+        var info = document.querySelector("#poem_info");
+        sentence.innerHTML = result.data.content;
+        info.innerHTML =
+          "【" +
+          result.data.origin.dynasty +
+          "】" +
+          result.data.origin.author +
+          "《" +
+          result.data.origin.title +
+          "》";
+      });
+    </script>
+  </div>
+  </div>
+  <div class="container content" data-spy="scroll" data-target="#list-example" data-offset="0">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+      <div class="col subs">
+        <h5 class="tit">
+          <i class="fas fa-comments" style="color: #7ccd7c"></i> 国内AI
+        </h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://www.doubao.com/chat/" target="_blank" rel="noopener noreferrer">豆包</a></div>
+          <div class="col"><a href="https://chat.baidu.com/" target="_blank" rel="noopener noreferrer">百度AI</a></div>
+          <div class="col"><a href="https://yiyan.baidu.com//" target="_blank" rel="noopener noreferrer">文心一言</a></div>
+          <div class="col"><a href="https://www.lingguang.com/chat" target="_blank" rel="noopener noreferrer">灵光</a></div>
+          <div class="col"><a href="https://www.qianwen.com/" target="_blank" rel="noopener noreferrer">千问</a></div>
+          <div class="col"><a href="https://yuanbao.tencent.com/" target="_blank" rel="noopener noreferrer">腾讯元宝</a></div>
+          <div class="col"><a href="https://ima.qq.com/" target="_blank" rel="noopener noreferrer">腾讯ima</a></div>
+          <div class="col"><a href="https://qclaw.qq.com/" target="_blank" rel="noopener noreferrer">腾讯qclaw</a></div>
+          <div class="col"><a href="https://www.n.cn/" target="_blank" rel="noopener noreferrer">纳米AI</a></div>
+        </div>
+      </div>
+      <div class="col subs">
+        <h5 class="tit">
+          <i class="fas fa-comments" style="color: #7ccd7c"></i> 国内AI
+        </h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://deepseek.com/" target="_blank" rel="noopener noreferrer">deepseek</a></div>
+          <div class="col"><a href="https://www.kimi.com/" target="_blank" rel="noopener noreferrer">kimi</a></div>
+          <div class="col"><a href="https://metaso.cn/" target="_blank" rel="noopener noreferrer">秘塔AI搜索</a></div>
+          <div class="col"><a href="https://aistudio.xiaomimimo.com/#/c" target="_blank" rel="noopener noreferrer">小米MIMO</a></div>
+          <div class="col"><a href="https://xiaoyi.huawei.com/chat/" target="_blank" rel="noopener noreferrer">华为小艺</a></div>
+          <div class="col"><a href="https://www.tabbit-ai.com/" target="_blank" rel="noopener noreferrer">美团tabbit浏览器</a></div>
+          <div class="col"><a href="https://chatglm.cn" target="_blank" rel="noopener noreferrer">GLM</a></div>
+          <div class="col"><a href="https://www.wenxiaobai.com/" target="_blank" rel="noopener noreferrer">问小白</a></div>
+          <div class="col"><a href="https://www.tiangong.cn/" target="_blank" rel="noopener noreferrer">天工AI</a></div>
+        </div>
+      </div>
+      <div class="col subs">
+        <h5 class="tit">
+          <i class="fas fa-comments" style="color: rgb(0, 0, 0)"></i> 国外AI
+        </h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">chatgpt</a></div>
+          <div class="col"><a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">perplexity</a></div>
+          <div class="col"><a href="https://claude.com/product/claude-code/" target="_blank" rel="noopener noreferrer">claude code</a></div>
+          <div class="col"><a href="https://poe.com/" target="_blank" rel="noopener noreferrer">poe</a></div>
+          <div class="col"><a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">gemini</a></div>
+          <div class="col"><a href="https://build.nvidia.com/explore/discover" target="_blank" rel="noopener noreferrer">英伟达模型广场</a></div>
+          <div class="col"><a href="https://huggingface.co/models" target="_blank" rel="noopener noreferrer">huggingface</a></div>
+          <div class="col"><a href="https://aicodeconvert.com/" target="_blank" rel="noopener noreferrer">代码生成</a></div>
+          
+        </div>
+      </div>
+      <div class="col subs">
+        <h5 class="tit">
+          <i class="fas fa-graduation-cap" style="color: #f90"></i> AI资源
+        </h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://www.bilibili.com/c/ai/" target="_blank" rel="noopener noreferrer">B站AI频道</a></div>
+          <div class="col"><a href="https://www.ai-bot.cn/" target="_blank" rel="noopener noreferrer">AI工具集</a></div>
+          <div class="col"><a href="https://openi.cn//" target="_blank" rel="noopener noreferrer">AI时代</a></div>
+          <div class="col"><a href="https://www.aibase.com/zh" target="_blank" rel="noopener noreferrer">aibase基地</a></div>
+          <div class="col"><a href="https://huntscreens.com/zh" target="_blank" rel="noopener noreferrer">huntscreens</a></div>
+          <div class="col"><a href="https://www.aiclubs.cn/" target="_blank" rel="noopener noreferrer">AI部落</a></div>
+          <div class="col"><a href="https://skillhub.tencent.com/" target="_blank" rel="noopener noreferrer">腾讯skillhub</a></div>
+          <div class="col"><a href="https://zread.ai/trending" target="_blank" rel="noopener noreferrer">zread趋势</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+  <footer style="text-align: center; height: 6rem">
+    <div class="copyright">
+      <span class="author" itemprop="copyrightHolder"><a href="https://github.dev/jiaosenvip/jiaosenvip.github.io"
+          target="_blank" rel="noopener noreferrer">jiaosenvip</a></span>
+      <span class="with-love"><i class="fa fa-heart"></i></span>
+      <span itemprop="copyrightYear"><a href="/cmatrix.html" id="year">2026</a></span>
+      <script>
+        // 获取当前年份
+        const currentYear = new Date().getFullYear();
+        // 将年份写入到id为"year"的元素中
+        document.getElementById('year').textContent = currentYear;
+      </script>
+    </div>
+    <!-- 音乐播放器 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
+    <script src="https://unpkg.com/meting@2.0.1/dist/Meting.min.js"></script>
+    <meting-js id="4955014375" server="netease" order="random" type="playlist" fixed="true">
+    </meting-js>
+
+    <!-- 鼠标特效 -->
+    <script type="text/javascript">
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        $("body").click(function (e) {
+          var a = new Array(
+            "富强",
+            "民主",
+            "文明",
+            "和谐",
+            "自由",
+            "平等",
+            "公正",
+            "法治",
+            "爱国",
+            "敬业",
+            "诚信",
+            "友善"
+          );
+          var $i = $("<span></span>").text(a[a_idx]);
+          a_idx = (a_idx + 1) % a.length;
+          var x = e.pageX,
+            y = e.pageY;
+          $i.css({
+            "z-index": 999999999999999999999999999999999999999999999999999999999999999999999,
+            top: y - 20,
+            left: x,
+            position: "absolute",
+            "font-weight": "bold",
+            color:
+              "rgb(" +
+              ~~(255 * Math.random()) +
+              "," +
+              ~~(255 * Math.random()) +
+              "," +
+              ~~(255 * Math.random()) +
+              ")",
+          });
+          $("body").append($i);
+          $i.animate(
+            {
+              top: y - 180,
+              opacity: 0,
+            },
+            1500,
+            function () {
+              $i.remove();
+            }
+          );
+        });
+      });
+    </script>
+  </footer>
+</body>
+
+</html>
