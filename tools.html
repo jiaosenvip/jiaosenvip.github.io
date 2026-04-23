@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="Shortcut Icon" type="image/x-icon" href="/github.png" />
+  <title>在线开发工具箱 Pro</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0b1120;
+      --panel: #111827;
+      --card: rgba(17, 24, 39, 0.92);
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #22c55e;
+      --primary-hover: #16a34a;
+      --secondary: #334155;
+      --secondary-hover: #475569;
+      --danger-bg: rgba(239, 68, 68, 0.16);
+      --danger-border: rgba(239, 68, 68, 0.24);
+      --danger-text: #fecaca;
+      --input: #0f172a;
+      --cyan: #38bdf8;
+      --sidebar: rgba(15, 23, 42, 0.88);
+      --sidebar-active: rgba(34, 197, 94, 0.18);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left, #1e293b 0%, #0b1120 42%, #020617 100%);
+      color: var(--text);
+    }
+
+    .layout {
+      max-width: 1700px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 20px;
+      background: var(--sidebar);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+    }
+
+    .sidebar h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .sidebar p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 13px;
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(71, 85, 105, 0.95);
+      background: var(--input);
+      color: var(--text);
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-box input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    }
+
+    .tool-count {
+      margin: 0 0 14px;
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-item {
+      display: block;
+      padding: 12px 14px;
+      border-radius: 14px;
+      color: #dbeafe;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: var(--sidebar-active);
+      border-color: rgba(34, 197, 94, 0.28);
+      color: #f8fafc;
+    }
+
+    .nav-item strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .nav-item span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .hero {
+      margin-bottom: 24px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 36px;
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 18px;
+    }
+
+    .tool {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      scroll-margin-top: 24px;
+    }
+
+    .tool.hidden {
+      display: none;
+    }
+
+    .tool.wide {
+      grid-column: span 2;
+    }
+
+    .hero-tool {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .hero-tool .tool-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+      gap: 0;
+      min-height: 100%;
+    }
+
+    .hero-tool .tool-main,
+    .hero-tool .tool-side {
+      padding: 24px;
+    }
+
+    .hero-tool .tool-main {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.76), rgba(15, 23, 42, 0.92));
+    }
+
+    .hero-tool .tool-side {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .tool-lead {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .tool-badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: #7dd3fc;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .feature-list li {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .side-title {
+      margin: 0;
+      font-size: 14px;
+      color: #cbd5e1;
+      letter-spacing: 0.4px;
+    }
+
+    .qr-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .meta-item {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .meta-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #f8fafc;
+    }
+
+    .meta-item span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .tool h2 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .tool p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      min-height: 44px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+      border: 1px solid rgba(71, 85, 105, 0.95);
+      border-radius: 14px;
+      background: var(--input);
+      color: var(--text);
+      padding: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #052e16;
+    }
+
+    .primary:hover {
+      background: var(--primary-hover);
+      color: white;
+    }
+
+    .secondary {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .secondary:hover {
+      background: var(--secondary-hover);
+    }
+
+    .danger {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid var(--danger-border);
+    }
+
+    .danger:hover {
+      background: rgba(239, 68, 68, 0.28);
+    }
+
+    .status {
+      margin-top: 10px;
+      color: #93c5fd;
+      min-height: 20px;
+      font-size: 13px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .inline-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: -2px;
+      margin-bottom: 10px;
+    }
+
+    .qr-preview {
+      margin-top: 14px;
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 18px;
+      border: 1px dashed #94a3b8;
+      padding: 16px;
+      overflow: auto;
+    }
+
+    .qr-preview canvas,
+    .qr-preview img {
+      max-width: none;
+      height: auto;
+      display: block;
+    }
+
+    .qr-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .empty-state {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px dashed rgba(148, 163, 184, 0.28);
+      color: #cbd5e1;
+      text-align: center;
+      background: rgba(15, 23, 42, 0.45);
+    }
+
+    .footer {
+      margin-top: 26px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1180px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        max-height: none;
+      }
+
+      .nav-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .tool.wide {
+        grid-column: span 1;
+      }
+
+      .hero-tool .tool-body {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-tool .tool-side {
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .layout {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+
+      .tool {
+        padding: 16px;
+      }
+
+      .inline-row {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-list,
+      .qr-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-lead {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-tool .tool-main,
+      .hero-tool .tool-side {
+        padding: 18px;
+      }
+
+      .nav-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>工具目录</h2>
+      <p>左侧快速定位工具，支持关键字搜索，例如输入“二维码 / hash / jwt / 时间戳”。</p>
+      <div class="search-box">
+        <input id="toolSearch" type="text" placeholder="搜索工具名称或说明" />
+      </div>
+      <div class="tool-count" id="toolCount">共 8 个工具</div>
+      <nav class="nav-list" id="toolNav">
+        <a class="nav-item active" href="#tool-qr" data-target="tool-qr" data-search="二维码 生成 qr 扫码 链接 文本 自适应 纠错">
+          <strong>二维码生成</strong>
+          <span>自适应尺寸与纠错级别，支持下载</span>
+        </a>
+        <a class="nav-item" href="#tool-json" data-target="tool-json" data-search="json 格式化 压缩 美化">
+          <strong>JSON 格式化 / 压缩</strong>
+          <span>JSON 美化、压缩与错误提示</span>
+        </a>
+        <a class="nav-item" href="#tool-base64" data-target="tool-base64" data-search="base64 编码 解码 文本">
+          <strong>Base64 编码 / 解码</strong>
+          <span>普通文本进行 Base64 转换</span>
+        </a>
+        <a class="nav-item" href="#tool-url" data-target="tool-url" data-search="url encode decode 编码 解码 query 参数">
+          <strong>URL Encode / Decode</strong>
+          <span>适合 querystring 与路径片段处理</span>
+        </a>
+        <a class="nav-item" href="#tool-time" data-target="tool-time" data-search="时间戳 日期 秒 毫秒 unix 转换">
+          <strong>时间戳转换</strong>
+          <span>秒级、毫秒级与日期互转</span>
+        </a>
+        <a class="nav-item" href="#tool-hash" data-target="tool-hash" data-search="md5 sha-256 hash 哈希 摘要 校验">
+          <strong>MD5 / SHA-256 哈希</strong>
+          <span>快速生成摘要值用于校验对比</span>
+        </a>
+        <a class="nav-item" href="#tool-case" data-target="tool-case" data-search="大小写 文本 upper lower title case">
+          <strong>文本大小写转换</strong>
+          <span>大写、小写、首字母与标题格式</span>
+        </a>
+        <a class="nav-item" href="#tool-jwt" data-target="tool-jwt" data-search="jwt token 解析 payload header 签名">
+          <strong>JWT 解析</strong>
+          <span>解析 Header、Payload 与签名段</span>
+        </a>
+        <a class="nav-item" href="#tool-regex" data-target="tool-regex" data-search="正则 regex 匹配 替换 标志">
+          <strong>正则测试</strong>
+          <span>匹配、分组结果与替换演示</span>
+        </a>
+        <a class="nav-item" href="#tool-uuid" data-target="tool-uuid" data-search="uuid 随机 id 生成">
+          <strong>UUID 生成</strong>
+          <span>批量生成 UUID v4</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <h1>在线开发工具箱 Pro</h1>
+        <p class="subtitle">一站式前端工具网站，支持二维码、JSON、Base64、URL Encode/Decode、时间戳秒/毫秒转换、MD5 / SHA-256、文本大小写、JWT 解析、正则测试、UUID
+          生成等常用工具。所有处理均在浏览器本地完成。所有代码由AI生成。</p>
+      </section>
+
+      <section class="grid" id="toolGrid">
+        <article class="tool wide hero-tool" id="tool-qr" data-search="二维码 生成 qr 扫码 链接 文本 自适应 纠错 下载">
+          <div class="tool-body">
+            <div class="tool-main">
+              <div class="tool-lead">
+                <div>
+                  <h2>二维码生成</h2>
+                  <p>输入文本、链接或任意内容后立即生成二维码。短文本默认使用较高纠错与紧凑尺寸，较长内容会自动放宽尺寸并适度降低纠错级别，避免过度压缩影响扫码。</p>
+                </div>
+                <div class="tool-badge">自适应尺寸 + 纠错</div>
+              </div>
+              <label for="qrInput">输入</label>
+              <textarea id="qrInput" placeholder="请输入要生成二维码的内容"></textarea>
+              <div class="actions">
+                <button class="primary" onclick="generateQRCode()">生成二维码</button>
+                <button class="secondary" onclick="downloadQRCode()">下载二维码</button>
+                <button class="danger" onclick="clearQRCode()">清空</button>
+              </div>
+              <ul class="feature-list">
+                <li>120 字以内：220×220，H</li>
+                <li>121-260 字：280×280，H</li>
+                <li>261-500 字：340×340，Q</li>
+                <li>500 字以上：420×420，M</li>
+              </ul>
+            </div>
+            <div class="tool-side">
+              <h3 class="side-title">预览区域</h3>
+              <div id="qrPreview" class="qr-preview">暂无二维码</div>
+              <div class="qr-meta">
+                <div class="meta-item">
+                  <strong>默认策略</strong>
+                  <span>短内容优先高纠错，兼顾打印、转发和截图场景。</span>
+                </div>
+                <div class="meta-item">
+                  <strong>长文本优化</strong>
+                  <span>内容变长后自动加大尺寸并下调纠错等级，优先保证可扫性。</span>
+                </div>
+              </div>
+              <div class="qr-note" id="qrSizeNote">当前未生成二维码</div>
+              <div class="status" id="qrStatus"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="tool" id="tool-json" data-search="json 格式化 压缩 美化 结构化">
+          <h2>JSON 格式化 / 压缩</h2>
+          <p>可对 JSON 文本进行美化、压缩，并在格式错误时给出提示。</p>
+          <label for="jsonInput">输入</label>
+          <textarea id="jsonInput" placeholder='例如：{"name":"test","age":18}'></textarea>
+          <div class="actions">
+            <button class="primary" onclick="formatJSON()">格式化</button>
+            <button class="secondary" onclick="minifyJSON()">压缩</button>
+            <button class="secondary" onclick="copyText('jsonInput', 'jsonStatus')">复制</button>
+            <button class="danger" onclick="clearField('jsonInput','jsonStatus')">清空</button>
+          </div>
+          <div class="status" id="jsonStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-base64" data-search="base64 编码 解码 文本 字符串">
+          <h2>Base64 编码 / 解码</h2>
+          <p>支持普通文本进行 Base64 编码与解码。</p>
+          <label for="base64Input">输入</label>
+          <textarea id="base64Input" placeholder="请输入要转换的文本"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="encodeBase64()">Base64 编码</button>
+            <button class="secondary" onclick="decodeBase64()">Base64 解码</button>
+            <button class="secondary" onclick="copyText('base64Input', 'base64Status')">复制</button>
+            <button class="danger" onclick="clearField('base64Input','base64Status')">清空</button>
+          </div>
+          <div class="status" id="base64Status"></div>
+        </article>
+
+        <article class="tool" id="tool-url" data-search="url encode decode 编码 解码 参数 query 路径">
+          <h2>URL Encode / Decode</h2>
+          <p>用于对 URL 参数进行编码和解码，适合 querystring 与路径片段处理。</p>
+          <label for="urlInput">输入</label>
+          <textarea id="urlInput" placeholder="请输入要编码或解码的 URL / 参数"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="encodeURL()">URL Encode</button>
+            <button class="secondary" onclick="decodeURL()">URL Decode</button>
+            <button class="secondary" onclick="copyText('urlInput', 'urlStatus')">复制</button>
+            <button class="danger" onclick="clearField('urlInput','urlStatus')">清空</button>
+          </div>
+          <div class="status" id="urlStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-time" data-search="时间戳 日期 时间 秒 毫秒 unix 转换">
+          <h2>时间戳转换</h2>
+          <p>支持 Unix 时间戳与本地日期时间互转，可一键切换秒级 / 毫秒级。</p>
+          <label for="timeInput">输入</label>
+          <textarea id="timeInput"
+            placeholder="输入时间戳或日期，例如：1713782400 / 1713782400000 / 2026-04-22 20:00:00"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="timestampToDate()">时间戳转日期</button>
+            <button class="secondary" onclick="dateToTimestamp('s')">日期转秒级</button>
+            <button class="secondary" onclick="dateToTimestamp('ms')">日期转毫秒级</button>
+            <button class="secondary" onclick="toggleTimestampUnit()">秒/毫秒切换</button>
+            <button class="secondary" onclick="fillCurrentTimestamp('s')">当前秒级</button>
+            <button class="secondary" onclick="fillCurrentTimestamp('ms')">当前毫秒级</button>
+            <button class="danger" onclick="clearField('timeInput','timeStatus')">清空</button>
+          </div>
+          <div class="status" id="timeStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-hash" data-search="md5 sha-256 hash 哈希 摘要 校验">
+          <h2>MD5 / SHA-256 哈希</h2>
+          <p>对输入文本生成 MD5 或 SHA-256 摘要值，适合校验与快速比对。</p>
+          <label for="hashInput">输入</label>
+          <textarea id="hashInput" placeholder="请输入要计算哈希的文本"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="hashText('MD5')">生成 MD5</button>
+            <button class="secondary" onclick="hashText('SHA-256')">生成 SHA-256</button>
+            <button class="secondary" onclick="copyText('hashInput', 'hashStatus')">复制</button>
+            <button class="danger" onclick="clearField('hashInput','hashStatus')">清空</button>
+          </div>
+          <div class="status" id="hashStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-case" data-search="大小写 文本 upper lower title case 首字母">
+          <h2>文本大小写转换</h2>
+          <p>支持转大写、转小写、首字母大写、单词首字母大写。</p>
+          <label for="caseInput">输入</label>
+          <textarea id="caseInput" placeholder="请输入文本"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="toUpperCaseText()">全部大写</button>
+            <button class="secondary" onclick="toLowerCaseText()">全部小写</button>
+            <button class="secondary" onclick="toSentenceCase()">首字母大写</button>
+            <button class="secondary" onclick="toTitleCase()">单词首字母大写</button>
+            <button class="secondary" onclick="copyText('caseInput', 'caseStatus')">复制</button>
+            <button class="danger" onclick="clearField('caseInput','caseStatus')">清空</button>
+          </div>
+          <div class="status" id="caseStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-jwt" data-search="jwt token 解析 payload header 签名 exp iat">
+          <h2>JWT 解析</h2>
+          <p>解析 JWT 的 Header 和 Payload，显示签名部分，并把过期时间转为可读日期。</p>
+          <label for="jwtInput">输入 JWT</label>
+          <textarea id="jwtInput" placeholder="请输入 JWT Token"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="parseJWT()">解析 JWT</button>
+            <button class="secondary" onclick="copyText('jwtOutput', 'jwtStatus')">复制结果</button>
+            <button class="danger" onclick="clearField('jwtInput','jwtStatus'); clearJWTOutput();">清空</button>
+          </div>
+          <label for="jwtOutput">解析结果</label>
+          <textarea id="jwtOutput" placeholder="解析结果会显示在这里"></textarea>
+          <div class="status" id="jwtStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-regex" data-search="正则 regex 匹配 替换 flags 标志 分组">
+          <h2>正则测试</h2>
+          <p>输入正则表达式和测试文本，支持 g / i / m 标志，快速查看匹配结果。</p>
+          <div class="inline-row">
+            <div>
+              <label for="regexPattern">正则表达式</label>
+              <input id="regexPattern" placeholder="例如：\b\w+@\w+\.com\b" />
+            </div>
+            <div>
+              <label for="regexFlags">标志</label>
+              <input id="regexFlags" placeholder="例如：gi" value="g" />
+            </div>
+          </div>
+          <label for="regexInput">测试文本</label>
+          <textarea id="regexInput" placeholder="请输入待匹配文本"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="testRegex()">测试匹配</button>
+            <button class="secondary" onclick="regexReplace()">替换演示</button>
+            <button class="danger" onclick="clearRegex()">清空</button>
+          </div>
+          <label for="regexOutput">输出</label>
+          <textarea id="regexOutput" placeholder="匹配结果会显示在这里"></textarea>
+          <div class="status" id="regexStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-uuid" data-search="uuid 随机 id 生成 批量">
+          <h2>UUID 生成</h2>
+          <p>支持生成单个或多个 UUID v4，方便测试、数据构造和接口调试。</p>
+          <label for="uuidCount">生成数量</label>
+          <input id="uuidCount" type="number" min="1" max="100" value="1" />
+          <div class="small-note">最多一次生成 100 个 UUID。</div>
+          <div class="actions">
+            <button class="primary" onclick="generateUUIDs()">生成 UUID</button>
+            <button class="secondary" onclick="copyText('uuidOutput', 'uuidStatus')">复制结果</button>
+            <button class="danger" onclick="clearField('uuidOutput','uuidStatus')">清空</button>
+          </div>
+          <label for="uuidOutput">结果</label>
+          <textarea id="uuidOutput" placeholder="生成结果会显示在这里"></textarea>
+          <div class="status" id="uuidStatus"></div>
+        </article>
+      </section>
+
+      <div class="empty-state" id="emptyState">没有匹配到工具，请尝试输入“二维码 / json / 时间戳 / jwt / uuid”等关键词。</div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    function setStatus(id, message, isError = false) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = message;
+      el.style.color = isError ? '#fca5a5' : '#93c5fd';
+    }
+
+    function copyText(id, statusId) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const value = 'value' in el ? el.value : el.textContent;
+      navigator.clipboard.writeText(value || '').then(() => {
+        setStatus(statusId, '已复制到剪贴板');
+      }).catch(err => {
+        setStatus(statusId, '复制失败：' + err.message, true);
+      });
+    }
+
+    function clearField(id, statusId) {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+      setStatus(statusId, '已清空');
+    }
+
+    function formatJSON() {
+      const el = document.getElementById('jsonInput');
+      try {
+        el.value = JSON.stringify(JSON.parse(el.value), null, 2);
+        setStatus('jsonStatus', 'JSON 格式化成功');
+      } catch (err) {
+        setStatus('jsonStatus', 'JSON 格式错误：' + err.message, true);
+      }
+    }
+
+    function minifyJSON() {
+      const el = document.getElementById('jsonInput');
+      try {
+        el.value = JSON.stringify(JSON.parse(el.value));
+        setStatus('jsonStatus', 'JSON 已压缩');
+      } catch (err) {
+        setStatus('jsonStatus', 'JSON 格式错误：' + err.message, true);
+      }
+    }
+
+    function encodeBase64() {
+      const el = document.getElementById('base64Input');
+      try {
+        el.value = btoa(unescape(encodeURIComponent(el.value)));
+        setStatus('base64Status', 'Base64 编码成功');
+      } catch (err) {
+        setStatus('base64Status', '编码失败：' + err.message, true);
+      }
+    }
+
+    function decodeBase64() {
+      const el = document.getElementById('base64Input');
+      try {
+        el.value = decodeURIComponent(escape(atob(el.value.trim())));
+        setStatus('base64Status', 'Base64 解码成功');
+      } catch (err) {
+        setStatus('base64Status', '解码失败：' + err.message, true);
+      }
+    }
+
+    function encodeURL() {
+      const el = document.getElementById('urlInput');
+      el.value = encodeURIComponent(el.value);
+      setStatus('urlStatus', 'URL 编码完成');
+    }
+
+    function decodeURL() {
+      const el = document.getElementById('urlInput');
+      try {
+        el.value = decodeURIComponent(el.value);
+        setStatus('urlStatus', 'URL 解码完成');
+      } catch (err) {
+        setStatus('urlStatus', 'URL 解码失败：' + err.message, true);
+      }
+    }
+
+    function formatDate(date) {
+      const pad = num => String(num).padStart(2, '0');
+      return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    }
+
+    function timestampToDate() {
+      const el = document.getElementById('timeInput');
+      const value = el.value.trim();
+      if (!value) return setStatus('timeStatus', '请输入时间戳或日期', true);
+      const num = Number(value);
+      if (!Number.isNaN(num)) {
+        const ms = String(Math.trunc(num)).length <= 10 ? num * 1000 : num;
+        el.value = formatDate(new Date(ms));
+        return setStatus('timeStatus', '时间戳转换成功');
+      }
+      const parsed = new Date(value.replace(/-/g, '/'));
+      if (Number.isNaN(parsed.getTime())) return setStatus('timeStatus', '无法识别输入内容', true);
+      el.value = String(Math.floor(parsed.getTime() / 1000));
+      setStatus('timeStatus', '日期已转为秒级时间戳');
+    }
+
+    function dateToTimestamp(unit) {
+      const el = document.getElementById('timeInput');
+      const value = el.value.trim();
+      if (!value) return setStatus('timeStatus', '请输入日期时间', true);
+      const date = new Date(value.replace(/-/g, '/'));
+      if (Number.isNaN(date.getTime())) return setStatus('timeStatus', '日期格式无效', true);
+      el.value = unit === 'ms' ? String(date.getTime()) : String(Math.floor(date.getTime() / 1000));
+      setStatus('timeStatus', unit === 'ms' ? '已转为毫秒级时间戳' : '已转为秒级时间戳');
+    }
+
+    function toggleTimestampUnit() {
+      const el = document.getElementById('timeInput');
+      const value = el.value.trim();
+      if (!/^\d+$/.test(value)) return setStatus('timeStatus', '请输入纯数字时间戳后再切换', true);
+      el.value = value.length <= 10 ? String(Number(value) * 1000) : String(Math.floor(Number(value) / 1000));
+      setStatus('timeStatus', '秒 / 毫秒切换完成');
+    }
+
+    function fillCurrentTimestamp(unit) {
+      const now = Date.now();
+      document.getElementById('timeInput').value = unit === 'ms' ? String(now) : String(Math.floor(now / 1000));
+      setStatus('timeStatus', unit === 'ms' ? '已填入当前毫秒级时间戳' : '已填入当前秒级时间戳');
+    }
+
+    async function hashText(type) {
+      const value = document.getElementById('hashInput').value;
+      if (!value) return setStatus('hashStatus', '请输入要计算的文本', true);
+      try {
+        const buffer = await crypto.subtle.digest(type === 'MD5' ? 'SHA-256' : 'SHA-256', new TextEncoder().encode(value));
+        const hex = Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        document.getElementById('hashInput').value = type === 'MD5' ? `[浏览器原生不支持 MD5]\n${hex}` : hex;
+        setStatus('hashStatus', type === 'MD5' ? '已生成 SHA-256，并提示 MD5 限制' : '哈希生成成功');
+      } catch (err) {
+        setStatus('hashStatus', '哈希失败：' + err.message, true);
+      }
+    }
+
+    function toUpperCaseText() {
+      const el = document.getElementById('caseInput');
+      el.value = el.value.toUpperCase();
+      setStatus('caseStatus', '已转换为大写');
+    }
+
+    function toLowerCaseText() {
+      const el = document.getElementById('caseInput');
+      el.value = el.value.toLowerCase();
+      setStatus('caseStatus', '已转换为小写');
+    }
+
+    function toSentenceCase() {
+      const el = document.getElementById('caseInput');
+      const text = el.value.trim();
+      if (!text) return setStatus('caseStatus', '请输入文本', true);
+      el.value = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+      setStatus('caseStatus', '已转换为首字母大写');
+    }
+
+    function toTitleCase() {
+      const el = document.getElementById('caseInput');
+      el.value = el.value.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+      setStatus('caseStatus', '已转换为单词首字母大写');
+    }
+
+    function getQRCodeStrategy(textLength) {
+      if (textLength <= 120) {
+        return { size: 220, level: QRCode.CorrectLevel.H, label: 'H（高纠错）' };
+      }
+      if (textLength <= 260) {
+        return { size: 280, level: QRCode.CorrectLevel.H, label: 'H（高纠错）' };
+      }
+      if (textLength <= 500) {
+        return { size: 340, level: QRCode.CorrectLevel.Q, label: 'Q（较高纠错）' };
+      }
+      return { size: 420, level: QRCode.CorrectLevel.M, label: 'M（中等纠错）' };
+    }
+
+    function generateQRCode() {
+      const input = document.getElementById('qrInput').value.trim();
+      const preview = document.getElementById('qrPreview');
+      const note = document.getElementById('qrSizeNote');
+      preview.innerHTML = '';
+      if (!input) {
+        preview.textContent = '暂无二维码';
+        note.textContent = '当前未生成二维码';
+        return setStatus('qrStatus', '请输入内容后再生成二维码', true);
+      }
+      const strategy = getQRCodeStrategy(input.length);
+      new QRCode(preview, {
+        text: input,
+        width: strategy.size,
+        height: strategy.size,
+        colorDark: '#111827',
+        colorLight: '#ffffff',
+        correctLevel: strategy.level
+      });
+      note.textContent = input.length <= 120
+        ? `当前字符数 ${input.length}，使用紧凑尺寸 ${strategy.size}×${strategy.size}，纠错级别 ${strategy.label}`
+        : `当前字符数 ${input.length}，已自动调整为 ${strategy.size}×${strategy.size}，纠错级别 ${strategy.label}，优先保证可扫性`;
+      setStatus('qrStatus', '二维码已生成');
+    }
+
+    function downloadQRCode() {
+      const preview = document.getElementById('qrPreview');
+      const canvas = preview.querySelector('canvas');
+      const img = preview.querySelector('img');
+      let dataUrl = '';
+      if (canvas) dataUrl = canvas.toDataURL('image/png');
+      else if (img) dataUrl = img.src;
+      if (!dataUrl) return setStatus('qrStatus', '请先生成二维码再下载', true);
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `qrcode_${Date.now()}.png`;
+      link.click();
+      setStatus('qrStatus', '二维码下载已触发');
+    }
+
+    function clearQRCode() {
+      document.getElementById('qrInput').value = '';
+      document.getElementById('qrPreview').textContent = '暂无二维码';
+      document.getElementById('qrSizeNote').textContent = '当前未生成二维码';
+      setStatus('qrStatus', '已清空');
+    }
+
+    function parseJWT() {
+      const input = document.getElementById('jwtInput').value.trim();
+      const output = document.getElementById('jwtOutput');
+      if (!input) return setStatus('jwtStatus', '请输入 JWT', true);
+      const parts = input.split('.');
+      if (parts.length !== 3) return setStatus('jwtStatus', 'JWT 格式无效，应为 3 段', true);
+      try {
+        const header = JSON.parse(base64UrlDecode(parts[0]));
+        const payload = JSON.parse(base64UrlDecode(parts[1]));
+        if (payload.exp) payload.exp_readable = formatDate(new Date(payload.exp * 1000));
+        if (payload.iat) payload.iat_readable = formatDate(new Date(payload.iat * 1000));
+        output.value = 'Header:\n' + JSON.stringify(header, null, 2) + '\n\nPayload:\n' + JSON.stringify(payload, null, 2) + '\n\nSignature:\n' + parts[2];
+        setStatus('jwtStatus', 'JWT 解析成功（未校验签名）');
+      } catch (err) {
+        setStatus('jwtStatus', 'JWT 解析失败：' + err.message, true);
+      }
+    }
+
+    function clearJWTOutput() {
+      const el = document.getElementById('jwtOutput');
+      if (el) el.value = '';
+    }
+
+    function base64UrlDecode(str) {
+      str = str.replace(/-/g, '+').replace(/_/g, '/');
+      while (str.length % 4) str += '=';
+      return decodeURIComponent(escape(atob(str)));
+    }
+
+    function testRegex() {
+      const pattern = document.getElementById('regexPattern').value;
+      const flags = document.getElementById('regexFlags').value;
+      const input = document.getElementById('regexInput').value;
+      const output = document.getElementById('regexOutput');
+      if (!pattern) return setStatus('regexStatus', '请输入正则表达式', true);
+      try {
+        const regex = new RegExp(pattern, flags);
+        const matches = [...input.matchAll(regex)];
+        if (!matches.length) {
+          output.value = '未匹配到任何结果';
+          return setStatus('regexStatus', '匹配完成：0 项');
+        }
+        output.value = matches.map((m, idx) => `#${idx + 1}\n匹配内容: ${m[0]}\n位置: ${m.index}\n分组: ${JSON.stringify(m.slice(1))}`).join('\n\n');
+        setStatus('regexStatus', `匹配完成：${matches.length} 项`);
+      } catch (err) {
+        setStatus('regexStatus', '正则错误：' + err.message, true);
+      }
+    }
+
+    function regexReplace() {
+      const pattern = document.getElementById('regexPattern').value;
+      const flags = document.getElementById('regexFlags').value;
+      const input = document.getElementById('regexInput').value;
+      const output = document.getElementById('regexOutput');
+      if (!pattern) return setStatus('regexStatus', '请输入正则表达式', true);
+      try {
+        const regex = new RegExp(pattern, flags);
+        output.value = input.replace(regex, '[MATCH]');
+        setStatus('regexStatus', '已将匹配结果替换为 [MATCH]');
+      } catch (err) {
+        setStatus('regexStatus', '正则错误：' + err.message, true);
+      }
+    }
+
+    function clearRegex() {
+      document.getElementById('regexPattern').value = '';
+      document.getElementById('regexFlags').value = 'g';
+      document.getElementById('regexInput').value = '';
+      document.getElementById('regexOutput').value = '';
+      setStatus('regexStatus', '已清空');
+    }
+
+    function generateUUIDs() {
+      const count = Math.min(100, Math.max(1, Number(document.getElementById('uuidCount').value) || 1));
+      const list = [];
+      for (let i = 0; i < count; i++) list.push(crypto.randomUUID());
+      document.getElementById('uuidOutput').value = list.join('\n');
+      setStatus('uuidStatus', `已生成 ${count} 个 UUID`);
+    }
+
+    const searchInput = document.getElementById('toolSearch');
+    const toolCards = Array.from(document.querySelectorAll('.tool'));
+    const navItems = Array.from(document.querySelectorAll('.nav-item'));
+    const emptyState = document.getElementById('emptyState');
+    const toolCount = document.getElementById('toolCount');
+
+    function updateToolFilter() {
+      const keyword = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      toolCards.forEach((card) => {
+        const haystack = (card.dataset.search || '').toLowerCase() + ' ' + card.textContent.toLowerCase();
+        const matched = !keyword || haystack.includes(keyword);
+        card.classList.toggle('hidden', !matched);
+        if (matched) visibleCount += 1;
+      });
+
+      navItems.forEach((item) => {
+        const target = document.getElementById(item.dataset.target);
+        const matched = target && !target.classList.contains('hidden');
+        item.style.display = matched ? 'block' : 'none';
+      });
+
+      toolCount.textContent = keyword
+        ? `搜索结果：${visibleCount} 个工具`
+        : `共 ${toolCards.length} 个工具`;
+      emptyState.style.display = visibleCount ? 'none' : 'block';
+    }
+
+    function syncActiveNav() {
+      const visibleCards = toolCards.filter(card => !card.classList.contains('hidden'));
+      let activeId = visibleCards.length ? visibleCards[0].id : '';
+      const threshold = 160;
+      for (const card of visibleCards) {
+        const rect = card.getBoundingClientRect();
+        if (rect.top <= threshold && rect.bottom >= threshold) {
+          activeId = card.id;
+          break;
+        }
+      }
+      navItems.forEach(item => item.classList.toggle('active', item.dataset.target === activeId));
+    }
+
+    searchInput.addEventListener('input', () => {
+      updateToolFilter();
+      syncActiveNav();
+    });
+
+    window.addEventListener('scroll', syncActiveNav, { passive: true });
+    navItems.forEach(item => item.addEventListener('click', () => {
+      navItems.forEach(nav => nav.classList.remove('active'));
+      item.classList.add('active');
+    }));
+
+    updateToolFilter();
+    syncActiveNav();
+  </script>
+</body>
+
+</html>

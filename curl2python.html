@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="Shortcut Icon" type="image/x-icon" href="/github.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cURL 转 Python 工具</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #07111f;
+      --panel: rgba(15, 23, 42, 0.92);
+      --card: rgba(17, 24, 39, 0.94);
+      --border: rgba(148, 163, 184, 0.18);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --primary: #22c55e;
+      --primary-hover: #16a34a;
+      --secondary: #334155;
+      --secondary-hover: #475569;
+      --danger-bg: rgba(239, 68, 68, 0.16);
+      --danger-border: rgba(239, 68, 68, 0.26);
+      --danger-text: #fecaca;
+      --input: #0f172a;
+      --accent: #38bdf8;
+      --tab: #1e293b;
+      --tab-active: #0ea5e9;
+      --panel-soft: rgba(30, 41, 59, 0.65);
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left, #1e293b 0%, #07111f 45%, #020617 100%);
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .wrap {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 24px;
+      min-width: 0;
+    }
+
+    .hero,
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero {
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 36px;
+    }
+
+    h2,
+    h3 {
+      margin-top: 0;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .panel {
+      padding: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 18px;
+      align-items: start;
+      min-width: 0;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .sticky-card {
+      position: sticky;
+      top: 18px;
+      align-self: start;
+    }
+
+    textarea,
+    input,
+    select {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid rgba(71, 85, 105, 0.95);
+      border-radius: 14px;
+      background: var(--input);
+      color: var(--text);
+      padding: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      outline: none;
+      font-family: Consolas, Monaco, monospace;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 220px;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .primary {
+      background: var(--primary);
+      color: #052e16;
+    }
+
+    .primary:hover {
+      background: var(--primary-hover);
+      color: white;
+    }
+
+    .secondary {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .secondary:hover {
+      background: var(--secondary-hover);
+    }
+
+    .danger {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      border: 1px solid var(--danger-border);
+    }
+
+    .danger:hover {
+      background: rgba(239, 68, 68, 0.28);
+    }
+
+    .status {
+      color: #93c5fd;
+      min-height: 20px;
+      font-size: 13px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      background: var(--tab);
+      color: #cbd5e1;
+    }
+
+    .tab.active {
+      background: var(--tab-active);
+      color: white;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .inline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+      min-width: 0;
+    }
+
+    .subcard {
+      border: 1px solid var(--border);
+      background: var(--panel-soft);
+      border-radius: 16px;
+      padding: 14px;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .subcard h3 {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .code-block {
+      min-height: 96px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .scroll-panel {
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .scroll-panel::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .scroll-panel::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.35);
+      border-radius: 999px;
+    }
+
+    ul {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 980px) {
+
+      .grid,
+      .inline,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky-card {
+        position: static;
+      }
+
+      .scroll-panel {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>cURL 转 Python</h1>
+      <p class="subtitle">把常见 cURL 命令转换成 Python 代码，支持 requests、curl_cffi、httpx、aiohttp 四种风格，并补充 JSON 美化、form-data /
+        x-www-form-urlencoded、--compressed / --proxy / User-Agent、同步异步重试模板，以及 pip 安装命令。纯前端单文件，无需后端。</p>
+    </section>
+
+    <section class="panel">
+      <div class="grid">
+        <div class="card sticky-card scroll-panel">
+          <h2>输入 cURL</h2>
+          <textarea id="curlInput" placeholder="例如：
+curl 'https://api.example.com/users?id=1' \
+  -X POST \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer token' \
+  -H 'Content-Type: application/json' \
+  -H 'User-Agent: Mozilla/5.0 Demo' \
+  -H 'Cookie: sessionid=abc123; theme=dark' \
+  --compressed \
+  --proxy 'http://127.0.0.1:7890' \
+  --data-raw '{" name":"Alice","age":18}'"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="convertCurl()">转换为 Python</button>
+            <button class="secondary" onclick="fillJsonExample()">JSON 示例</button>
+            <button class="secondary" onclick="fillFormExample()">Form 示例</button>
+            <button class="secondary" onclick="fillMultipartExample()">Multipart 示例</button>
+            <button class="secondary" onclick="pasteFromClipboard()">粘贴剪贴板</button>
+            <button class="danger" onclick="clearAll()">清空</button>
+          </div>
+          <div class="status" id="inputStatus"></div>
+
+          <h3>解析结果</h3>
+          <div class="note" id="summaryBox">等待解析 cURL...</div>
+
+          <div class="mini-grid">
+            <div class="subcard">
+              <h3>请求体类型</h3>
+              <div class="note" id="bodyTypeBox">未识别</div>
+            </div>
+            <div class="subcard">
+              <h3>JSON 美化预览</h3>
+              <textarea id="jsonPreview" class="code-block" placeholder="如果请求体是 JSON，会在这里自动美化"></textarea>
+              <div class="actions">
+                <button class="secondary" onclick="copyField('jsonPreview', 'inputStatus')">复制 JSON</button>
+              </div>
+            </div>
+            <div class="subcard">
+              <h3>Query 中的 JSON 数据</h3>
+              <textarea id="queryJsonPreview" class="code-block"
+                placeholder="如果 URL query 里的参数可解码为 JSON，会在这里展示"></textarea>
+              <div class="actions">
+                <button class="secondary" onclick="copyField('queryJsonPreview', 'inputStatus')">复制 Query JSON</button>
+              </div>
+            </div>
+          </div>
+
+          <h3>说明</h3>
+          <ul>
+            <li>支持解析 URL、方法、请求头、Cookie、body、基础认证、代理、User-Agent、--compressed。</li>
+            <li>支持识别 JSON、x-www-form-urlencoded、multipart/form-data 三类常见请求体。</li>
+            <li>会额外生成同步 / 异步 / 重试模板，以及 pip 安装命令。</li>
+          </ul>
+        </div>
+
+        <div class="card scroll-panel">
+          <h2>输出 Python</h2>
+          <div class="tabs">
+            <button class="tab active" data-tab="requests" onclick="switchTab('requests')">requests</button>
+            <button class="tab" data-tab="curl_cffi" onclick="switchTab('curl_cffi')">curl_cffi</button>
+            <button class="tab" data-tab="httpx" onclick="switchTab('httpx')">httpx</button>
+            <button class="tab" data-tab="aiohttp" onclick="switchTab('aiohttp')">aiohttp</button>
+          </div>
+
+          <div id="panel_requests" class="tab-panel active">
+            <textarea id="output_requests" placeholder="requests 代码会显示在这里"></textarea>
+          </div>
+          <div id="panel_curl_cffi" class="tab-panel">
+            <textarea id="output_curl_cffi" placeholder="curl_cffi 代码会显示在这里"></textarea>
+          </div>
+          <div id="panel_httpx" class="tab-panel">
+            <textarea id="output_httpx" placeholder="httpx 代码会显示在这里"></textarea>
+          </div>
+          <div id="panel_aiohttp" class="tab-panel">
+            <textarea id="output_aiohttp" placeholder="aiohttp 代码会显示在这里"></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="secondary" onclick="copyActiveOutput()">复制当前代码</button>
+            <button class="secondary" onclick="downloadActiveOutput()">下载当前 .py</button>
+          </div>
+          <div class="status" id="outputStatus"></div>
+
+          <div class="mini-grid">
+            <div class="subcard">
+              <h3>同步重试模板</h3>
+              <textarea id="retrySyncOutput" class="code-block" placeholder="同步重试模板"></textarea>
+              <div class="actions">
+                <button class="secondary" onclick="copyField('retrySyncOutput', 'outputStatus')">复制</button>
+              </div>
+            </div>
+            <div class="subcard">
+              <h3>异步重试模板</h3>
+              <textarea id="retryAsyncOutput" class="code-block" placeholder="异步重试模板"></textarea>
+              <div class="actions">
+                <button class="secondary" onclick="copyField('retryAsyncOutput', 'outputStatus')">复制</button>
+              </div>
+            </div>
+            <div class="subcard">
+              <h3>pip 安装命令</h3>
+              <textarea id="pipOutput" class="code-block" placeholder="pip install 命令"></textarea>
+              <div class="actions">
+                <button class="secondary" onclick="copyField('pipOutput', 'outputStatus')">复制</button>
+              </div>
+            </div>
+            <div class="subcard">
+              <h3>请求体结构</h3>
+              <textarea id="bodyStructureOutput" class="code-block" placeholder="解析到的请求体结构"></textarea>
+              <div class="actions">
+                <button class="secondary" onclick="copyField('bodyStructureOutput', 'outputStatus')">复制</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let activeTab = 'requests';
+    const outputIds = {
+      requests: 'output_requests',
+      curl_cffi: 'output_curl_cffi',
+      httpx: 'output_httpx',
+      aiohttp: 'output_aiohttp'
+    };
+
+    function setStatus(id, message, isError = false) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = message;
+      el.style.color = isError ? '#fca5a5' : '#93c5fd';
+    }
+
+    function setValue(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.value = value || '';
+    }
+
+    function switchTab(name) {
+      activeTab = name;
+      document.querySelectorAll('.tab').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === name);
+      });
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+      document.getElementById('panel_' + name).classList.add('active');
+    }
+
+    function fillJsonExample() {
+      document.getElementById('curlInput').value = "curl 'https://api.example.com/users?id=1' \\\n  -X POST \\\n  -H 'Accept: application/json' \\\n  -H 'Authorization: Bearer token' \\\n  -H 'Content-Type: application/json' \\\n  -H 'User-Agent: Mozilla/5.0 Demo' \\\n  -H 'Cookie: sessionid=abc123; theme=dark' \\\n  --compressed \\\n  --proxy 'http://127.0.0.1:7890' \\\n  --data-raw '{\"name\":\"Alice\",\"age\":18}'";
+      setStatus('inputStatus', '已填充 JSON 示例');
+    }
+
+    function fillFormExample() {
+      document.getElementById('curlInput').value = "curl 'https://api.example.com/login' \\\n  -X POST \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  -H 'User-Agent: PostmanRuntime/7.0' \\\n  --data 'username=alice&password=secret&remember=true'";
+      setStatus('inputStatus', '已填充 x-www-form-urlencoded 示例');
+    }
+
+    function fillMultipartExample() {
+      document.getElementById('curlInput').value = "curl 'https://api.example.com/upload' \\\n  -X POST \\\n  -H 'Accept: application/json' \\\n  -F 'file=@/tmp/demo.png' \\\n  -F 'folder=avatars' \\\n  -F 'public=true'";
+      setStatus('inputStatus', '已填充 multipart/form-data 示例');
+    }
+
+    async function pasteFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('curlInput').value = text;
+        setStatus('inputStatus', '已从剪贴板粘贴');
+      } catch (err) {
+        setStatus('inputStatus', '读取剪贴板失败，请手动粘贴', true);
+      }
+    }
+
+    function clearAll() {
+      document.getElementById('curlInput').value = '';
+      Object.values(outputIds).forEach(id => setValue(id, ''));
+      setValue('jsonPreview', '');
+      setValue('queryJsonPreview', '');
+      setValue('retrySyncOutput', '');
+      setValue('retryAsyncOutput', '');
+      setValue('pipOutput', '');
+      setValue('bodyStructureOutput', '');
+      document.getElementById('summaryBox').textContent = '等待解析 cURL...';
+      document.getElementById('bodyTypeBox').textContent = '未识别';
+      setStatus('inputStatus', '已清空');
+      setStatus('outputStatus', '');
+    }
+
+    function convertCurl() {
+      const input = document.getElementById('curlInput').value.trim();
+      if (!input) {
+        setStatus('inputStatus', '请先输入 cURL 命令', true);
+        return;
+      }
+
+      try {
+        const parsed = parseCurl(input);
+        document.getElementById('summaryBox').textContent = buildSummary(parsed);
+        document.getElementById('bodyTypeBox').textContent = parsed.bodyTypeLabel;
+        setValue('jsonPreview', parsed.prettyJson || '');
+        setValue('queryJsonPreview', buildQueryJsonPreview(parsed));
+        setValue('bodyStructureOutput', buildBodyStructure(parsed));
+        setValue('output_requests', buildRequestsCode(parsed));
+        setValue('output_curl_cffi', buildCurlCffiCode(parsed));
+        setValue('output_httpx', buildHttpxCode(parsed));
+        setValue('output_aiohttp', buildAiohttpCode(parsed));
+        setValue('retrySyncOutput', buildRetrySyncTemplate(parsed));
+        setValue('retryAsyncOutput', buildRetryAsyncTemplate(parsed));
+        setValue('pipOutput', buildPipInstall(parsed));
+        setStatus('inputStatus', '转换成功');
+        setStatus('outputStatus', '已生成四种 Python 客户端代码、重试模板和 pip 安装命令');
+      } catch (err) {
+        setStatus('inputStatus', '转换失败：' + err.message, true);
+      }
+    }
+
+    function normalizeCurl(input) {
+      return input
+        .replace(/\\\r?\n/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function tokenizeCommand(command) {
+      const tokens = [];
+      let current = '';
+      let quote = null;
+      let escape = false;
+
+      for (let i = 0; i < command.length; i++) {
+        const ch = command[i];
+        if (escape) {
+          current += ch;
+          escape = false;
+          continue;
+        }
+        if (ch === '\\') {
+          escape = true;
+          continue;
+        }
+        if (quote) {
+          if (ch === quote) {
+            quote = null;
+          } else {
+            current += ch;
+          }
+          continue;
+        }
+        if (ch === '"' || ch === "'") {
+          quote = ch;
+          continue;
+        }
+        if (/\s/.test(ch)) {
+          if (current) {
+            tokens.push(current);
+            current = '';
+          }
+          continue;
+        }
+        current += ch;
+      }
+
+      if (current) tokens.push(current);
+      return tokens;
+    }
+
+    function parseCurl(input) {
+      const normalized = normalizeCurl(input);
+      const tokens = tokenizeCommand(normalized);
+      if (!tokens.length || tokens[0] !== 'curl') {
+        throw new Error('请输入以 curl 开头的命令');
+      }
+
+      const result = {
+        method: 'GET',
+        url: '',
+        headers: {},
+        cookies: {},
+        data: '',
+        auth: null,
+        insecure: false,
+        compressed: false,
+        proxy: '',
+        userAgent: '',
+        forms: [],
+        queryParams: {},
+        queryJson: {},
+        bodyType: 'none',
+        bodyTypeLabel: '无请求体',
+        prettyJson: ''
+      };
+
+      for (let i = 1; i < tokens.length; i++) {
+        const token = tokens[i];
+        const next = () => {
+          if (i + 1 >= tokens.length) throw new Error('参数缺少对应值：' + token);
+          i += 1;
+          return tokens[i];
+        };
+
+        if (!result.url && /^https?:\/\//i.test(token)) {
+          result.url = token;
+          continue;
+        }
+
+        if (!token.startsWith('-') && !result.url) {
+          result.url = token;
+          continue;
+        }
+
+        if (token === '-X' || token === '--request') {
+          result.method = next().toUpperCase();
+          continue;
+        }
+
+        if (token === '-H' || token === '--header') {
+          const headerLine = next();
+          const idx = headerLine.indexOf(':');
+          if (idx > -1) {
+            const key = headerLine.slice(0, idx).trim();
+            const value = headerLine.slice(idx + 1).trim();
+            const lower = key.toLowerCase();
+            if (lower === 'cookie') {
+              parseCookieHeader(value, result.cookies);
+            } else {
+              result.headers[key] = value;
+              if (lower === 'user-agent') result.userAgent = value;
+            }
+          }
+          continue;
+        }
+
+        if (token === '-A' || token === '--user-agent') {
+          result.userAgent = next();
+          result.headers['User-Agent'] = result.userAgent;
+          continue;
+        }
+
+        if (token === '-d' || token === '--data' || token === '--data-raw' || token === '--data-binary' || token === '--data-ascii' || token === '--data-urlencode') {
+          result.data = next();
+          if (result.method === 'GET') result.method = 'POST';
+          continue;
+        }
+
+        if (token === '-F' || token === '--form') {
+          result.forms.push(next());
+          if (result.method === 'GET') result.method = 'POST';
+          continue;
+        }
+
+        if (token === '-b' || token === '--cookie') {
+          parseCookieHeader(next(), result.cookies);
+          continue;
+        }
+
+        if (token === '-u' || token === '--user') {
+          const raw = next();
+          const idx = raw.indexOf(':');
+          result.auth = idx >= 0 ? { username: raw.slice(0, idx), password: raw.slice(idx + 1) } : { username: raw, password: '' };
+          continue;
+        }
+
+        if (token === '-k' || token === '--insecure') {
+          result.insecure = true;
+          continue;
+        }
+
+        if (token === '--compressed') {
+          result.compressed = true;
+          continue;
+        }
+
+        if (token === '-x' || token === '--proxy') {
+          result.proxy = next();
+          continue;
+        }
+
+        if (!result.url && /^https?:\/\//i.test(token)) {
+          result.url = token;
+        }
+      }
+
+      if (!result.url) throw new Error('未解析到 URL');
+      parseQueryInfo(result);
+      enrichBodyInfo(result);
+      return result;
+    }
+
+    function parseQueryInfo(result) {
+      try {
+        const url = new URL(result.url);
+        const params = {};
+        const queryJson = {};
+        for (const [key, value] of url.searchParams.entries()) {
+          if (Object.prototype.hasOwnProperty.call(params, key)) {
+            if (Array.isArray(params[key])) params[key].push(value);
+            else params[key] = [params[key], value];
+          } else {
+            params[key] = value;
+          }
+          const parsed = maybeJsonData(value);
+          if (parsed && typeof parsed === 'object') {
+            queryJson[key] = parsed;
+          }
+        }
+        result.queryParams = params;
+        result.queryJson = queryJson;
+      } catch (err) {
+        result.queryParams = {};
+        result.queryJson = {};
+      }
+    }
+
+    function enrichBodyInfo(result) {
+      const contentType = getHeaderValue(result.headers, 'content-type');
+      const jsonData = maybeJsonData(result.data);
+      if (result.forms.length) {
+        result.bodyType = 'multipart';
+        result.bodyTypeLabel = 'multipart/form-data';
+        return;
+      }
+      if (jsonData) {
+        result.bodyType = 'json';
+        result.bodyTypeLabel = 'JSON';
+        result.prettyJson = JSON.stringify(jsonData, null, 2);
+        return;
+      }
+      if (contentType.includes('application/x-www-form-urlencoded') || looksLikeFormUrlencoded(result.data)) {
+        result.bodyType = 'urlencoded';
+        result.bodyTypeLabel = 'application/x-www-form-urlencoded';
+        return;
+      }
+      if (result.data) {
+        result.bodyType = 'raw';
+        result.bodyTypeLabel = contentType || '原始文本';
+      }
+    }
+
+    function getHeaderValue(headers, name) {
+      const key = Object.keys(headers).find(k => k.toLowerCase() === name.toLowerCase());
+      return key ? headers[key] : '';
+    }
+
+    function looksLikeFormUrlencoded(data) {
+      return !!data && data.includes('=') && data.includes('&') && !data.trim().startsWith('{');
+    }
+
+    function parseCookieHeader(cookieStr, target) {
+      cookieStr.split(';').forEach(part => {
+        const seg = part.trim();
+        if (!seg) return;
+        const idx = seg.indexOf('=');
+        if (idx < 0) return;
+        const key = seg.slice(0, idx).trim();
+        const value = seg.slice(idx + 1).trim();
+        target[key] = value;
+      });
+    }
+
+    function parseFormUrlencoded(raw) {
+      const params = new URLSearchParams(raw || '');
+      const result = {};
+      for (const [key, value] of params.entries()) {
+        if (Object.prototype.hasOwnProperty.call(result, key)) {
+          if (Array.isArray(result[key])) result[key].push(value);
+          else result[key] = [result[key], value];
+        } else {
+          result[key] = value;
+        }
+      }
+      return result;
+    }
+
+    function parseMultipartForms(forms) {
+      const data = {};
+      const files = {};
+      forms.forEach(item => {
+        const idx = item.indexOf('=');
+        if (idx < 0) return;
+        const key = item.slice(0, idx).trim();
+        const value = item.slice(idx + 1);
+        if (value.startsWith('@')) {
+          files[key] = value.slice(1);
+        } else {
+          data[key] = value;
+        }
+      });
+      return { data, files };
+    }
+
+    function buildSummary(parsed) {
+      const headersCount = Object.keys(parsed.headers).length;
+      const cookiesCount = Object.keys(parsed.cookies).length;
+      const formCount = parsed.forms.length;
+      return [
+        `方法: ${parsed.method}`,
+        `URL: ${parsed.url}`,
+        `请求头数量: ${headersCount}`,
+        `Cookie 数量: ${cookiesCount}`,
+        `Query 参数数量: ${Object.keys(parsed.queryParams || {}).length}`,
+        `Query 中 JSON 参数: ${Object.keys(parsed.queryJson || {}).join(', ') || '无'}`,
+        `请求体类型: ${parsed.bodyTypeLabel}`,
+        `multipart 字段数: ${formCount}`,
+        `基础认证: ${parsed.auth ? '是' : '否'}`,
+        `跳过 TLS 校验: ${parsed.insecure ? '是' : '否'}`,
+        `压缩传输: ${parsed.compressed ? '是' : '否'}`,
+        `代理: ${parsed.proxy || '无'}`,
+        `User-Agent: ${parsed.userAgent || '无'}`
+      ].join('\n');
+    }
+
+    function buildBodyStructure(parsed) {
+      if (parsed.bodyType === 'json') return parsed.prettyJson;
+      if (parsed.bodyType === 'urlencoded') return JSON.stringify(parseFormUrlencoded(parsed.data), null, 2);
+      if (parsed.bodyType === 'multipart') return JSON.stringify(parseMultipartForms(parsed.forms), null, 2);
+      if (parsed.data) return parsed.data;
+      return '无请求体';
+    }
+
+    function buildQueryJsonPreview(parsed) {
+      if (!parsed.queryJson || !Object.keys(parsed.queryJson).length) return '';
+      return JSON.stringify(parsed.queryJson, null, 2);
+    }
+
+    function pyString(value) {
+      return JSON.stringify(String(value ?? ''));
+    }
+
+    function pyObject(obj, indent = 4) {
+      return JSON.stringify(obj, null, indent);
+    }
+
+    function pyCompactJson(obj) {
+      return `json.dumps(${pyObject(obj)}, ensure_ascii=False, separators=(',', ':'))`;
+    }
+
+    function sanitizePyName(value) {
+      return String(value).replace(/[^a-zA-Z0-9_]/g, '_').replace(/^([^a-zA-Z_])/, '_$1');
+    }
+
+    function buildQueryParamAssignments(parsed) {
+      const lines = [];
+      const queryParams = parsed.queryParams || {};
+      const queryJson = parsed.queryJson || {};
+      const keys = Object.keys(queryParams);
+      if (!keys.length) return lines;
+
+      Object.entries(queryJson).forEach(([key, value]) => {
+        const safe = sanitizePyName(key);
+        lines.push(`query_${safe} = ${pyObject(value)}`);
+        lines.push(`query_${safe}_json = ${pyCompactJson(value)}`);
+        lines.push('');
+      });
+
+      lines.push('params = {');
+      keys.forEach(key => {
+        const safe = sanitizePyName(key);
+        const value = queryParams[key];
+        if (Object.prototype.hasOwnProperty.call(queryJson, key)) {
+          lines.push(`    ${pyString(key)}: query_${safe}_json,`);
+        } else {
+          lines.push(`    ${pyString(key)}: ${pyObject(value)},`);
+        }
+      });
+      lines.push('}', '');
+      return lines;
+    }
+
+    function buildBaseUrl(parsed) {
+      try {
+        const url = new URL(parsed.url);
+        return `${url.origin}${url.pathname}`;
+      } catch {
+        return parsed.url;
+      }
+    }
+
+    function maybeJsonData(raw) {
+      if (!raw) return null;
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function getPayloadInfo(parsed) {
+      const jsonBody = maybeJsonData(parsed.data);
+      const formBody = parsed.bodyType === 'urlencoded' ? parseFormUrlencoded(parsed.data) : null;
+      const multipart = parsed.bodyType === 'multipart' ? parseMultipartForms(parsed.forms) : null;
+      return { jsonBody, formBody, multipart };
+    }
+
+    function buildAssignments(parsed, importsMode = 'sync') {
+      const lines = [];
+      if (Object.keys(parsed.headers).length) lines.push(`headers = ${pyObject(parsed.headers)}`, '');
+      if (Object.keys(parsed.cookies).length) lines.push(`cookies = ${pyObject(parsed.cookies)}`, '');
+      if (parsed.proxy) lines.push(`proxy = ${pyString(parsed.proxy)}`, '');
+      const { jsonBody, formBody, multipart } = getPayloadInfo(parsed);
+      if (jsonBody) lines.push(`json_data = ${pyObject(jsonBody)}`, '');
+      else if (formBody) lines.push(`form_data = ${pyObject(formBody)}`, '');
+      else if (multipart) {
+        if (Object.keys(multipart.data).length) lines.push(`data = ${pyObject(multipart.data)}`, '');
+        if (Object.keys(multipart.files).length) {
+          lines.push('files = {');
+          Object.entries(multipart.files).forEach(([k, v]) => {
+            lines.push(`    ${JSON.stringify(k)}: open(${pyString(v)}, 'rb'),`);
+          });
+          lines.push('}', '');
+        }
+      } else if (parsed.data) {
+        lines.push(`data = ${pyString(parsed.data)}`, '');
+      }
+      if (parsed.auth) lines.push(`auth = (${pyString(parsed.auth.username)}, ${pyString(parsed.auth.password)})`, '');
+      if (importsMode === 'async' && parsed.auth) lines.push(`basic_auth = aiohttp.BasicAuth(${pyString(parsed.auth.username)}, ${pyString(parsed.auth.password)})`, '');
+      return lines;
+    }
+
+    function buildProxyBlock(parsed, lib) {
+      if (!parsed.proxy) return [];
+      if (lib === 'requests' || lib === 'curl_cffi') return ['proxies = {"http": proxy, "https": proxy}', ''];
+      if (lib === 'httpx') return ['proxy_value = proxy', ''];
+      if (lib === 'aiohttp') return [];
+      return [];
+    }
+
+    function buildRequestArgs(parsed, lib) {
+      const args = [];
+      if (lib === 'requests' || lib === 'curl_cffi') {
+        args.push('url', `method=${pyString(parsed.method)}`);
+      } else {
+        args.push(pyString(parsed.method), 'url');
+      }
+      if (parsed.queryParams && Object.keys(parsed.queryParams).length) args.push('params=params');
+      if (Object.keys(parsed.headers).length) args.push('headers=headers');
+      if (Object.keys(parsed.cookies).length) args.push('cookies=cookies');
+      const { jsonBody, formBody, multipart } = getPayloadInfo(parsed);
+      if (jsonBody) args.push('json=json_data');
+      else if (formBody) args.push(lib === 'httpx' ? 'data=form_data' : 'data=form_data');
+      else if (multipart) {
+        if (Object.keys(multipart.data).length) args.push('data=data');
+        if (Object.keys(multipart.files).length) args.push('files=files');
+      } else if (parsed.data) {
+        args.push(lib === 'httpx' ? 'content=data' : 'data=data');
+      }
+      if (parsed.auth) args.push(lib === 'aiohttp' ? 'auth=basic_auth' : 'auth=auth');
+      if (parsed.insecure) args.push('verify=False');
+      if (parsed.proxy) {
+        if (lib === 'requests' || lib === 'curl_cffi') args.push('proxies=proxies');
+        if (lib === 'httpx') args.push('proxy=proxy_value');
+        if (lib === 'aiohttp') args.push('proxy=proxy');
+      }
+      return args;
+    }
+
+    function buildRequestsCode(parsed) {
+      const lines = ['import requests', ''];
+      if (parsed.queryJson && Object.keys(parsed.queryJson).length) lines.unshift('import json', '');
+      lines.push(`url = ${pyString(buildBaseUrl(parsed))}`, '');
+      lines.push(...buildQueryParamAssignments(parsed));
+      lines.push(...buildAssignments(parsed));
+      lines.push(...buildProxyBlock(parsed, 'requests'));
+      const args = buildRequestArgs(parsed, 'requests');
+      lines.push('response = requests.request(');
+      lines.push(`    ${args.join(',\n    ')}`);
+      lines.push(')');
+      lines.push('');
+      lines.push('print(response.status_code)');
+      lines.push('print(response.text)');
+      return lines.join('\n');
+    }
+
+    function buildCurlCffiCode(parsed) {
+      const lines = ['from curl_cffi import requests', ''];
+      if (parsed.queryJson && Object.keys(parsed.queryJson).length) lines.unshift('import json', '');
+      lines.push(`url = ${pyString(buildBaseUrl(parsed))}`, '');
+      lines.push(...buildQueryParamAssignments(parsed));
+      lines.push(...buildAssignments(parsed));
+      lines.push(...buildProxyBlock(parsed, 'curl_cffi'));
+      const args = buildRequestArgs(parsed, 'curl_cffi');
+      lines.push('response = requests.request(');
+      lines.push(`    ${args.join(',\n    ')}`);
+      lines.push(')');
+      lines.push('');
+      lines.push('print(response.status_code)');
+      lines.push('print(response.text)');
+      return lines.join('\n');
+    }
+
+    function buildHttpxCode(parsed) {
+      const lines = ['import httpx', ''];
+      if (parsed.queryJson && Object.keys(parsed.queryJson).length) lines.unshift('import json', '');
+      lines.push(`url = ${pyString(buildBaseUrl(parsed))}`, '');
+      lines.push(...buildQueryParamAssignments(parsed));
+      lines.push(...buildAssignments(parsed));
+      lines.push(...buildProxyBlock(parsed, 'httpx'));
+      const clientArgs = [];
+      if (parsed.insecure) clientArgs.push('verify=False');
+      if (parsed.proxy) clientArgs.push('proxy=proxy_value');
+      const clientArgsText = clientArgs.length ? clientArgs.join(', ') : '';
+      lines.push(`with httpx.Client(${clientArgsText}) as client:`);
+      const args = buildRequestArgs({ ...parsed, insecure: false, proxy: '' }, 'httpx');
+      lines.push('    response = client.request(');
+      lines.push(`        ${args.join(',\n        ')}`);
+      lines.push('    )');
+      lines.push('    print(response.status_code)');
+      lines.push('    print(response.text)');
+      return lines.join('\n');
+    }
+
+    function buildAiohttpCode(parsed) {
+      const lines = ['import asyncio', 'import ssl', 'import aiohttp', ''];
+      if (parsed.queryJson && Object.keys(parsed.queryJson).length) lines.unshift('import json', '');
+      lines.push(`url = ${pyString(buildBaseUrl(parsed))}`, '');
+      lines.push(...buildQueryParamAssignments(parsed));
+      lines.push(...buildAssignments(parsed, 'async'));
+      lines.push('async def main():');
+      if (parsed.insecure) {
+        lines.push('    ssl_context = ssl.create_default_context()');
+        lines.push('    ssl_context.check_hostname = False');
+        lines.push('    ssl_context.verify_mode = ssl.CERT_NONE');
+      } else {
+        lines.push('    ssl_context = None');
+      }
+      const connectorLine = parsed.insecure ? 'aiohttp.TCPConnector(ssl=ssl_context)' : 'aiohttp.TCPConnector()';
+      lines.push(`    connector = ${connectorLine}`);
+      lines.push('    async with aiohttp.ClientSession(connector=connector) as session:');
+      const args = buildRequestArgs(parsed, 'aiohttp');
+      lines.push('        async with session.request(');
+      lines.push(`            ${args.join(',\n            ')}`);
+      lines.push('        ) as response:');
+      lines.push('            print(response.status)');
+      lines.push('            print(await response.text())');
+      lines.push('');
+      lines.push("if __name__ == '__main__':");
+      lines.push('    asyncio.run(main())');
+      return lines.join('\n');
+    }
+
+    function buildRetrySyncTemplate(parsed) {
+      return [
+        'import time',
+        'import requests',
+        '',
+        `URL = ${pyString(parsed.url)}`,
+        '',
+        'def request_with_retry(max_retries=3, delay=1.5):',
+        '    last_error = None',
+        '    for attempt in range(1, max_retries + 1):',
+        '        try:',
+        '            response = requests.request(',
+        `                method=${pyString(parsed.method)},`,
+        '                url=URL,',
+        '                timeout=30,',
+        '            )',
+        '            response.raise_for_status()',
+        '            return response',
+        '        except Exception as exc:',
+        '            last_error = exc',
+        '            if attempt == max_retries:',
+        '                raise',
+        '            time.sleep(delay * attempt)',
+        '    raise last_error',
+        '',
+        'resp = request_with_retry()',
+        'print(resp.status_code)',
+        'print(resp.text)'
+      ].join('\n');
+    }
+
+    function buildRetryAsyncTemplate(parsed) {
+      return [
+        'import asyncio',
+        'import aiohttp',
+        '',
+        `URL = ${pyString(parsed.url)}`,
+        '',
+        'async def request_with_retry(max_retries=3, delay=1.5):',
+        '    last_error = None',
+        '    async with aiohttp.ClientSession() as session:',
+        '        for attempt in range(1, max_retries + 1):',
+        '            try:',
+        '                async with session.request(',
+        `                    ${pyString(parsed.method)},`,
+        '                    URL,',
+        '                    timeout=30,',
+        '                ) as response:',
+        '                    response.raise_for_status()',
+        '                    return await response.text()',
+        '            except Exception as exc:',
+        '                last_error = exc',
+        '                if attempt == max_retries:',
+        '                    raise',
+        '                await asyncio.sleep(delay * attempt)',
+        '    raise last_error',
+        '',
+        'async def main():',
+        '    text = await request_with_retry()',
+        '    print(text)',
+        '',
+        "if __name__ == '__main__':",
+        '    asyncio.run(main())'
+      ].join('\n');
+    }
+
+    function buildPipInstall(parsed) {
+      const installs = [
+        'pip install requests',
+        'pip install curl_cffi',
+        'pip install httpx',
+        'pip install aiohttp'
+      ];
+      if (parsed.bodyType === 'multipart') installs.push('# multipart 文件上传通常无需额外依赖');
+      return installs.join('\n');
+    }
+
+    async function copyField(id, statusId) {
+      const el = document.getElementById(id);
+      if (!el || !el.value.trim()) {
+        setStatus(statusId, '当前没有可复制的内容', true);
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(el.value);
+        setStatus(statusId, '已复制内容');
+      } catch (err) {
+        el.select();
+        document.execCommand('copy');
+        setStatus(statusId, '已复制内容');
+      }
+    }
+
+    async function copyActiveOutput() {
+      await copyField(outputIds[activeTab], 'outputStatus');
+    }
+
+    function downloadActiveOutput() {
+      const el = document.getElementById(outputIds[activeTab]);
+      if (!el.value.trim()) {
+        setStatus('outputStatus', '当前没有可下载的代码', true);
+        return;
+      }
+      const blob = new Blob([el.value], { type: 'text/x-python;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `curl_to_${activeTab}_${Date.now()}.py`;
+      a.click();
+      URL.revokeObjectURL(url);
+      setStatus('outputStatus', '已下载当前 Python 文件');
+    }
+  </script>
+</body>
+
+</html>
