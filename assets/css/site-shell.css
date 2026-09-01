@@ -1,0 +1,14 @@
+/* Shared homepage shell for index, tools and cURL pages. */
+.site-shell{width:100%;min-height:180px;padding-bottom:18px;background:#ad0000;color:#eee}
+.site-shell-date{max-width:1180px;margin:0 auto;padding:12px 22px 0;display:flex;justify-content:space-between;align-items:center;min-height:42px}
+.site-shell-date a{color:#fff;text-decoration:none;font-size:15px}.site-shell-time{color:#fff;font-size:14px}
+.site-shell-nav{max-width:960px;margin:8px auto 0;padding:0 15px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.site-shell-nav a{min-height:44px;display:inline-flex;align-items:center;padding:6px 12px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff;text-decoration:none;font-size:13px}
+.site-shell-nav a:hover,.site-shell-nav a[aria-current="page"]{background:#fff;color:#8d0000}
+.site-shell-search{max-width:960px;margin:12px auto 0;padding:0 15px;display:flex;gap:0}
+.site-shell-search input{height:42px;min-width:0;flex:1;padding:7px 14px;border:0;border-radius:5px 0 0 5px;outline:0;color:#1f2937;font:14px Arial,"Microsoft YaHei",sans-serif}
+.site-shell-search button{height:42px;border:0;border-left:1px solid rgba(255,255,255,.18);padding:0 14px;background:#0878d1;color:#fff;cursor:pointer;font:14px Arial,"Microsoft YaHei",sans-serif}
+.site-shell-search button:hover{background:#0567b4}.site-shell-engine{position:relative;display:flex}.site-shell-engine>button{min-width:94px}.site-shell-menu{display:none;position:absolute;z-index:40;top:46px;right:0;min-width:145px;padding:5px;background:#fff;border:1px solid #e5e7eb;border-radius:6px;box-shadow:0 8px 18px rgba(15,23,42,.18)}
+.site-shell-menu.is-open{display:block}.site-shell-menu button{display:block;width:100%;height:auto;padding:7px 10px;background:#fff;color:#334155;text-align:left;border:0;border-radius:4px}.site-shell-menu button:hover{background:#fff1f1;color:#8d0000}
+.site-shell-poem{max-width:960px;margin:10px auto 0;padding:0 15px;text-align:center;color:#fff;font-size:13px;line-height:1.8}.site-shell-poem #shellPoemInfo{opacity:.86;font-size:12px}
+@media(max-width:767px){.site-shell{min-height:0;padding-bottom:14px}.site-shell-date{padding:10px 16px 0}.site-shell-nav{width:100%;padding:0 12px 2px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.site-shell-nav a{width:100%;justify-content:center;text-align:center;min-width:0;padding-left:6px;padding-right:6px}.site-shell-nav a:last-child{grid-column:1 / -1}.site-shell-search{margin-top:10px;padding:0 12px;flex-wrap:wrap}.site-shell-search input{flex-basis:100%;border-radius:5px;margin-bottom:6px}.site-shell-engine{flex:1}.site-shell-engine>button,.site-shell-search>#shellSearchButton{flex:1}.site-shell-menu{right:auto;left:0}.site-shell-poem{margin-top:8px}}

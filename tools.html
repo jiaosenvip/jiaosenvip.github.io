@@ -4,32 +4,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="Shortcut Icon" type="image/x-icon" href="/github.png" />
-  <title>在线开发工具箱 Pro</title>
+  <link rel="Shortcut Icon" type="image/x-icon" href="assets/images/github.png" />
+  <link rel="stylesheet" href="assets/css/site-shell.css" />
+  <title>在线工具</title>
   <style>
-    * {
+* {
       box-sizing: border-box;
     }
 
     :root {
-      --bg: #0b1120;
-      --panel: #111827;
-      --card: rgba(17, 24, 39, 0.92);
-      --border: rgba(148, 163, 184, 0.18);
-      --text: #e5e7eb;
-      --muted: #94a3b8;
-      --primary: #22c55e;
-      --primary-hover: #16a34a;
-      --secondary: #334155;
-      --secondary-hover: #475569;
-      --danger-bg: rgba(239, 68, 68, 0.16);
-      --danger-border: rgba(239, 68, 68, 0.24);
-      --danger-text: #fecaca;
-      --input: #0f172a;
-      --cyan: #38bdf8;
-      --sidebar: rgba(15, 23, 42, 0.88);
-      --sidebar-active: rgba(34, 197, 94, 0.18);
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --card: #ffffff;
+      --border: #dbe3ee;
+      --text: #1f2937;
+      --muted: #526174;
+      --primary: #b91c1c;
+      --primary-hover: #991b1b;
+      --secondary: #475569;
+      --secondary-hover: #334155;
+      --danger-bg: #fff1f2;
+      --danger-border: #fecdd3;
+      --danger-text: #be123c;
+      --input: #f8fafc;
+      --cyan: #0369a1;
+      --sidebar: #ffffff;
+      --sidebar-active: #fff1f2;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
     }
 
     html {
@@ -39,9 +40,34 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top left, #1e293b 0%, #0b1120 42%, #020617 100%);
+      background: var(--bg);
       color: var(--text);
     }
+
+    .site-header {
+      background: #ad0000;
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(127, 29, 29, .16);
+    }
+
+    .site-header-inner {
+      max-width: 1700px;
+      margin: 0 auto;
+      min-height: 64px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .site-brand { color: #fff; text-decoration: none; font-size: 20px; font-weight: 700; }
+    .site-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+    .site-nav a { color: #ffe4e6; text-decoration: none; padding: 7px 10px; border-radius: 6px; }
+    .site-nav a:hover, .site-nav a[aria-current="page"] { background: rgba(255,255,255,.16); color: #fff; }
+
+    .site-footer { max-width: 1700px; margin: 24px auto 0; padding: 0 24px 28px; color: var(--muted); text-align: center; font-size: 13px; }
+    .site-footer a { color: var(--primary); }
 
     .layout {
       max-width: 1700px;
@@ -58,10 +84,9 @@
       top: 20px;
       background: var(--sidebar);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 14px;
       padding: 20px;
       box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
       max-height: calc(100vh - 40px);
       overflow: auto;
     }
@@ -87,7 +112,7 @@
       width: 100%;
       padding: 12px 14px;
       border-radius: 14px;
-      border: 1px solid rgba(71, 85, 105, 0.95);
+      border: 1px solid var(--border);
       background: var(--input);
       color: var(--text);
       outline: none;
@@ -101,7 +126,7 @@
 
     .tool-count {
       margin: 0 0 14px;
-      color: #cbd5e1;
+      color: #526174;
       font-size: 12px;
     }
 
@@ -125,14 +150,15 @@
     .nav-item:hover,
     .nav-item.active {
       background: var(--sidebar-active);
-      border-color: rgba(34, 197, 94, 0.28);
-      color: #f8fafc;
+      border-color: rgba(173, 0, 0, 0.24);
+      color: #8d0000;
     }
 
     .nav-item strong {
       display: block;
       font-size: 14px;
       margin-bottom: 4px;
+      color: #1f2937;
     }
 
     .nav-item span {
@@ -151,9 +177,8 @@
       padding: 28px;
       border: 1px solid var(--border);
       border-radius: 24px;
-      background: rgba(15, 23, 42, 0.82);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
     }
 
     h1 {
@@ -176,7 +201,7 @@
     }
 
     .tool {
-      background: var(--card);
+      background: #ffffff;
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 20px;
@@ -210,11 +235,11 @@
     }
 
     .hero-tool .tool-main {
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.76), rgba(15, 23, 42, 0.92));
+      background: #fff7f7;
     }
 
     .hero-tool .tool-side {
-      background: rgba(255, 255, 255, 0.04);
+      background: #f8fafc;
       border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
@@ -233,7 +258,7 @@
       padding: 6px 10px;
       border-radius: 999px;
       background: rgba(56, 189, 248, 0.12);
-      color: #7dd3fc;
+      color: #8d0000;
       font-size: 12px;
       white-space: nowrap;
     }
@@ -250,16 +275,16 @@
     .feature-list li {
       padding: 10px 12px;
       border-radius: 12px;
-      background: rgba(15, 23, 42, 0.45);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      color: #cbd5e1;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      color: var(--text);
       font-size: 13px;
     }
 
     .side-title {
       margin: 0;
       font-size: 14px;
-      color: #cbd5e1;
+      color: var(--text);
       letter-spacing: 0.4px;
     }
 
@@ -272,15 +297,15 @@
     .meta-item {
       padding: 12px;
       border-radius: 14px;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(148, 163, 184, 0.12);
+      background: #f8fafc;
+      border: 1px solid var(--border);
     }
 
     .meta-item strong {
       display: block;
       margin-bottom: 6px;
       font-size: 13px;
-      color: #f8fafc;
+      color: var(--text);
     }
 
     .meta-item span {
@@ -292,6 +317,7 @@
     .tool h2 {
       margin: 0 0 8px;
       font-size: 22px;
+      color: #1f2937;
     }
 
     .tool p {
@@ -306,14 +332,14 @@
       display: block;
       margin-bottom: 8px;
       font-size: 14px;
-      color: #cbd5e1;
+      color: #526174;
     }
 
     textarea,
     input,
     select {
       width: 100%;
-      border: 1px solid rgba(71, 85, 105, 0.95);
+      border: 1px solid var(--border);
       border-radius: 14px;
       background: var(--input);
       color: var(--text);
@@ -335,6 +361,13 @@
       box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
     }
 
+    input[type="checkbox"] {
+      width: auto;
+      max-width: none;
+      margin-right: 6px;
+      accent-color: var(--primary);
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -354,7 +387,7 @@
 
     .primary {
       background: var(--primary);
-      color: #052e16;
+      color: #ffffff;
     }
 
     .primary:hover {
@@ -383,7 +416,7 @@
 
     .status {
       margin-top: 10px;
-      color: #93c5fd;
+      color: #526174;
       min-height: 20px;
       font-size: 13px;
       white-space: pre-wrap;
@@ -437,10 +470,14 @@
       padding: 18px;
       border-radius: 18px;
       border: 1px dashed rgba(148, 163, 184, 0.28);
-      color: #cbd5e1;
+      color: #526174;
       text-align: center;
-      background: rgba(15, 23, 42, 0.45);
+      background: #fffafa;
+      border-color: #e4caca;
     }
+
+    ::placeholder { color: #687587; opacity: 1; }
+    .sidebar .nav-item span, .small-note, .qr-note { color: #526174; }
 
     .footer {
       margin-top: 26px;
@@ -517,14 +554,83 @@
         padding: 18px;
       }
 
+      .site-header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 12px 14px;
+      }
+
+      .site-nav {
+        width: 100%;
+      }
+
+      .site-nav a {
+        flex: 1 1 auto;
+        text-align: center;
+      }
+
       .nav-list {
         grid-template-columns: 1fr;
       }
     }
+
+    /* 与主页保持一致的轻量站点视觉基线 */
+    body { background: #f6f6f6; }
+    .site-header-inner { position: relative; max-width: 1180px; min-height: 62px; padding: 0 22px; justify-content: center; }
+    .site-brand { font-size: 19px; }
+    .site-brand { position: absolute; left: 22px; }
+    .site-nav { gap: 4px; }
+    .site-nav { justify-content: center; }
+    .site-nav a { min-height: 44px; display: inline-flex; align-items: center; padding: 7px 12px; border-radius: 999px; color: #ffe4e4; }
+    .site-nav a:hover, .site-nav a[aria-current="page"] { background: #fff; color: #8d0000; }
+    .layout { max-width: 1180px; padding: 22px; gap: 16px; }
+    .sidebar, .hero, .tool { border-radius: 7px; }
+    .sidebar { padding: 18px; box-shadow: 0 3px 14px rgba(0,0,0,.04); }
+    .hero { padding: 22px; margin-bottom: 16px; box-shadow: 0 3px 14px rgba(0,0,0,.04); }
+    .tool { padding: 18px; box-shadow: 0 3px 14px rgba(0,0,0,.04); }
+    button { border-radius: 4px; }
+    @media (max-width: 768px) {
+      .site-header-inner { align-items: stretch; justify-content: flex-start; }
+      .site-brand { position: static; }
+      .site-nav { justify-content: flex-start; }
+    }
+    /* 工具采用单页导航切换：右侧一次只展示当前工具 */
+    .grid { display: block; }
+    .grid > .tool { display: none; width: 100%; }
+    .grid > .tool.active { display: block; }
+    .grid > .tool.wide { grid-column: auto; }
+    .tool.active { min-height: 560px; }
+    .tool.active textarea { min-height: 220px; }
+    .tool.active.hero-tool textarea { min-height: 180px; }
+    .nav-item[aria-current="true"] { background: var(--sidebar-active); border-color: rgba(173, 0, 0, 0.24); color: #8d0000; }
+    @media (min-width: 1181px) {
+      .layout { grid-template-columns: 280px minmax(0, 1fr); max-width: 1440px; }
+      .tool.active:not(.hero-tool) { padding: 28px; }
+      .tool.active:not(.hero-tool) textarea { min-height: 300px; }
+    }
+    @media (max-width: 1180px) {
+      .tool.active { min-height: 0; }
+    }
+    .code-preview { margin-top: 14px; min-height: 300px; padding: 16px; overflow: auto; border: 1px solid var(--border); border-radius: 10px; background: #1f2937; color: #e5e7eb; font: 13px/1.65 Consolas, "Courier New", monospace; white-space: pre; tab-size: 2; }
+    .code-preview .token-keyword { color: #c084fc; } .code-preview .token-string { color: #86efac; } .code-preview .token-number { color: #fbbf24; } .code-preview .token-comment { color: #94a3b8; font-style: italic; } .code-preview .token-property { color: #7dd3fc; } .code-preview .token-boolean { color: #fb7185; }
+    .format-toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 0; }
+    .format-mode { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 7px; background: var(--input); }
+    .format-mode button { padding: 6px 10px; font-weight: 600; } .format-mode button.active { background: var(--primary); color: #fff; }
+    .curl-workspace { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
+    .curl-panel { min-width: 0; padding: 20px; border: 1px solid var(--border); border-radius: 10px; background: #fff; }
+    .curl-panel textarea { min-height: 420px; font-family: Consolas, "Courier New", monospace; }
+    .curl-panel .code-output { background: #1f2937; color: #e5e7eb; }
+    .curl-tabs { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .curl-tabs button { border-radius: 4px 4px 0 0; background: transparent; }
+    .curl-tabs button.active { background: var(--primary); color: #fff; }
+    .curl-summary { padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--input); color: var(--muted); white-space: pre-wrap; }
+    @media (max-width: 900px) { .curl-workspace { grid-template-columns: 1fr; } .curl-panel textarea { min-height: 280px; } }
   </style>
+
 </head>
 
 <body>
+  <div id="siteShell"></div>
   <div class="layout">
     <aside class="sidebar">
       <h2>工具目录</h2>
@@ -532,15 +638,19 @@
       <div class="search-box">
         <input id="toolSearch" type="text" placeholder="搜索工具名称或说明" />
       </div>
-      <div class="tool-count" id="toolCount">共 8 个工具</div>
+      <div class="tool-count" id="toolCount">正在统计工具数量…</div>
       <nav class="nav-list" id="toolNav">
-        <a class="nav-item active" href="#tool-qr" data-target="tool-qr" data-search="二维码 生成 qr 扫码 链接 文本 自适应 纠错">
-          <strong>二维码生成</strong>
-          <span>自适应尺寸与纠错级别，支持下载</span>
+        <a class="nav-item active" href="#tool-curl" data-target="tool-curl" data-search="curl cURL python requests curl_cffi httpx aiohttp 转换 请求 网络">
+          <strong>cURL 转 Python</strong>
+          <span>生成 requests、httpx、aiohttp 请求代码</span>
         </a>
         <a class="nav-item" href="#tool-json" data-target="tool-json" data-search="json 格式化 压缩 美化">
           <strong>JSON 格式化 / 压缩</strong>
-          <span>JSON 美化、压缩与错误提示</span>
+          <span>JSON 美化、压缩与代码高亮</span>
+        </a>
+        <a class="nav-item" href="#tool-qr" data-target="tool-qr" data-search="二维码 生成 qr 扫码 链接 文本 自适应 纠错">
+          <strong>二维码生成</strong>
+          <span>自适应尺寸与纠错级别，支持下载</span>
         </a>
         <a class="nav-item" href="#tool-base64" data-target="tool-base64" data-search="base64 编码 解码 文本">
           <strong>Base64 编码 / 解码</strong>
@@ -570,21 +680,57 @@
           <strong>正则测试</strong>
           <span>匹配、分组结果与替换演示</span>
         </a>
-        <a class="nav-item" href="#tool-uuid" data-target="tool-uuid" data-search="uuid 随机 id 生成">
+        <a class="nav-item" href="#tool-uuid" data-target="tool-uuid" data-search="uuid 随机 id 生成 批量">
           <strong>UUID 生成</strong>
           <span>批量生成 UUID v4</span>
         </a>
-      </nav>
+        <a class="nav-item" href="#tool-url-parser" data-target="tool-url-parser" data-search="url url解析 链接 协议 域名 端口 参数">
+          <strong>URL 解析</strong>
+          <span>拆分协议、域名、端口与查询参数</span>
+        </a>
+        <a class="nav-item" href="#tool-html-entities" data-target="tool-html-entities" data-search="html 实体 编码 解码 特殊字符 转义">
+          <strong>HTML 实体编解码</strong>
+          <span>处理网页特殊字符与 HTML 转义</span>
+        </a>
+        <a class="nav-item" href="#tool-password" data-target="tool-password" data-search="密码 随机 password 安全 字符串">
+          <strong>随机密码生成</strong>
+          <span>本地生成高强度随机密码</span>
+        </a></nav>
     </aside>
 
     <main class="content">
-      <section class="hero">
-        <h1>在线开发工具箱 Pro</h1>
-        <p class="subtitle">一站式前端工具网站，支持二维码、JSON、Base64、URL Encode/Decode、时间戳秒/毫秒转换、MD5 / SHA-256、文本大小写、JWT 解析、正则测试、UUID
-          生成等常用工具。所有处理均在浏览器本地完成。所有代码由AI生成。</p>
-      </section>
 
       <section class="grid" id="toolGrid">
+        <article class="tool" id="tool-curl" data-search="curl cURL python requests curl_cffi httpx aiohttp 转换 请求 网络">
+          <h2>cURL 转 Python</h2>
+          <p>把浏览器或终端中的 cURL 命令转换为可直接运行的 Python 请求代码。</p>
+          <div class="curl-workspace">
+            <section class="curl-panel"><h3>输入 cURL</h3><textarea id="curlInput" placeholder="粘贴 cURL 命令，例如：curl 'https://api.example.com/users?id=1' -H 'Accept: application/json' --data '{\"name\":\"Alice\"}'" spellcheck="false"></textarea><div class="actions"><button class="primary" id="convertBtn" type="button">转换为 Python</button><button id="curlJsonExample" type="button">JSON 示例</button><button id="curlFormExample" type="button">表单示例</button><button id="curlMultipartExample" type="button">上传示例</button><button id="curlClearBtn" type="button">清空</button></div><div id="inputStatus" class="status"></div><div id="curlSummary" class="curl-summary">等待解析 cURL…</div></section>
+            <section class="curl-panel"><h3>输出 Python</h3><div class="curl-tabs"><button class="active" data-curl-tab="requests" type="button">requests</button><button data-curl-tab="curl_cffi" type="button">curl_cffi</button><button data-curl-tab="httpx" type="button">httpx</button><button data-curl-tab="aiohttp" type="button">aiohttp</button></div><textarea id="curlOutput" class="code-output" readonly spellcheck="false" placeholder="转换后的 Python 代码会显示在这里"></textarea><div class="actions"><button id="curlCopyBtn" type="button">复制代码</button><button id="curlDownloadBtn" type="button">下载 .py</button><button id="curlRetryBtn" type="button">重试模板</button></div><div id="curlOutputStatus" class="status"></div></section>
+          </div>
+        </article>
+
+        <article class="tool" id="tool-json" data-search="json js javascript 格式化 压缩 美化 语法高亮 代码">
+          <h2>JSON / JavaScript 格式化</h2>
+          <p>支持 JSON 和 JavaScript 代码的格式化、压缩与语法高亮，全部在浏览器本地处理。</p>
+          <div class="format-toolbar">
+            <div class="format-mode" role="tablist" aria-label="代码类型">
+              <button type="button" class="active" data-format-mode="json">JSON</button>
+              <button type="button" data-format-mode="js">JavaScript</button>
+            </div>
+            <span class="small-note">选择代码类型后粘贴内容</span>
+          </div>
+          <label for="jsonInput">输入代码</label>
+          <textarea id="jsonInput" placeholder='JSON 示例：{"name":"test","age":18}' spellcheck="false"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="formatJSON()">格式化</button>
+            <button class="secondary" onclick="minifyJSON()">压缩</button>
+            <button class="secondary" onclick="copyText('jsonInput', 'jsonStatus')">复制代码</button>
+            <button class="danger" onclick="clearField('jsonInput','jsonStatus'); clearCodePreview()">清空</button>
+          </div>
+          <div class="status" id="jsonStatus"></div>
+          <pre id="codePreview" class="code-preview" aria-label="语法高亮预览">格式化后的代码将在这里显示</pre>
+        </article>
         <article class="tool wide hero-tool" id="tool-qr" data-search="二维码 生成 qr 扫码 链接 文本 自适应 纠错 下载">
           <div class="tool-body">
             <div class="tool-main">
@@ -626,20 +772,6 @@
               <div class="status" id="qrStatus"></div>
             </div>
           </div>
-        </article>
-
-        <article class="tool" id="tool-json" data-search="json 格式化 压缩 美化 结构化">
-          <h2>JSON 格式化 / 压缩</h2>
-          <p>可对 JSON 文本进行美化、压缩，并在格式错误时给出提示。</p>
-          <label for="jsonInput">输入</label>
-          <textarea id="jsonInput" placeholder='例如：{"name":"test","age":18}'></textarea>
-          <div class="actions">
-            <button class="primary" onclick="formatJSON()">格式化</button>
-            <button class="secondary" onclick="minifyJSON()">压缩</button>
-            <button class="secondary" onclick="copyText('jsonInput', 'jsonStatus')">复制</button>
-            <button class="danger" onclick="clearField('jsonInput','jsonStatus')">清空</button>
-          </div>
-          <div class="status" id="jsonStatus"></div>
         </article>
 
         <article class="tool" id="tool-base64" data-search="base64 编码 解码 文本 字符串">
@@ -773,15 +905,71 @@
           <textarea id="uuidOutput" placeholder="生成结果会显示在这里"></textarea>
           <div class="status" id="uuidStatus"></div>
         </article>
+
+        <article class="tool" id="tool-url-parser" data-search="url url解析 链接 协议 域名 端口 参数">
+          <h2>URL 解析</h2>
+          <p>拆分 URL 的协议、用户名、主机、端口、路径、查询参数和锚点。</p>
+          <label for="urlParserInput">输入 URL</label>
+          <textarea id="urlParserInput" placeholder="例如：https://user:pass@example.com:8443/path?a=1&b=2#top"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="parseURL()">解析 URL</button>
+            <button class="secondary" onclick="copyText('urlParserOutput', 'urlParserStatus')">复制结果</button>
+            <button class="danger" onclick="clearField('urlParserInput','urlParserStatus'); clearField('urlParserOutput','urlParserStatus')">清空</button>
+          </div>
+          <textarea id="urlParserOutput" class="code-block" placeholder="解析结果会显示在这里"></textarea>
+          <div class="status" id="urlParserStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-html-entities" data-search="html 实体 编码 解码 特殊字符 转义">
+          <h2>HTML 实体编解码</h2>
+          <p>在本地完成 HTML 特殊字符转义和还原，适合处理网页片段与接口数据。</p>
+          <label for="htmlEntityInput">输入文本</label>
+          <textarea id="htmlEntityInput" placeholder="例如：<div class=\"demo\">你好 & 欢迎</div>"></textarea>
+          <div class="actions">
+            <button class="primary" onclick="encodeHTMLEntities()">HTML 编码</button>
+            <button class="secondary" onclick="decodeHTMLEntities()">HTML 解码</button>
+            <button class="secondary" onclick="copyText('htmlEntityInput', 'htmlEntityStatus')">复制</button>
+            <button class="danger" onclick="clearField('htmlEntityInput','htmlEntityStatus')">清空</button>
+          </div>
+          <div class="status" id="htmlEntityStatus"></div>
+        </article>
+
+        <article class="tool" id="tool-password" data-search="密码 随机 password 安全 字符串">
+          <h2>随机密码生成</h2>
+          <p>使用浏览器加密随机数生成密码，不上传内容；可选择长度和字符集。</p>
+          <div class="inline-row">
+            <div>
+              <label for="passwordLength">长度</label>
+              <input id="passwordLength" type="number" min="8" max="128" value="20" />
+            </div>
+            <div>
+              <label for="passwordCount">数量</label>
+              <input id="passwordCount" type="number" min="1" max="20" value="1" />
+            </div>
+          </div>
+          <label><input id="passwordSymbols" type="checkbox" checked /> 包含特殊符号</label>
+          <div class="actions">
+            <button class="primary" onclick="generatePasswords()">生成密码</button>
+            <button class="secondary" onclick="copyText('passwordOutput', 'passwordStatus')">复制结果</button>
+            <button class="danger" onclick="clearField('passwordOutput','passwordStatus')">清空</button>
+          </div>
+          <textarea id="passwordOutput" class="code-block" placeholder="生成结果会显示在这里"></textarea>
+          <div class="status" id="passwordStatus"></div>
+        </article>
       </section>
 
-      <div class="empty-state" id="emptyState">没有匹配到工具，请尝试输入“二维码 / json / 时间戳 / jwt / uuid”等关键词。</div>
+      <div class="empty-state" id="emptyState">没有匹配到工具，请尝试输入“二维码 / json / 时间戳 / jwt / uuid / url”等关键词。</div>
     </main>
   </div>
+  <footer class="site-footer">
+    <a href="/">返回网址导航</a> · <a href="/tools.html#tool-curl">cURL 转 Python</a> · <a href="https://github.com/jiaosenvip/jiaosenvip.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="assets/js/site-shell.js"></script>
+  <script src="assets/js/curl2python-core.js"></script>
+  <script src="assets/vendor/qrcodejs-1.0.0.min.js"></script>
   <script>
-    function setStatus(id, message, isError = false) {
+function setStatus(id, message, isError = false) {
       const el = document.getElementById(id);
       if (!el) return;
       el.textContent = message;
@@ -805,25 +993,82 @@
       setStatus(statusId, '已清空');
     }
 
+    let codeMode = 'json';
+    function escapeCode(value) { return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch])); }
+    function highlightCode(value) {
+      const escaped = escapeCode(value);
+      return escaped.replace(/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|(&quot;(?:\\.|[^&])*?&quot;|'(?:\\.|[^'])*')|\b(true|false|null|undefined|const|let|var|function|return|if|else|for|while|new|class|async|await|import|from|export)\b|\b\d+(?:\.\d+)?\b|([A-Za-z_$][\w$]*)(?=\s*:)/g,
+        (match, comment, string, keyword, number, property) => comment ? `<span class="token-comment">${comment}</span>` : string ? `<span class="token-string">${string}</span>` : keyword ? `<span class="token-${['true','false','null','undefined'].includes(keyword) ? 'boolean' : 'keyword'}">${keyword}</span>` : number ? `<span class="token-number">${number}</span>` : `<span class="token-property">${property}</span>`);
+    }
+    function formatJavaScript(source, compact = false) {
+      const tokens = [];
+      const pattern = /\/\*[\s\S]*?\*\/|\/\/[^\r\n]*|(?:"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)|(?:\d+(?:\.\d+)?|\.\d+)|(?:[A-Za-z_$][\w$]*)|(?:===|!==|>>>|\*\*=|&&=|\|\|=|\?\?=|=>|==|!=|<=|>=|\+\+|--|&&|\|\||\?\?|\+=|-=|\*=|\/=|%=|<<|>>|\*\*)|[^\s]/g;
+      let match;
+      while ((match = pattern.exec(String(source || '')))) tokens.push(match[0]);
+      if (compact) {
+        return tokens.reduce((result, token, index) => {
+          const previous = tokens[index - 1] || '';
+          const word = /^[\w$]/.test(token) && /[\w$]$/.test(previous);
+          return result + (word ? ' ' : '') + token;
+        }, '').trim();
+      }
+      const lines = [], stack = [], operators = new Set(['=', '==', '===', '!=', '!==', '+', '-', '*', '/', '%', '=>', '&&', '||', '??', '<', '>', '<=', '>=', '+=', '-=', '*=', '/=', 'in', 'instanceof']);
+      let line = '', paren = 0, bracket = 0;
+      const pad = () => '  '.repeat(stack.length);
+      const flush = () => { if (line.trim()) lines.push(pad() + line.trim()); line = ''; };
+      const append = (value, space = false) => { if (space && line && !line.endsWith(' ')) line += ' '; line += value; };
+      tokens.forEach((token, index) => {
+        const previous = tokens[index - 1] || '';
+        const next = tokens[index + 1] || '';
+        if (token.startsWith('//') || token.startsWith('/*')) { if (line.trim()) flush(); lines.push(pad() + token); return; }
+        if (token === '{') { append('{', !!line); flush(); stack.push('{'); }
+        else if (token === '}') { if (line.trim()) flush(); stack.pop(); line = '}'; if (next !== ';' && next !== ',' && next !== ')' && next !== ']') flush(); }
+        else if (token === ';') { append(';'); flush(); }
+        else if (token === ',') { append(','); if (stack.length && paren === 0 && bracket === 0) flush(); else append('', true); }
+        else if (token === ':') { append(':'); append('', true); }
+        else if (token === '(') { append('('); paren += 1; }
+        else if (token === ')') { line = line.trimEnd(); append(')'); paren = Math.max(0, paren - 1); }
+        else if (token === '[') { append('['); bracket += 1; }
+        else if (token === ']') { line = line.trimEnd(); append(']'); bracket = Math.max(0, bracket - 1); }
+        else if (token === '.') { line = line.trimEnd(); append('.'); }
+        else if (operators.has(token)) { append(token, true); append('', true); }
+        else {
+          const needsSpace = !!line && ![' ', '(', '[', '.', '?'].some(mark => line.endsWith(mark)) && previous !== '!' && previous !== '~' && token !== '?' && next !== ':';
+          append(token, needsSpace);
+        }
+      });
+      flush();
+      return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+    }
+    function updateCodePreview() { const value = document.getElementById('jsonInput').value; document.getElementById('codePreview').innerHTML = value ? highlightCode(value) : '格式化后的代码将在这里显示'; }
+    function clearCodePreview() { document.getElementById('codePreview').textContent = '格式化后的代码将在这里显示'; }
+    function detectCodeMode(source) {
+      if (codeMode === 'js') return 'js';
+      try { JSON.parse(source); return 'json'; } catch (_) { return 'js'; }
+    }
+    function syncCodeMode(mode) {
+      codeMode = mode;
+      document.querySelectorAll('[data-format-mode]').forEach(item => item.classList.toggle('active', item.dataset.formatMode === mode));
+    }
     function formatJSON() {
       const el = document.getElementById('jsonInput');
+      const mode = detectCodeMode(el.value);
       try {
-        el.value = JSON.stringify(JSON.parse(el.value), null, 2);
-        setStatus('jsonStatus', 'JSON 格式化成功');
-      } catch (err) {
-        setStatus('jsonStatus', 'JSON 格式错误：' + err.message, true);
-      }
+        syncCodeMode(mode);
+        el.value = mode === 'json' ? JSON.stringify(JSON.parse(el.value), null, 2) : formatJavaScript(el.value);
+        updateCodePreview(); setStatus('jsonStatus', `${mode === 'json' ? 'JSON' : 'JavaScript'} 格式化成功`);
+      } catch (err) { setStatus('jsonStatus', ''); }
     }
-
     function minifyJSON() {
       const el = document.getElementById('jsonInput');
+      const mode = detectCodeMode(el.value);
       try {
-        el.value = JSON.stringify(JSON.parse(el.value));
-        setStatus('jsonStatus', 'JSON 已压缩');
-      } catch (err) {
-        setStatus('jsonStatus', 'JSON 格式错误：' + err.message, true);
-      }
+        syncCodeMode(mode);
+        el.value = mode === 'json' ? JSON.stringify(JSON.parse(el.value)) : formatJavaScript(el.value, true);
+        updateCodePreview(); setStatus('jsonStatus', `${mode === 'json' ? 'JSON' : 'JavaScript'} 压缩成功`);
+      } catch (err) { setStatus('jsonStatus', ''); }
     }
+
 
     function encodeBase64() {
       const el = document.getElementById('base64Input');
@@ -906,14 +1151,51 @@
       setStatus('timeStatus', unit === 'ms' ? '已填入当前毫秒级时间戳' : '已填入当前秒级时间戳');
     }
 
+    function md5Hex(text) {
+      const bytes = Array.from(new TextEncoder().encode(text));
+      const bitLength = bytes.length * 8;
+      bytes.push(0x80);
+      while (bytes.length % 64 !== 56) bytes.push(0);
+      for (let i = 0; i < 8; i++) bytes.push((bitLength / (2 ** (8 * i))) & 0xff);
+      let a0 = 0x67452301, b0 = 0xefcdab89, c0 = 0x98badcfe, d0 = 0x10325476;
+      const leftRotate = (x, n) => (x << n) | (x >>> (32 - n));
+      const add = (...xs) => xs.reduce((a, b) => (a + b) | 0, 0);
+      const k = Array.from({ length: 64 }, (_, i) => Math.floor(Math.abs(Math.sin(i + 1)) * 2 ** 32));
+      const s = [7, 12, 17, 22, 5, 9, 14, 20, 4, 11, 16, 23, 6, 10, 15, 21];
+      for (let offset = 0; offset < bytes.length; offset += 64) {
+        const m = Array.from({ length: 16 }, (_, i) => {
+          const p = offset + i * 4;
+          return bytes[p] | (bytes[p + 1] << 8) | (bytes[p + 2] << 16) | (bytes[p + 3] << 24);
+        });
+        let a = a0, b = b0, c = c0, d = d0;
+        for (let i = 0; i < 64; i++) {
+          let f, g;
+          if (i < 16) { f = (b & c) | (~b & d); g = i; }
+          else if (i < 32) { f = (d & b) | (~d & c); g = (5 * i + 1) % 16; }
+          else if (i < 48) { f = b ^ c ^ d; g = (3 * i + 5) % 16; }
+          else { f = c ^ (b | ~d); g = (7 * i) % 16; }
+          const shift = s[(i % 4) + (i < 16 ? 0 : i < 32 ? 4 : i < 48 ? 8 : 12)];
+          const next = add(a, f, k[i], m[g]);
+          a = d; d = c; c = b; b = add(b, leftRotate(next, shift));
+        }
+        a0 = add(a0, a); b0 = add(b0, b); c0 = add(c0, c); d0 = add(d0, d);
+      }
+      return [a0, b0, c0, d0].flatMap(word => Array.from({ length: 4 }, (_, i) => (word >>> (8 * i)) & 0xff))
+        .map(byte => byte.toString(16).padStart(2, '0')).join('');
+    }
+
     async function hashText(type) {
-      const value = document.getElementById('hashInput').value;
+      const el = document.getElementById('hashInput');
+      const value = el.value;
       if (!value) return setStatus('hashStatus', '请输入要计算的文本', true);
       try {
-        const buffer = await crypto.subtle.digest(type === 'MD5' ? 'SHA-256' : 'SHA-256', new TextEncoder().encode(value));
-        const hex = Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-        document.getElementById('hashInput').value = type === 'MD5' ? `[浏览器原生不支持 MD5]\n${hex}` : hex;
-        setStatus('hashStatus', type === 'MD5' ? '已生成 SHA-256，并提示 MD5 限制' : '哈希生成成功');
+        if (type === 'MD5') {
+          el.value = md5Hex(value);
+          return setStatus('hashStatus', 'MD5 生成成功（纯本地计算）');
+        }
+        const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+        el.value = Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        setStatus('hashStatus', 'SHA-256 生成成功');
       } catch (err) {
         setStatus('hashStatus', '哈希失败：' + err.message, true);
       }
@@ -1085,6 +1367,67 @@
       setStatus('uuidStatus', `已生成 ${count} 个 UUID`);
     }
 
+    function parseURL() {
+      const input = document.getElementById('urlParserInput').value.trim();
+      const output = document.getElementById('urlParserOutput');
+      if (!input) return setStatus('urlParserStatus', '请输入 URL', true);
+      try {
+        const url = new URL(input);
+        const params = {};
+        url.searchParams.forEach((value, key) => {
+          if (Object.prototype.hasOwnProperty.call(params, key)) {
+            params[key] = Array.isArray(params[key]) ? [...params[key], value] : [params[key], value];
+          } else params[key] = value;
+        });
+        output.value = JSON.stringify({
+          href: url.href, protocol: url.protocol, username: url.username,
+          password: url.password ? '[已隐藏]' : '', host: url.host, hostname: url.hostname,
+          port: url.port, pathname: url.pathname, search: url.search, hash: url.hash, params
+        }, null, 2);
+        setStatus('urlParserStatus', 'URL 解析成功');
+      } catch (err) { setStatus('urlParserStatus', 'URL 格式无效：' + err.message, true); }
+    }
+
+    function encodeHTMLEntities() {
+      const el = document.getElementById('htmlEntityInput');
+      const holder = document.createElement('textarea');
+      holder.textContent = el.value;
+      el.value = holder.innerHTML;
+      setStatus('htmlEntityStatus', 'HTML 编码完成');
+    }
+
+    function decodeHTMLEntities() {
+      const el = document.getElementById('htmlEntityInput');
+      const holder = document.createElement('textarea');
+      holder.innerHTML = el.value;
+      el.value = holder.value;
+      setStatus('htmlEntityStatus', 'HTML 解码完成');
+    }
+
+    function generatePasswords() {
+      const length = Math.min(128, Math.max(8, Number(document.getElementById('passwordLength').value) || 20));
+      const count = Math.min(20, Math.max(1, Number(document.getElementById('passwordCount').value) || 1));
+      const symbols = document.getElementById('passwordSymbols').checked;
+      const groups = ['ABCDEFGHJKLMNPQRSTUVWXYZ', 'abcdefghijkmnopqrstuvwxyz', '23456789'];
+      if (symbols) groups.push('!@#$%^&*_-+=');
+      const alphabet = groups.join('');
+      const randomIndex = max => {
+        const values = new Uint32Array(1);
+        const limit = Math.floor(0x100000000 / max) * max;
+        do { crypto.getRandomValues(values); } while (values[0] >= limit);
+        return values[0] % max;
+      };
+      const passwords = [];
+      for (let i = 0; i < count; i++) {
+        const chars = groups.map(group => group[randomIndex(group.length)]);
+        while (chars.length < length) chars.push(alphabet[randomIndex(alphabet.length)]);
+        for (let j = chars.length - 1; j > 0; j--) { const k = randomIndex(j + 1); [chars[j], chars[k]] = [chars[k], chars[j]]; }
+        passwords.push(chars.join(''));
+      }
+      document.getElementById('passwordOutput').value = passwords.join('\n');
+      setStatus('passwordStatus', `已生成 ${count} 个密码（仅在本地处理）`);
+    }
+
     const searchInput = document.getElementById('toolSearch');
     const toolCards = Array.from(document.querySelectorAll('.tool'));
     const navItems = Array.from(document.querySelectorAll('.nav-item'));
@@ -1141,6 +1484,96 @@
 
     updateToolFilter();
     syncActiveNav();
+  </script>
+  <script>
+    // 工具导航：一次只显示一个工具，并同步地址锚点
+    (() => {
+      const grid = document.getElementById('toolGrid');
+      const cards = Array.from(grid.querySelectorAll('.tool'));
+      const navItems = Array.from(document.querySelectorAll('.nav-item'));
+      const search = document.getElementById('toolSearch');
+      const count = document.getElementById('toolCount');
+      const empty = document.getElementById('emptyState');
+      let activeId = '';
+
+      function activate(id, updateHash = true) {
+        const card = document.getElementById(id);
+        if (!card || card.classList.contains('hidden')) return false;
+        activeId = id;
+        cards.forEach(item => item.classList.toggle('active', item === card));
+        navItems.forEach(item => {
+          const current = item.dataset.target === id;
+          item.classList.toggle('active', current);
+          item.setAttribute('aria-current', current ? 'true' : 'false');
+        });
+        if (updateHash && history.replaceState) history.replaceState(null, '', `#${id}`);
+        return true;
+      }
+
+      function updateNavigation() {
+        const keyword = search.value.trim().toLowerCase();
+        cards.forEach(card => card.classList.remove('hidden'));
+        const matched = navItems.filter(item => {
+          const target = document.getElementById(item.dataset.target);
+          const haystack = `${item.dataset.search || ''} ${target?.textContent || ''}`.toLowerCase();
+          const visible = !keyword || haystack.includes(keyword);
+          item.hidden = !visible;
+          return visible;
+        });
+        count.textContent = keyword ? `搜索结果：${matched.length} 个工具` : `共 ${cards.length} 个工具`;
+        empty.style.display = matched.length ? 'none' : 'block';
+        if (matched.length && (!activeId || !matched.some(item => item.dataset.target === activeId))) {
+          activate(matched[0].dataset.target, false);
+        } else if (!matched.length) {
+          cards.forEach(card => card.classList.remove('active'));
+          navItems.forEach(item => item.classList.remove('active'));
+        }
+      }
+
+      navItems.forEach(item => item.addEventListener('click', event => {
+        event.preventDefault();
+        activate(item.dataset.target);
+      }));
+      search.addEventListener('input', updateNavigation);
+
+      const initial = location.hash.slice(1);
+      cards.forEach(card => card.classList.remove('active', 'hidden'));
+      activate(cards.some(card => card.id === initial) ? initial : 'tool-curl', false);
+      updateNavigation();
+    })();
+  </script>
+  <script>
+    (() => {
+      const input = document.getElementById('jsonInput');
+      const status = document.getElementById('jsonStatus');
+      document.querySelectorAll('[data-format-mode]').forEach(button => button.addEventListener('click', () => {
+        codeMode = button.dataset.formatMode;
+        document.querySelectorAll('[data-format-mode]').forEach(item => item.classList.toggle('active', item === button));
+        input.placeholder = codeMode === 'json' ? 'JSON 示例：{"name":"test","age":18}' : 'JavaScript 示例：const greet = (name) => { return `Hello, ${name}`; };';
+        status.textContent = `已切换到 ${codeMode === 'json' ? 'JSON' : 'JavaScript'} 模式`;
+      }));
+      input.addEventListener('input', updateCodePreview);
+    })();
+  </script>
+  <script>
+    (() => {
+      const $ = id => document.getElementById(id); let active = 'requests'; let last = null;
+      const examples = {
+        json: `curl 'https://api.example.com/users?id=1' -H 'Accept: application/json' -H 'Content-Type: application/json' --data-raw '{"name":"Alice","active":true}'`,
+        form: `curl 'https://api.example.com/login' -X POST -H 'Content-Type: application/x-www-form-urlencoded' --data 'username=alice&remember=true'`,
+        multipart: `curl 'https://api.example.com/upload' -X POST -F 'file=@./demo.png' -F 'folder=avatars'`
+      };
+      const set = (id, text, error = false) => { $(id).textContent = text; $(id).classList.toggle('error', error); };
+      function render() { if (!last) return; $('curlOutput').value = last.generated[active]; $('curlSummary').textContent = [`方法：${last.method}`, `URL：${last.url}`, `请求体：${last.bodyTypeLabel}`, `参数：${Object.keys(last.queryParams).length} 个 · 请求头：${Object.keys(last.headers).length} 个`, `Cookie：${Object.keys(last.cookies).length} 个 · 代理：${last.proxy || '无'}`].join('\n'); }
+      function convert() { const input = $('curlInput').value.trim(); if (!input) return set('inputStatus', '请先输入 cURL 命令', true); try { last = CurlPython.parseAndGenerate(input); render(); set('inputStatus', '转换成功'); set('curlOutputStatus', '已生成 Python 代码'); } catch (error) { last = null; $('curlOutput').value = ''; set('inputStatus', '转换失败：' + error.message, true); } }
+      $('convertBtn').onclick = convert; $('curlClearBtn').onclick = () => { $('curlInput').value = ''; $('curlOutput').value = ''; last = null; set('curlSummary', '等待解析 cURL…'); set('inputStatus', ''); set('curlOutputStatus', ''); };
+      $('curlJsonExample').onclick = () => { $('curlInput').value = examples.json; convert(); }; $('curlFormExample').onclick = () => { $('curlInput').value = examples.form; convert(); }; $('curlMultipartExample').onclick = () => { $('curlInput').value = examples.multipart; convert(); };
+      document.querySelectorAll('[data-curl-tab]').forEach(button => button.onclick = () => { active = button.dataset.curlTab; document.querySelectorAll('[data-curl-tab]').forEach(item => item.classList.toggle('active', item === button)); render(); });
+      $('curlCopyBtn').onclick = async () => { if (!$('curlOutput').value) return set('curlOutputStatus', '当前没有可复制的代码', true); await navigator.clipboard.writeText($('curlOutput').value); set('curlOutputStatus', '已复制代码'); };
+      $('curlDownloadBtn').onclick = () => { if (!$('curlOutput').value) return set('curlOutputStatus', '当前没有可下载的代码', true); const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob([$('curlOutput').value], { type: 'text/x-python;charset=utf-8' })); link.download = `curl_to_${active}.py`; link.click(); set('curlOutputStatus', '已下载 ' + link.download); };
+      $('curlRetryBtn').onclick = () => { if (!last) return set('curlOutputStatus', '请先完成转换', true); $('curlOutput').value = last.generated.retry; set('curlOutputStatus', '已显示 requests 重试模板'); };
+      $('curlInput').addEventListener('keydown', event => { if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') convert(); });
+    })();
   </script>
 </body>
 

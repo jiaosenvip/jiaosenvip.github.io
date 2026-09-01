@@ -5,16 +5,14 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+  <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-7.0.1.min.css" />
   <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap.css" />
-  <link rel="stylesheet" type="text/css"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.3/css/bootstrap-grid.min.css" />
-  <link rel="Shortcut Icon" type="image/x-icon" href="/github.png" />
+    href="assets/vendor/bootstrap-5.3.3.min.css" />
+  <link rel="Shortcut Icon" type="image/x-icon" href="assets/images/github.png" />
+  <link rel="stylesheet" href="assets/css/site-shell.css" />
   <title>网址导航</title>
   <style>
-    /*html {//灰色默哀主题
+/*html {//灰色默哀主题
           -webkit-filter: grayscale(100%);
           -moz-filter: grayscale(100%);
           -ms-filter: grayscale(100%);
@@ -66,7 +64,9 @@
 
     .top-cont {
       width: 100%;
-      height: 180px;
+      height: auto;
+      min-height: 180px;
+      padding-bottom: 18px;
       background: #ad0000;
       background-size: cover;
       color: #eee;
@@ -175,27 +175,134 @@
       white-space: nowrap;
       line-height: 32px;
     }
+
+    #musicPlayer { margin-top: 0.75rem; text-align: center; }
+    #musicToggle { border: 1px solid rgba(255,255,255,.45); border-radius: 4px; background: rgba(0,0,0,.18); color: #fff; padding: 0.25rem 0.65rem; cursor: pointer; }
+    #musicToggle:disabled { cursor: not-allowed; opacity: .7; }
+    #musicPlayer.music-hidden .aplayer,
+    #musicPlayer.music-unavailable .aplayer { display: none; }
+
+    /* 主页导航、分类筛选与可读性增强 */
+    .home-nav {
+      max-width: 960px;
+      margin: 8px auto 0;
+      padding: 0 15px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .home-nav a {
+      color: #fff;
+      padding: 6px 12px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .home-nav a:hover, .home-nav a[aria-current="page"] {
+      background: #fff;
+      color: #8d0000;
+    }
+    .home-filter {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 16px auto 18px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid #e3e6eb;
+      border-radius: 10px;
+      box-shadow: 0 5px 18px rgba(30,41,59,.08);
+    }
+    .home-filter-row { display:flex; align-items:center; gap:10px; }
+    .home-filter input {
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      padding: 7px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      color: #1f2937;
+      outline: none;
+    }
+    .home-filter input:focus { border-color:#ad0000; box-shadow:0 0 0 3px rgba(173,0,0,.1); }
+    .home-filter-count { color:#526174; white-space:nowrap; font-size:12px; }
+    .category-bar { display:flex; gap:6px; overflow-x:auto; padding-top:9px; scrollbar-width:thin; }
+    .category-chip { flex:0 0 auto; border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:999px; padding:5px 10px; cursor:pointer; font-size:12px; }
+    .category-chip:hover, .category-chip.active { border-color:#ad0000; background:#fff1f1; color:#8d0000; }
+    .content > .row { display:grid; grid-template-columns:1fr; gap:0; }
+    .content > .row > .subs { width:auto; max-width:none; flex:none; }
+    .content .row .subs .tit { color:#263241; }
+    .content .row .subs .col { color:#334155; }
+    .content .row .subs .col a { color:#334155; }
+    .content .row .subs .col a:hover { color:#ad0000; }
+    .content .row .subs .col a.text-danger { color:#b42318; }
+    .content .row .subs.is-hidden { display:none; }
+    .home-empty { display:none; margin:20px 0; padding:24px; text-align:center; color:#526174; border:1px dashed #cbd5e1; border-radius:8px; background:#fff; }
+    @media (min-width: 768px) { .content > .row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; } }
+    @media (min-width: 992px) { .content > .row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 24px; } }
+    @media (max-width: 767px) {
+      .top-cont { height:auto; min-height:180px; padding-bottom:14px; }
+      .home-nav { justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px; }
+      .home-nav a { flex:0 0 auto; }
+      .home-filter { margin:10px 10px 14px; top:0; }
+      .home-filter-row { align-items:stretch; flex-direction:column; gap:6px; }
+      .home-filter-count { text-align:right; }
+      .category-bar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); overflow:visible; }
+      .category-chip { width:100%; padding-left:4px; padding-right:4px; }
+      .content { margin-top:14px; padding:0 12px; }
+      .content > .row { grid-template-columns:1fr; gap:0; }
+      .content .row .subs .col {
+        height:auto;
+        min-height:32px;
+        line-height:1.45;
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
+        display:flex;
+        align-items:center;
+        padding:4px 0;
+      }
+      .content .row .subs .tit { font-size:15px; }
+    }
+    @media (max-width: 420px) {
+      .content > .row { grid-template-columns:1fr; }
+      .category-bar { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    .top-cont:not(.site-shell) { display:none; }
   </style>
 </head>
 
 <body class="" style="display: block">
+  <div id="siteShell"></div>
+  <script src="assets/js/site-shell.js"></script>
   <div class="top-cont">
     <nav class="navbar navbar-light bg-light">
       <script>
-        var weekDayLabels = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+var weekDayLabels = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
         var now = new Date();
         var year = now.getFullYear();
         var month = now.getMonth() + 1;
         var day = now.getDate();
         var currentime = '<div class="special"><a href="/" style="color:white;">' + year + '年' + month + '月' + day + '日 ' + weekDayLabels[now.getDay()] + '</a></div>'
         document.write(currentime);
-      </script>
+  </script>
       <div id="time"></div>
       <script>
-        setInterval(function () {
+setInterval(function () {
           document.getElementById("time").innerHTML = new Date().toLocaleTimeString();
         }, 1000)
-      </script>
+  </script>
+    </nav>
+    <nav class="home-nav" aria-label="站点导航">
+      <a href="/" aria-current="page">首页</a>
+      <a href="/tools.html">在线工具</a>
+      <a href="/tools.html#tool-curl">cURL 转 Python</a>
+      <a href="#site-filter">快速搜索</a>
+      <a href="https://github.com/jiaosenvip/jiaosenvip.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
     </nav>
     <div id="input-group" class="container so">
       <div class="input-group">
@@ -221,7 +328,7 @@
     </div>
     <br />
     <script>
-      const searchInput = document.getElementById('searchInput');
+const searchInput = document.getElementById('searchInput');
       const searchBtn = document.getElementById('searchBtn');
       const dropdownItems = document.querySelectorAll('.dropdown-item');
       let currentSearchEngine = 'baidu';
@@ -277,12 +384,13 @@
         } else {
           alert('请输入搜索内容');
         }
-      }    </script>
+      }
+  </script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
     <div id="poem_sentence" style="text-align: center"></div>
     <div id="poem_info" style="text-align: center"></div>
-    <script type="text/javascript">
-      jinrishici.load(function (result) {
+    <script>
+jinrishici.load(function (result) {
         var sentence = document.querySelector("#poem_sentence");
         var info = document.querySelector("#poem_info");
         sentence.innerHTML = result.data.content;
@@ -295,9 +403,16 @@
           result.data.origin.title +
           "》";
       });
-    </script>
+  </script>
   </div>
   </div>
+  <section class="container home-filter" id="site-filter" aria-label="站内网址筛选">
+    <div class="home-filter-row">
+      <input id="siteSearch" type="search" placeholder="搜索站内网址或分类，例如：GitHub、新闻、Python、AI" autocomplete="off" />
+      <span id="siteCount" class="home-filter-count">全部分类</span>
+    </div>
+    <div id="categoryBar" class="category-bar" aria-label="网址分类"></div>
+  </section>
   <div class="container content" data-spy="scroll" data-target="#list-example" data-offset="0">
     <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
       <div class="col subs">
@@ -563,9 +678,6 @@
           </div>
           <div class="col">
             <a href="https://www.joyk.com/" target="_blank" rel="noopener noreferrer">极客头条</a>
-          </div>
-          <div class="col">
-            <a href="https://sspai.com" target="_blank" rel="noopener noreferrer">少数派</a>
           </div>
           <div class="col">
             <a href="https://www.pingwest.com" target="_blank" rel="noopener noreferrer">品玩</a>
@@ -1450,7 +1562,7 @@
             <a href="/tools.html" target="_blank" rel="noopener noreferrer" class="text-danger">工具库</a>
           </div>
           <div class="col">
-            <a href="/curl2python.html" target="_blank" rel="noopener noreferrer" class="text-danger">curl转python</a>
+            <a href="/tools.html#tool-curl" target="_blank" rel="noopener noreferrer" class="text-danger">curl转python</a>
           </div>
           <div class="col">
             <a href="https://microsoftedge.microsoft.com/addons/detail/%E6%90%9C%E7%B4%A2/ejfegacpaonfcpjncbpbclfdlilmhinl"
@@ -1483,9 +1595,8 @@
       </div>
     </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery-3.7.1.min.js"></script>
+  <script src="assets/vendor/bootstrap-5.3.3.bundle.min.js"></script>
   <footer style="text-align: center; height: 6rem">
     <div class="copyright">
       <span class="author" itemprop="copyrightHolder"><a href="https://github.dev/jiaosenvip/jiaosenvip.github.io"
@@ -1493,20 +1604,80 @@
       <span class="with-love"><i class="fa fa-heart"></i></span>
       <span itemprop="copyrightYear"><a href="/cmatrix.html" id="year">2026</a></span>
       <script>
-        // 获取当前年份
+// 获取当前年份
         const currentYear = new Date().getFullYear();
         // 将年份写入到id为"year"的元素中
         document.getElementById('year').textContent = currentYear;
-      </script>
+  </script>
     </div>
-    <!-- 音乐播放器 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js"></script>
-    <script src="https://unpkg.com/meting@2.0.1/dist/Meting.min.js"></script>
-    <meting-js id="4955014375" server="netease" order="random" type="playlist" fixed="true">
-    </meting-js> <!-- 鼠标特效 -->
-    <script type="text/javascript">
-      var a_idx = 0;
+    <div id="musicPlayer" aria-label="可选背景音乐">
+      <button type="button" id="musicToggle" aria-expanded="true">关闭背景音乐</button>
+      <link rel="stylesheet" href="assets/vendor/aplayer-1.10.1.min.css" />
+      <script src="assets/vendor/aplayer-1.10.1.min.js"></script>
+      <script src="assets/vendor/meting-2.0.1.min.js"></script>
+      <meting-js id="4955014375" server="netease" order="random" type="playlist" fixed="true">
+      </meting-js>
+    </div>
+    <script>
+(() => {
+        const player = document.getElementById('musicPlayer');
+        const toggle = document.getElementById('musicToggle');
+        if (!player || !toggle) return;
+        toggle.addEventListener('click', () => {
+          const hidden = player.classList.toggle('music-hidden');
+          toggle.textContent = hidden ? '开启背景音乐' : '关闭背景音乐';
+          toggle.setAttribute('aria-expanded', String(!hidden));
+        });
+        window.setTimeout(() => {
+          if (!player.querySelector('.aplayer')) {
+            player.classList.add('music-unavailable');
+            toggle.textContent = '背景音乐暂不可用';
+            toggle.disabled = true;
+          }
+        }, 8000);
+      })();
+  </script> <!-- 鼠标特效 -->
+    <script>
+const siteSearch = document.getElementById('siteSearch');
+      const categoryBar = document.getElementById('categoryBar');
+      const siteCount = document.getElementById('siteCount');
+      const homeGroups = Array.from(document.querySelectorAll('.content > .row > .subs'));
+      let activeCategory = '全部';
+      const categoryRules = [
+        ['技术开发', /互联网|开发|Python|爬虫|开源|镜像|编程/i],
+        ['AI 工具', /AI|人工智能/i],
+        ['资讯阅读', /新闻|阅读|资讯|周刊|热榜/i],
+        ['影音娱乐', /影视|游戏|独自升级/i],
+        ['生活服务', /购物|旅游|生活/i],
+        ['安全工具', /安全|工具/i]
+      ];
+      const getCategory = title => (categoryRules.find(item => item[1].test(title)) || [null, null])[0] || '其他';
+      homeGroups.forEach(group => { group.dataset.homeCategory = getCategory(group.querySelector('.tit')?.textContent || ''); });
+      const categories = ['全部', ...new Set(homeGroups.map(group => group.dataset.homeCategory))];
+      categoryBar.innerHTML = categories.map(category => `<button type="button" class="category-chip${category === '全部' ? ' active' : ''}" data-category="${category}">${category}</button>`).join('');
+      function updateHomeFilter() {
+        const keyword = siteSearch.value.trim().toLowerCase();
+        let visibleGroups = 0; let visibleLinks = 0;
+        homeGroups.forEach(group => {
+          const text = (group.textContent + ' ' + group.dataset.homeCategory).toLowerCase();
+          const matched = (activeCategory === '全部' || group.dataset.homeCategory === activeCategory) && (!keyword || text.includes(keyword));
+          group.classList.toggle('is-hidden', !matched);
+          if (matched) { visibleGroups += 1; visibleLinks += group.querySelectorAll('a').length; }
+        });
+        categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.category === activeCategory));
+        siteCount.textContent = keyword || activeCategory !== '全部' ? `${visibleGroups} 个分类 · ${visibleLinks} 个网址` : `${homeGroups.length} 个分类 · ${visibleLinks} 个网址`;
+      }
+      siteSearch.addEventListener('input', updateHomeFilter);
+      categoryBar.addEventListener('click', event => {
+        const chip = event.target.closest('.category-chip');
+        if (!chip) return;
+        activeCategory = chip.dataset.category;
+        updateHomeFilter();
+      });
+      updateHomeFilter();
+  </script>
+    <script>
+var a_idx = 0;
       jQuery(document).ready(function ($) {
         $("body").click(function (e) {
           var a = new Array(
@@ -1555,7 +1726,7 @@
           );
         });
       });
-    </script>
+  </script>
   </footer>
 </body>
 
