@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width" initial-scale="1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-7.0.1.min.css" />
   <link rel="stylesheet" type="text/css"
     href="assets/vendor/bootstrap-5.3.3.min.css" />
@@ -235,6 +235,9 @@
     .category-chip:hover, .category-chip.active { border-color:#ad0000; background:#fff1f1; color:#8d0000; }
     .content > .row { display:grid; grid-template-columns:1fr; gap:0; }
     .content > .row > .subs { width:auto; max-width:none; flex:none; }
+    .content .subs > .row.row-cols-2 { margin-left:0; margin-right:0; }
+    .content .subs > .row.row-cols-2 > .col { padding-left:6px; padding-right:6px; text-align:center; justify-content:center; }
+    .content .subs > .row.row-cols-2 > .col > a { display:inline-block; max-width:100%; }
     .content .row .subs .tit { color:#263241; }
     .content .row .subs .col { color:#334155; }
     .content .row .subs .col a { color:#334155; }
@@ -248,7 +251,7 @@
       .top-cont { height:auto; min-height:180px; padding-bottom:14px; }
       .home-nav { justify-content:flex-start; overflow-x:auto; flex-wrap:nowrap; padding-bottom:2px; }
       .home-nav a { flex:0 0 auto; }
-      .home-filter { margin:10px 10px 14px; top:0; }
+      .home-filter { width:auto; margin:10px 10px 14px; top:0; }
       .home-filter-row { align-items:stretch; flex-direction:column; gap:6px; }
       .home-filter-count { text-align:right; }
       .category-bar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); overflow:visible; }
