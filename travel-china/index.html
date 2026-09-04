@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>景点地图 · 全国景点分布</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<nav class="topnav">
+  <div class="brand"><a href="index.html">中国著名景点</a></div>
+  <div class="links">
+    <a href="#map">地图</a>
+    <a href="#huabei">华北</a>
+    <a href="#dongbei">东北</a>
+    <a href="#huadong">华东</a>
+    <a href="#huazhong">华中</a>
+    <a href="#huanan">华南</a>
+    <a href="#xinan">西南</a>
+    <a href="#xibei">西北</a>
+  </div>
+</nav>
+
+<header class="index-hero" style="padding:56px 24px 40px">
+  <h1>景点地图</h1>
+  <div class="sub">全国地图标注 · 34 个省级行政区全覆盖</div>
+</header>
+
+<div class="container" id="map">
+
+<div class="map-hero">
+  <div class="map-head">
+    <h2>全国景点分布图</h2>
+    <span class="map-stat">182 处景点 · 34 省全覆盖</span>
+    <span class="map-stat">点击标记查看详情</span>
+  </div>
+  <div class="map-legend" id="legend"></div>
+  <div class="map-controls" aria-label="地图操作">
+    <span>滚动鼠标滑轮缩放地图</span>
+    <button type="button" id="mapReset">重置视图</button>
+  </div>
+  <div class="map-stage" id="mapStage"></div>
+  <div class="map-note">
+    注：本图以真实经纬度（等经纬投影）绘制，国界、省界、台湾岛、钓鱼岛及南海诸岛（十段线）依据法定测绘数据完整呈现；
+    景点标记位置与真实地理位置一致。地图仅作景点分布示意，正式用途请以
+    <a href="http://bzdt.ch.mnr.gov.cn" target="_blank" rel="noopener">自然资源部标准地图服务系统</a>发布的标准地图为准。
+  </div>
+</div>
+
+<section class="filter-panel" aria-label="景点筛选">
+  <div class="filter-title"><span>按条件寻景</span><small id="filterResult">显示全部景点</small></div>
+  <div class="filter-controls">
+    <label>省份<select id="provinceFilter"><option value="all">全部省份</option></select></label>
+    <label>类型<select id="typeFilter"><option value="all">全部类型</option></select></label>
+    <button type="button" id="clearFilters">清除筛选</button>
+  </div>
+</section>
+
+<!-- ============ 华北 ============ -->
+<div class="region-title" id="huabei">
+  <h2>华 北</h2><span class="count">北京 · 天津 · 河北 · 山西 · 内蒙古</span><div class="bar"></div>
+</div>
+<div class="region-desc">皇城宫阙、长城巍墩、避暑山庄与石窟造像——中华政治与礼制文明的发祥之地，兼揽草原的辽阔。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="gugong.html"><img src="img/gugong.jpg" alt="故宫" loading="lazy"></a>
+    <div class="body"><div class="name">故宫博物院</div><div class="loc">北京 · 世界文化遗产 · 5A</div>
+      <div class="desc">明清紫禁城，九千余间殿宇、186 万件文物，六百年的国之镜像。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="changcheng.html"><img src="img/changcheng.jpg" alt="八达岭长城" loading="lazy"></a>
+    <div class="body"><div class="name">八达岭长城</div><div class="loc">北京延庆 · 世界文化遗产 · 5A</div>
+      <div class="desc">明长城的精华，"不到长城非好汉"的原点，敌楼连绵群山。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="tianjin.html"><img src="img/tianjin.jpg" alt="天津之眼" loading="lazy"></a>
+    <div class="body"><div class="name">天 津 之 眼</div><div class="loc">天津 · 4A · 海河地标</div>
+      <div class="desc">桥面合建的巨型摩天轮，俯瞰海河两岸万国建筑的城市缪斯。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="chengde.html"><img src="img/chengde.jpg" alt="承德避暑山庄" loading="lazy"></a>
+    <div class="body"><div class="name">承德避暑山庄</div><div class="loc">河北承德 · 世界文化遗产 · 5A</div>
+      <div class="desc">中国最大皇家园林，"一座山庄半部清史"，外八庙绕其侧。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="yungang.html"><img src="img/yungang.jpg" alt="云冈石窟" loading="lazy"></a>
+    <div class="body"><div class="name">云冈石窟</div><div class="loc">山西大同 · 世界文化遗产 · 5A</div>
+      <div class="desc">北魏皇家石窟，露天大佛雄浑庄严，中国石窟艺术第一高峰。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="pingyao.html"><img src="img/pingyao.jpg" alt="平遥古城" loading="lazy"></a>
+    <div class="body"><div class="name">平遥古城</div><div class="loc">山西晋中 · 世界文化遗产 · 5A</div>
+      <div class="desc">保存最完整的明清县城原型，日昇昌票号开创中国近代金融。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="hulunbuir.html"><img src="img/hulunbuir.jpg" alt="呼伦贝尔" loading="lazy"></a>
+    <div class="body"><div class="name">呼伦贝尔大草原</div><div class="loc">内蒙古 · 5A 草原风光区</div>
+      <div class="desc">中国保存最好的天然牧区：曲水、湿地、口岸与使鹿部落。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+<!-- ============ 东北 ============ -->
+<div class="region-title" id="dongbei">
+  <h2>东 北</h2><span class="count">辽宁 · 吉林 · 黑龙江</span><div class="bar"></div>
+</div>
+<div class="region-desc">盛京宫阙、火山神池与东方莫斯科——关东大地上的满韵、湖光与异域风情。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="shenyang.html"><img src="img/shenyang.jpg" alt="沈阳故宫" loading="lazy"></a>
+    <div class="body"><div class="name">沈阳故宫</div><div class="loc">辽宁沈阳 · 世界文化遗产 · 5A</div>
+      <div class="desc">满族崛起的启基地，与北京故宫并称的中国两座完整宫殿之一。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="changbai.html"><img src="img/changbai.jpg" alt="长白山天池" loading="lazy"></a>
+    <div class="body"><div class="name">长白山天池</div><div class="loc">吉林延边 · 5A 自然保护区</div>
+      <div class="desc">海拔 2189 米的火山口湖，三江之源，能否得见全凭缘分。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="sophia.html"><img src="img/sophia.jpg" alt="圣索菲亚大教堂" loading="lazy"></a>
+    <div class="body"><div class="name">圣索菲亚大教堂</div><div class="loc">黑龙江哈尔滨 · 全国重点文保</div>
+      <div class="desc">远东最大的东正教堂遗址，"东方莫斯科"的红砖洋葱顶。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+<!-- ============ 华东 ============ -->
+<div class="region-title" id="huadong">
+  <h2>华 东</h2><span class="count">上海 · 江苏 · 浙江 · 安徽 · 江西 · 山东 · 福建</span><div class="bar"></div>
+</div>
+<div class="region-desc">园林湖山、名楼佛国与都市霓虹交相辉映——中华诗意与现代活力最精华的一截。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="waitan.html"><img src="img/waitan.jpg" alt="上海外滩" loading="lazy"></a>
+    <div class="body"><div class="name">上海外滩</div><div class="loc">上海 · 首批历史文化街区</div>
+      <div class="desc">万国建筑博览群与浦东天际线隔江对视，百年开埠的城市剪影。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="zhuozheng.html"><img src="img/zhuozheng.jpg" alt="拙政园" loading="lazy"></a>
+    <div class="body"><div class="name">拙 政 园</div><div class="loc">江苏苏州 · 世界文化遗产 · 5A</div>
+      <div class="desc">中国四大名园之首，一石一水皆成画境，江南园林美学巅峰。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="xihu.html"><img src="img/xihu.jpg" alt="西湖" loading="lazy"></a>
+    <div class="body"><div class="name">杭州西湖</div><div class="loc">浙江杭州 · 世界文化遗产 · 5A</div>
+      <div class="desc">"淡妆浓抹总相宜"的天堂之湖，苏堤白堤、十景双绝。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="huangshan.html"><img src="img/huangshan.jpg" alt="黄山" loading="lazy"></a>
+    <div class="body"><div class="name">黄 山</div><div class="loc">安徽 · 世界双遗产 · 5A</div>
+      <div class="desc">奇松、怪石、云海、温泉、冬雪——黄山归来不看岳。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="lushan.html"><img src="img/lushan.jpg" alt="庐山" loading="lazy"></a>
+    <div class="body"><div class="name">庐 山</div><div class="loc">江西九江 · 世界文化遗产 · 5A</div>
+      <div class="desc">"不识庐山真面目"的千年名山，云中山城牯岭与近代风云。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="taishan.html"><img src="img/taishan.jpg" alt="泰山" loading="lazy"></a>
+    <div class="body"><div class="name">泰 山</div><div class="loc">山东泰安 · 世界双遗产 · 5A</div>
+      <div class="desc">五岳之首，帝王封禅圣地，6666 级台阶上的精神主峰。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="gulangyu.html"><img src="img/gulangyu.jpg" alt="鼓浪屿" loading="lazy"></a>
+    <div class="body"><div class="name">鼓 浪 屿</div><div class="loc">福建厦门 · 世界文化遗产 · 5A</div>
+      <div class="desc">海上花园、钢琴之岛，万国建筑与南洋骑楼的天风海韵。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+<!-- ============ 华中 ============ -->
+<div class="region-title" id="huazhong">
+  <h2>华 中</h2><span class="count">河南 · 湖北 · 湖南</span><div class="bar"></div>
+</div>
+<div class="region-desc">佛国石刻、道教仙山与石柱森林——中原道统与江湖奇峭在此共演壮丽世界。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="longmen.html"><img src="img/longmen.jpg" alt="龙门石窟" loading="lazy"></a>
+    <div class="body"><div class="name">龙门石窟</div><div class="loc">河南洛阳 · 世界文化遗产 · 5A</div>
+      <div class="desc">卢舍那大佛以武则天容颜为范，中国石刻艺术的巅峰。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="wudang.html"><img src="img/wudang.jpg" alt="武当山" loading="lazy"></a>
+    <div class="body"><div class="name">武 当 山</div><div class="loc">湖北十堰 · 世界文化遗产 · 5A</div>
+      <div class="desc">道教名山之首、太极发源地，"亘古无双胜境，天下第一仙山"。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="zhangjiajie.html"><img src="img/zhangjiajie.jpg" alt="张家界" loading="lazy"></a>
+    <div class="body"><div class="name">张 家 界</div><div class="loc">湖南张家界 · 世界自然遗产 · 5A</div>
+      <div class="desc">三千奇峰乾立，"阿凡达悬浮山"原型——地球的石柱森林。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+<!-- ============ 华南 ============ -->
+<div class="region-title" id="huanan">
+  <h2>华 南</h2><span class="count">广东 · 广西 · 海南 · 香港 · 澳门 · 台湾</span><div class="bar"></div>
+</div>
+<div class="region-desc">山水甲天下的漓江、中国马尔代夫的海滩、东方之珠的夜色与宝岛的湖光——南海之滨的万种风情。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="danxia.html"><img src="img/danxia.jpg" alt="丹霞山" loading="lazy"></a>
+    <div class="body"><div class="name">丹 霞 山</div><div class="loc">广东韶关 · 世界自然遗产 · 5A</div>
+      <div class="desc">"丹霞地貌"命名地，赤壁丹崖间阳元石奇观令人叹为观止。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="guilin.html"><img src="img/guilin.jpg" alt="桂林漓江" loading="lazy"></a>
+    <div class="body"><div class="name">桂林漓江</div><div class="loc">广西桂林 · 5A 风景名胜区</div>
+      <div class="desc">"桂林山水甲天下"，83 公里喀斯特画廊，20 元人民币背景取景地。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="wuzhizhou.html"><img src="img/wuzhizhou.jpg" alt="蜈支洲岛" loading="lazy"></a>
+    <div class="body"><div class="name">蜈 支 洲 岛</div><div class="loc">海南三亚 · 5A 级风景名胜区</div>
+      <div class="desc">"中国马尔代夫"，27 米能见度的海水与珊瑚白沙滩。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="victoria.html"><img src="img/victoria.jpg" alt="维多利亚港" loading="lazy"></a>
+    <div class="body"><div class="name">维多利亚港</div><div class="loc">香港 · 世界级城市景观</div>
+      <div class="desc">东方之珠的心脏，幻彩咏香江灯光秀与天际线的百年对话。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="dasanba.html"><img src="img/dasanba.jpg" alt="大三巴牌坊" loading="lazy"></a>
+    <div class="body"><div class="name">大三巴牌坊</div><div class="loc">澳门 · 世界文化遗产</div>
+      <div class="desc">圣保禄大教堂仅存的恢弘前壁，东西方文明相遇四百年实证。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="riyuetan.html"><img src="img/riyuetan.jpg" alt="日月潭" loading="lazy"></a>
+    <div class="body"><div class="name">日 月 潭</div><div class="loc">台湾南投 · 台湾著名风景区</div>
+      <div class="desc">台湾最大天然湖泊，"日月同辉"的湖光与邵族的原乡。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+<!-- ============ 西南 ============ -->
+<div class="region-title" id="xinan">
+  <h2>西 南</h2><span class="count">四川 · 贵州 · 云南 · 西藏 · 重庆</span><div class="bar"></div>
+</div>
+<div class="region-desc">从童话世界的水镜、亚洲最大的瀑布到雪域圣殿——地形与信仰的双重极致。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="jiuzhaigou.html"><img src="img/jiuzhaigou.jpg" alt="九寨沟" loading="lazy"></a>
+    <div class="body"><div class="name">九 寨 沟</div><div class="loc">四川阿坝 · 世界自然遗产 · 5A</div>
+      <div class="desc">水的国度：五花海、五彩池、诺日朗瀑布构成人间仙境。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="huangguoshu.html"><img src="img/huangguoshu.jpg" alt="黄果树瀑布" loading="lazy"></a>
+    <div class="body"><div class="name">黄果树瀑布</div><div class="loc">贵州安顺 · 5A 级景区</div>
+      <div class="desc">亚洲第一大瀑布，可从六个方位观赏，徐霞客笔下的千古绝唱。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="lijiang.html"><img src="img/lijiang.jpg" alt="丽江古城" loading="lazy"></a>
+    <div class="body"><div class="name">丽 江 古 城</div><div class="loc">云南丽江 · 世界文化遗产 · 5A</div>
+      <div class="desc">玉龙雪山下的千年古城，四方街与纳西东巴文化。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="budala.html"><img src="img/budala.jpg" alt="布达拉宫" loading="lazy"></a>
+    <div class="body"><div class="name">布 达 拉 宫</div><div class="loc">西藏拉萨 · 世界文化遗产 · 5A</div>
+      <div class="desc">海拔 3650 米的雪域圣殿，白宫红宫千座佛龛。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="hongyadong.html"><img src="img/hongyadong.jpg" alt="洪崖洞" loading="lazy"></a>
+    <div class="body"><div class="name">洪 崖 洞</div><div class="loc">重庆渝中 · 4A 网红地标</div>
+      <div class="desc">山城吊脚楼与"千与千寻"式夜景，3D 城市天际线的金字招牌。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+<!-- ============ 西北 ============ -->
+<div class="region-title" id="xibei">
+  <h2>西 北</h2><span class="count">陕西 · 甘肃 · 宁夏 · 青海 · 新疆</span><div class="bar"></div>
+</div>
+<div class="region-desc">兵马俑、莫高壁画、大漠长河与神的后花园——丝路大地上的雄浑与辽远。</div>
+
+<div class="spot-grid">
+  <div class="spot"><a href="bingmayong.html"><img src="img/bingmayong.jpg" alt="兵马俑" loading="lazy"></a>
+    <div class="body"><div class="name">秦始皇兵马俑</div><div class="loc">陕西西安 · 世界文化遗产 · 5A</div>
+      <div class="desc">沉睡两千年的地下军团，"世界第八大奇迹"。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="mogaoku.html"><img src="img/mogaoku.jpg" alt="莫高窟" loading="lazy"></a>
+    <div class="body"><div class="name">莫 高 窟</div><div class="loc">甘肃敦煌 · 世界文化遗产 · 5A</div>
+      <div class="desc">735 个洞窟、4.5 万平米壁画，"东方卢浮宫"。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="shapotou.html"><img src="img/shapotou.jpg" alt="沙坡头" loading="lazy"></a>
+    <div class="body"><div class="name">沙 坡 头</div><div class="loc">宁夏中卫 · 5A 级风景名胜区</div>
+      <div class="desc">大漠孤烟直、长河落日圆——腾格里沙漠与黄河的壮丽邂逅。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="qinghaihu.html"><img src="img/qinghaihu.jpg" alt="青海湖" loading="lazy"></a>
+    <div class="body"><div class="name">青 海 湖</div><div class="loc">青海 · 5A 级景区</div>
+      <div class="desc">中国最大的内陆咸水湖，湖水与油菜花的金色双色大地。</div><span class="go">进入详情 →</span></div></div>
+  <div class="spot"><a href="kanasi.html"><img src="img/kanasi.jpg" alt="喀纳斯" loading="lazy"></a>
+    <div class="body"><div class="name">喀 纳 斯</div><div class="loc">新疆阿勒泰 · 5A 级景区</div>
+      <div class="desc">"人间净土"与变色湖：月亮湾、禾木白桦、图瓦村落。</div><span class="go">进入详情 →</span></div></div>
+</div>
+
+</div>
+
+<footer class="site">
+  中国著名景点 · 34 个省级行政区全覆盖 · 2026 年 9 月制<br>
+  <div class="picnote">地图数据来源：阿里集团 DataV GeoAtlas（高德测绘）行政边界数据，含完整国界、台湾岛、钓鱼岛与南海诸岛（十段线）；正式用途请以<a href="http://bzdt.ch.mnr.gov.cn" target="_blank" rel="noopener">自然资源部标准地图服务系统</a>发布的标准地图为准。</div>
+  <div class="picnote">图片由AI从互联网搜索获取，侵删</div>
+</footer>
+
+<script src="assets/mapdata.js"></script>
+<script src="assets/spots.js"></script>
+<script src="assets/more-spots.js"></script>
+<script src="assets/nature-spots.js"></script>
+<script src="assets/added-spots.js"></script>
+<script src="assets/added-spots.js"></script>
+<script src="assets/added-spots.js"></script>
+<script>
+(function () {
+  var M = window.CNMAP;
+  var stage = document.getElementById('mapStage');
+
+  /* ---------- 景点数据（真实经纬度） ---------- */
+  var SPOTS = [
+    {n:'故宫博物院', f:'gugong.html', p:'北京', r:'华北', lon:116.397, lat:39.917},
+    {n:'八达岭长城', f:'changcheng.html', p:'北京', r:'华北', lon:115.975, lat:40.361},
+    {n:'天津之眼', f:'tianjin.html', p:'天津', r:'华北', lon:117.196, lat:39.153},
+    {n:'承德避暑山庄', f:'chengde.html', p:'河北', r:'华北', lon:117.939, lat:40.984},
+    {n:'云冈石窟', f:'yungang.html', p:'山西', r:'华北', lon:113.132, lat:40.110},
+    {n:'平遥古城', f:'pingyao.html', p:'山西', r:'华北', lon:112.175, lat:37.190},
+    {n:'呼伦贝尔大草原', f:'hulunbuir.html', p:'内蒙古', r:'华北', lon:119.765, lat:49.212},
+    {n:'沈阳故宫', f:'shenyang.html', p:'辽宁', r:'东北', lon:123.450, lat:41.795},
+    {n:'长白山天池', f:'changbai.html', p:'吉林', r:'东北', lon:128.09, lat:42.03},
+    {n:'圣索菲亚大教堂', f:'sophia.html', p:'黑龙江', r:'东北', lon:126.623, lat:45.768},
+    {n:'上海外滩', f:'waitan.html', p:'上海', r:'华东', lon:121.490, lat:31.240},
+    {n:'拙政园', f:'zhuozheng.html', p:'江苏', r:'华东', lon:120.630, lat:31.325},
+    {n:'西湖', f:'xihu.html', p:'浙江', r:'华东', lon:120.150, lat:30.242},
+    {n:'黄山', f:'huangshan.html', p:'安徽', r:'华东', lon:118.167, lat:30.125},
+    {n:'庐山', f:'lushan.html', p:'江西', r:'华东', lon:115.993, lat:29.556},
+    {n:'泰山', f:'taishan.html', p:'山东', r:'华东', lon:117.107, lat:36.255},
+    {n:'鼓浪屿', f:'gulangyu.html', p:'福建', r:'华东', lon:118.08, lat:24.46},
+    {n:'龙门石窟', f:'longmen.html', p:'河南', r:'华中', lon:112.479, lat:34.558},
+    {n:'武当山', f:'wudang.html', p:'湖北', r:'华中', lon:111.004, lat:32.400},
+    {n:'张家界', f:'zhangjiajie.html', p:'湖南', r:'华中', lon:110.479, lat:29.117},
+    {n:'丹霞山', f:'danxia.html', p:'广东', r:'华南', lon:113.644, lat:25.054},
+    {n:'桂林漓江', f:'guilin.html', p:'广西', r:'华南', lon:110.290, lat:25.280},
+    {n:'蜈支洲岛', f:'wuzhizhou.html', p:'海南', r:'华南', lon:109.762, lat:18.311},
+    {n:'维多利亚港', f:'victoria.html', p:'香港', r:'华南', lon:114.169, lat:22.294},
+    {n:'大三巴牌坊', f:'dasanba.html', p:'澳门', r:'华南', lon:113.539, lat:22.193},
+    {n:'日月潭', f:'riyuetan.html', p:'台湾', r:'华南', lon:120.915, lat:23.854},
+    {n:'九寨沟', f:'jiuzhaigou.html', p:'四川', r:'西南', lon:103.918, lat:33.260},
+    {n:'黄果树瀑布', f:'huangguoshu.html', p:'贵州', r:'西南', lon:105.674, lat:25.981},
+    {n:'丽江古城', f:'lijiang.html', p:'云南', r:'西南', lon:100.233, lat:26.875},
+    {n:'布达拉宫', f:'budala.html', p:'西藏', r:'西南', lon:91.111, lat:29.656},
+    {n:'洪崖洞', f:'hongyadong.html', p:'重庆', r:'西南', lon:106.578, lat:29.557},
+    {n:'秦始皇兵马俑', f:'bingmayong.html', p:'陕西', r:'西北', lon:109.278, lat:34.385},
+    {n:'莫高窟', f:'mogaoku.html', p:'甘肃', r:'西北', lon:94.809, lat:40.142},
+    {n:'沙坡头', f:'shapotou.html', p:'宁夏', r:'西北', lon:104.955, lat:37.463},
+    {n:'青海湖', f:'qinghaihu.html', p:'青海', r:'西北', lon:100.193, lat:36.892},
+    {n:'喀纳斯', f:'kanasi.html', p:'新疆', r:'西北', lon:86.984, lat:48.700}
+  ];
+  var REGION_COLOR = {
+    '华北':'#d18f2b', '东北':'#4a7bd1', '华东':'#1f9d74',
+    '华中':'#8e5bd1', '华南':'#d14a7b', '西南':'#e0632f', '西北':'#2f8f9d'
+  };
+  var REGIONS = ['华北','东北','华东','华中','华南','西南','西北'];
+  var EXTRA_FILES = {
+    '颐和园':'yiheyuan.html','盘山':'panshan.html','野三坡':'yesanpo.html','五台山':'wutaishan.html','额济纳胡杨林':'ejinahuyanglin.html',
+    '盘锦红海滩':'panjinredbeach.html','雾凇岛':'wusongdao.html','五大连池':'wudalianchi.html','朱家角古镇':'zhujiajiao.html','中山陵':'zhongshanling.html',
+    '乌镇':'wuzhen.html','宏村':'hongcun.html','三清山':'sanqingshan.html','曲阜三孔':'qufusankong.html','武夷山':'wuyishan.html',
+    '少林寺':'shaolinsi.html','神农架':'shennongjia.html','岳阳楼':'yueyanglou.html','开平碉楼':'kaipingdiaolou.html','德天瀑布':'detian.html',
+    '南山文化旅游区':'nanshan.html','太平山顶':'taipingding.html','澳门历史城区':'aomenlishicheng.html','阿里山':'alishan.html','峨眉山':'emeishan.html',
+    '荔波小七孔':'xiaoqikong.html','石林':'shilin.html','纳木错':'namucuo.html','武隆天生三桥':'wulong.html','华山':'huashan.html',
+    '鸣沙山月牙泉':'mingsha.html','贺兰山岩画':'helanshiyanhua.html','茶卡盐湖':'chaka.html','天山天池':'tianshantianchi.html'
+  };
+  function fileFor(s) { return s.f || EXTRA_FILES[s.n]; }
+  function coverFor(s) { return s.slug ? s.slug + '.' + (s.ext || 'jpg') : fileFor(s).replace('.html','.jpg'); }
+  var ALL_EXTRA_SPOTS = (window.CN_EXTRA_SPOTS || []).concat(window.CN_MORE_SPOTS || [], window.CN_NATURE_SPOTS || [], window.CN_ADDED_SPOTS || []);
+  
+  if (ALL_EXTRA_SPOTS.length) {
+    SPOTS = SPOTS.concat(ALL_EXTRA_SPOTS.map(function (s) {
+      return {n:s.n, f:fileFor(s), p:s.p, r:s.r, lon:s.lon, lat:s.lat, d:s.d};
+    }));
+  }
+
+  /* ---------- 将景点加入现有分区卡片 ---------- */
+  var regionIds = {'华北':'huabei','东北':'dongbei','华东':'huadong','华中':'huazhong','华南':'huanan','西南':'xinan','西北':'xibei'};
+  var regionCards = {};
+  Object.keys(regionIds).forEach(function (r) {
+    var title = document.getElementById(regionIds[r]);
+    regionCards[r] = title && title.nextElementSibling && title.nextElementSibling.nextElementSibling;
+  });
+  ALL_EXTRA_SPOTS.forEach(function (s) {
+    var grid = regionCards[s.r];
+    if (!grid) return;
+    var card = document.createElement('div');
+    card.className = 'spot';
+    card.innerHTML = '<a href="' + fileFor(s) + '" aria-label="查看' + s.n + '详情"><img data-spot-image="' + s.n + '" src="img/' + coverFor(s).replace('.svg','.jpg') + '" alt="' + s.n + '封面" loading="lazy"></a>'
+      + '<div class="body"><div class="name">' + s.n + '</div><div class="loc">' + s.p + ' · 地理人文代表景观</div>'
+      + '<div class="desc">' + s.d + '</div><a class="go" href="' + fileFor(s) + '">进入详情 →</a></div>';
+    grid.appendChild(card);
+  });
+
+  /* ---------- 首页卡片筛选 ---------- */
+  var filterPanel = document.querySelector('.filter-panel');
+  var provinceFilter = document.getElementById('provinceFilter');
+  var typeFilter = document.getElementById('typeFilter');
+  var filterResult = document.getElementById('filterResult');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.spot'));
+  var provinceNames = [];
+  SPOTS.forEach(function (s) { if (provinceNames.indexOf(s.p) < 0) provinceNames.push(s.p); });
+  provinceNames.sort().forEach(function (p) {
+    var option = document.createElement('option'); option.value = p; option.textContent = p;
+    provinceFilter.appendChild(option);
+  });
+  var typeNames = ['山岳','湖泊','海岛海岸','瀑布峡谷','古镇聚落','历史建筑','城市地标','其他'];
+  typeNames.forEach(function (t) { var o=document.createElement('option'); o.value=t; o.textContent=t; typeFilter.appendChild(o); });
+  function cardType(text) {
+    if (/古城|古镇|村|寨|街区|老城|水乡|胡同/.test(text)) return '古镇聚落';
+    if (/故宫|宫|寺|塔|佛|石窟|陵|楼|碉楼|牌坊|教堂|园林|园/.test(text)) return '历史建筑';
+    if (/湖|潭|盐湖|湿地/.test(text)) return '湖泊';
+    if (/海|岛|滩|港|湾/.test(text)) return '海岛海岸';
+    if (/瀑布|峡谷|溶洞|天生三桥|壶口/.test(text)) return '瀑布峡谷';
+    if (/塔|外滩|广州塔|洪崖洞|天津之眼|索菲亚|维多利亚/.test(text)) return '城市地标';
+    if (/山|峰|草原|森林|石林|丹霞|公园|雨林|梯田|胡杨/.test(text)) return '山岳';
+    return '其他';
+  }
+  function cardProvince(card) {
+    var loc = card.querySelector('.loc');
+    var text = loc ? loc.textContent : '';
+    for (var i=0;i<provinceNames.length;i++) if (text.indexOf(provinceNames[i]) >= 0) return provinceNames[i];
+    return '';
+  }
+  function applyFilters() {
+    var p = provinceFilter.value, t = typeFilter.value, shown = 0;
+    cards.forEach(function (card) {
+      var text = card.textContent, visible = (p === 'all' || cardProvince(card) === p) && (t === 'all' || cardType(text) === t);
+      card.hidden = !visible; if (visible) shown++;
+    });
+    svg.querySelectorAll('.mk').forEach(function (mk) {
+      mk.hidden = !((p === 'all' || mk.dataset.p === p) && (t === 'all' || mk.dataset.t === t));
+    });
+    refreshMarkers();
+    document.querySelectorAll('.region-title').forEach(function (title) {
+      var desc = title.nextElementSibling, grid = desc && desc.nextElementSibling;
+      if (!grid || !grid.classList.contains('spot-grid')) return;
+      var visible = Array.prototype.some.call(grid.querySelectorAll('.spot'), function (c) { return !c.hidden; });
+      title.hidden = !visible; desc.hidden = !visible;
+    });
+    filterResult.textContent = (p === 'all' && t === 'all') ? '显示全部景点' : '当前显示 ' + shown + ' 处景点';
+  }
+  provinceFilter.addEventListener('change', applyFilters); typeFilter.addEventListener('change', applyFilters);
+  document.getElementById('clearFilters').addEventListener('click', function () { provinceFilter.value='all'; typeFilter.value='all'; applyFilters(); });
+
+  function proj(lon, lat) {
+    return {
+      x: (lon - M.lon0) / (M.lon1 - M.lon0) * M.W,
+      y: (M.lat1 - lat) / (M.lat1 - M.lat0) * M.H
+    };
+  }
+
+  /* ---------- 构建 SVG ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + M.W + ' ' + M.H);
+  stage.appendChild(svg);
+  var zoomScale = 1, offsetX = 0, offsetY = 0;
+  var dragging = false, dragMoved = false, startX = 0, startY = 0, originX = 0, originY = 0;
+  var markerRecords = [], clusterLayer = document.createElementNS(NS, 'g');
+  clusterLayer.setAttribute('class', 'cluster-layer');
+  svg.appendChild(clusterLayer);
+  svg.style.transformOrigin = '0 0';
+
+  function clampOffset() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    offsetX = Math.min(0, Math.max(-(zoomScale - 1) * w, offsetX));
+    offsetY = Math.min(0, Math.max(-(zoomScale - 1) * h, offsetY));
+  }
+  function applyTransform() {
+    clampOffset();
+    var w = stage.clientWidth || 1, h = stage.clientHeight || 1;
+    var vbW = M.W / zoomScale, vbH = M.H / zoomScale;
+    var vbX = (-offsetX / zoomScale) / w * M.W;
+    var vbY = (-offsetY / zoomScale) / h * M.H;
+    svg.setAttribute('viewBox', vbX + ' ' + vbY + ' ' + vbW + ' ' + vbH);
+    svg.style.transform = 'none';
+    refreshMarkers();
+  }
+  function zoomAt(ev) {
+    ev.preventDefault();
+    var rect = stage.getBoundingClientRect();
+    var px = ev.clientX - rect.left, py = ev.clientY - rect.top;
+    var factor = ev.deltaY < 0 ? 1.18 : 0.85;
+    var next = Math.min(3.2, Math.max(1, zoomScale * factor));
+    offsetX = px - (px - offsetX) * next / zoomScale;
+    offsetY = py - (py - offsetY) * next / zoomScale;
+    zoomScale = next;
+    applyTransform();
+    tooltip.style.display = 'none';
+  }
+  stage.addEventListener('wheel', zoomAt, {passive:false});
+  stage.addEventListener('pointerdown', function (ev) {
+    if (ev.button !== 0 || (ev.target.closest && ev.target.closest('a'))) return;
+    dragging = true; dragMoved = false;
+    startX = ev.clientX; startY = ev.clientY; originX = offsetX; originY = offsetY;
+    stage.classList.add('is-dragging');
+    stage.setPointerCapture(ev.pointerId);
+  });
+  stage.addEventListener('pointermove', function (ev) {
+    if (!dragging) return;
+    var dx = ev.clientX - startX, dy = ev.clientY - startY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+    offsetX = originX + dx; offsetY = originY + dy;
+    applyTransform();
+  });
+  function stopDrag(ev) {
+    if (!dragging) return;
+    dragging = false; stage.classList.remove('is-dragging');
+    if (stage.hasPointerCapture(ev.pointerId)) stage.releasePointerCapture(ev.pointerId);
+  }
+  stage.addEventListener('pointerup', stopDrag);
+  stage.addEventListener('pointercancel', stopDrag);
+  stage.addEventListener('pointerup', function (ev) {
+    var link = ev.target.closest && ev.target.closest('a[href]');
+    if (link && !dragMoved) location.href = link.getAttribute('href');
+  });
+  stage.addEventListener('click', function (ev) {
+    if (!dragMoved) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    dragMoved = false;
+  }, true);
+  document.getElementById('mapReset').addEventListener('click', function () {
+    zoomScale = 1; offsetX = 0; offsetY = 0;
+    svg.style.transformOrigin = '0 0';
+    applyTransform();
+  });
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function txt(x, y, content, attrs, parent) {
+    var t = el('text', attrs, parent);
+    t.setAttribute('x', x); t.setAttribute('y', y);
+    t.textContent = content;
+    return t;
+  }
+
+  /* 海面与主图 */
+  el('rect', {x:0, y:0, width:M.W, height:M.H, fill:'#dfeaea'}, svg);
+  el('rect', {x:0, y:0, width:M.W, height:M.H, fill:'none', stroke:'#9fb5ad', 'stroke-width':2}, svg);
+
+  var provinceBoxes = {};
+  M.provinces.forEach(function (pv) {
+    var path = el('path', {d: pv.d, fill:'#efe6cf', stroke:'#58685f', 'stroke-width':0.8, 'stroke-linejoin':'round'}, svg);
+    var box = path.getBBox(), area = box.width * box.height;
+    if (!provinceBoxes[pv.name] || area > provinceBoxes[pv.name].area) provinceBoxes[pv.name] = {box:box, area:area};
+  });
+  /* ---------- 省级行政区名称 ---------- */
+  var provinceLabelOverrides = {
+    '内蒙古自治区': {x:548, y:264},
+    '甘肃省': {x:470, y:360},
+    '陕西省': {x:586, y:390},
+    '河北省': {x:686, y:345}
+  };
+  Object.keys(provinceBoxes).forEach(function (name) {
+    var b = provinceBoxes[name].box;
+    var pos = provinceLabelOverrides[name] || {x:b.x+b.width/2, y:b.y+b.height/2};
+    var shortName = name.replace(/壮族自治区|回族自治区|维吾尔自治区|自治区|省|市|特别行政区/g, '');
+    var label = el('text', {'class':'province-label', x:pos.x, y:pos.y, 'text-anchor':'middle'}, svg);
+    label.textContent = shortName;
+  });
+  M.border.forEach(function (d) {
+    el('path', {d:d, fill:'none', stroke:'#a23228', 'stroke-width':1.6, 'stroke-linecap':'round', 'stroke-dasharray':'7 5'}, svg);
+  });
+
+  /* 南海诸岛附图 */
+  /* 附图避让主图：原始坐标会压住华东、华南沿海，缩小后移至右下海面留白区 */
+  var I = M.inset;
+  var gIn = el('g', {transform:'translate(436 282) scale(0.55)'}, svg);
+  el('rect', {x:I.x0, y:I.y0, width:I.w, height:I.h, rx:8, fill:'#e7f0ed', stroke:'#9fb5ad', 'stroke-width':1.5}, gIn);
+  M.insetLand.forEach(function (pv) {
+    el('path', {d: pv.d, fill:'#efe6cf', stroke:'#58685f', 'stroke-width':0.6}, gIn);
+  });
+  M.dashLine.forEach(function (d) {
+    el('path', {d:d, fill:'none', stroke:'#a23228', 'stroke-width':1.8, 'stroke-linecap':'round', 'stroke-dasharray':'9 6'}, gIn);
+  });
+  txt(I.x0 + 12, I.y0 + 22, '南海诸岛', {fill:'#58685f', 'font-size':24, 'font-weight':'bold', 'letter-spacing':3}, gIn);
+  txt(M.W - 14, M.H - 14, '等经纬投影', {fill:'#93a89f', 'font-size':11, 'text-anchor':'end'}, svg);
+
+  /* ---------- 景点标记 ---------- */
+  var tooltip = document.createElement('div');
+  tooltip.id = 'tooltip';
+  stage.appendChild(tooltip);
+
+  SPOTS.forEach(function (s) {
+    var pt = proj(s.lon, s.lat);
+    var c = REGION_COLOR[s.r];
+    var g = el('g', {'class':'mk', 'data-r':s.r, 'data-p':s.p, 'data-t':cardType(s.n + ' ' + (s.d || ''))}, svg);
+    var markerLink = el('a', {href:s.f, 'aria-label':'打开' + s.n + '详情'}, g);
+    g.style.setProperty('--c', c);
+    el('circle', {'class':'ring', cx:pt.x, cy:pt.y, r:7, style:'--c:'+c}, markerLink);
+    el('circle', {'class':'main', cx:pt.x, cy:pt.y, r:6, style:'--c:'+c}, markerLink);
+    markerRecords.push({g:g, x:pt.x, y:pt.y, color:c, name:s.n});
+    g.addEventListener('mouseenter', function (e) {
+      tooltip.innerHTML = '<b>' + s.n + '</b><div class="tt-loc">' + s.p + ' · ' + s.r + '</div>'
+        + '<div class="tt-go">点击进入详情页 →</div>';
+      tooltip.style.display = 'block';
+      var rect = stage.getBoundingClientRect();
+      var sx = pt.x / M.W * rect.width, sy = pt.y / M.H * rect.height;
+      var tw = 220, th = 96;
+      tooltip.style.left = Math.min(Math.max(sx + 14, 4), rect.width - tw) + 'px';
+      tooltip.style.top  = Math.min(Math.max(sy - 20, 4), rect.height - th) + 'px';
+    });
+    g.addEventListener('mouseleave', function () { tooltip.style.display = 'none'; });
+    g.addEventListener('click', function (ev) {
+      if (dragMoved) { ev.preventDefault(); dragMoved = false; return; }
+      location.href = s.f;
+    });
+  });
+
+  function refreshMarkers() {
+    if (!clusterLayer) return;
+    while (clusterLayer.firstChild) clusterLayer.removeChild(clusterLayer.firstChild);
+    // 默认保留所有景点标记；放大后依靠地图空间自然拉开，不做聚合。
+    var threshold = 0;
+    var active = markerRecords.filter(function (m) { return !m.g.hidden; });
+    var groups = [], used = [];
+    active.forEach(function (m, i) {
+      if (used[i]) return;
+      var group = [m]; used[i] = true;
+      if (threshold) active.forEach(function (n, j) {
+        if (used[j]) return;
+        var dx=m.x-n.x, dy=m.y-n.y;
+        if (Math.sqrt(dx*dx+dy*dy) <= threshold) { group.push(n); used[j]=true; }
+      });
+      groups.push(group);
+    });
+    groups.forEach(function (group) {
+      if (group.length > 1) {
+        group.forEach(function (m) { m.g.style.display='none'; });
+        var x=group.reduce(function(a,m){return a+m.x;},0)/group.length;
+        var y=group.reduce(function(a,m){return a+m.y;},0)/group.length;
+        var cg=el('g', {'class':'cluster', 'aria-label':group.length+'处相近景点'}, clusterLayer);
+        var cc=el('circle', {cx:x,cy:y,r:Math.max(12,9+Math.sqrt(group.length)*2)/zoomScale}, cg);
+        var ct=el('text', {x:x,y:y+4, 'text-anchor':'middle'}, cg); ct.textContent=group.length;
+        cg.addEventListener('click', function(ev) {
+          ev.stopPropagation();
+          var rect=stage.getBoundingClientRect(), px=rect.width/2, py=rect.height/2;
+          zoomScale=Math.min(3.2, Math.max(1.8, zoomScale*1.8));
+          offsetX=px-(x/M.W*rect.width)*zoomScale; offsetY=py-(y/M.H*rect.height)*zoomScale;
+          applyTransform();
+        });
+      } else {
+        group[0].g.style.display='';
+        var radius=Math.max(3.5,6/zoomScale), ring=Math.max(4.5,7/zoomScale);
+        group[0].g.querySelector('.main').setAttribute('r',radius);
+        group[0].g.querySelector('.ring').setAttribute('r',ring);
+      }
+    });
+  }
+  refreshMarkers();
+
+  /* ---------- 图例与筛选 ---------- */
+  var legend = document.getElementById('legend');
+  var counts = {};
+  SPOTS.forEach(function (s) { counts[s.r] = (counts[s.r] || 0) + 1; });
+
+  var allBtn = document.createElement('span');
+  allBtn.className = 'lg active';
+  allBtn.innerHTML = '<i style="background:#2b2620"></i>全部 ' + SPOTS.length;
+  allBtn.dataset.r = 'all';
+  legend.appendChild(allBtn);
+  REGIONS.forEach(function (r) {
+    var b = document.createElement('span');
+    b.className = 'lg';
+    b.innerHTML = '<i style="background:' + REGION_COLOR[r] + '"></i>' + r + ' ' + counts[r];
+    b.dataset.r = r;
+    legend.appendChild(b);
+  });
+  legend.addEventListener('click', function (ev) {
+    var t = ev.target.closest('.lg');
+    if (!t) return;
+    var sel = t.dataset.r;
+    legend.querySelectorAll('.lg').forEach(function (x) { x.classList.remove('active'); });
+    t.classList.add('active');
+    svg.querySelectorAll('.mk').forEach(function (mk) {
+      mk.classList.toggle('dim', sel !== 'all' && mk.dataset.r !== sel);
+    });
+  });
+})();
+</script>
+</body>
+</html>

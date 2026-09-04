@@ -1,0 +1,416 @@
+/* 中国著名景点 · 朱红水墨风 */
+:root {
+  --paper: #f6f1e5;
+  --paper-dark: #efe6d3;
+  --ink: #2b2620;
+  --ink-light: #5d554a;
+  --cinnabar: #9e2b25;
+  --cinnabar-dark: #7c1f1a;
+  --gold: #b58a3c;
+  --line: #d9cdb5;
+  --card: #fbf8f0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "STKaiti", "KaiTi", "STSong", "SimSun", "Microsoft YaHei", serif;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(181,138,60,0.06), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(158,43,37,0.05), transparent 40%);
+  color: var(--ink);
+  line-height: 1.9;
+}
+
+a { color: var(--cinnabar); text-decoration: none; }
+a:hover { color: var(--cinnabar-dark); text-decoration: underline; }
+
+/* ---------- 顶部导航 ---------- */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(43,38,32,0.96);
+  color: var(--paper);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.topnav .brand { font-size: 20px; letter-spacing: 6px; color: var(--gold); }
+.topnav .brand a { color: var(--gold); }
+.topnav .links a { color: var(--paper); margin-left: 20px; font-size: 15px; letter-spacing: 1px; opacity: 0.85; white-space: nowrap; }
+.topnav .links a:hover { opacity: 1; color: var(--gold); text-decoration: none; }
+
+/* ---------- 景点头图（背景图随页变） ---------- */
+.hero {
+  position: relative;
+  min-height: 400px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(20,20,18,0.30), rgba(20,20,18,0.55)),
+    var(--hero-img) center / cover no-repeat;
+  color: #fff;
+  padding: 72px 24px 56px;
+  border-bottom: 4px double var(--gold);
+}
+.hero h1 { font-size: 50px; letter-spacing: 16px; text-shadow: 2px 3px 12px rgba(0,0,0,0.6); }
+.hero .sub { margin-top: 14px; font-size: 18px; letter-spacing: 5px; text-shadow: 1px 2px 8px rgba(0,0,0,0.6); }
+.hero .meta {
+  margin-top: 22px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px;
+  font-size: 14.5px; color: #e8ddc4; letter-spacing: 2px;
+}
+
+/* ---------- 正文 ---------- */
+.container { max-width: 920px; margin: 0 auto; padding: 44px 24px 80px; }
+
+section.block {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--cinnabar);
+  padding: 26px 30px; margin-bottom: 30px;
+  box-shadow: 2px 3px 10px rgba(43,38,32,0.08);
+}
+section.block h2 {
+  font-size: 26px; color: var(--cinnabar); letter-spacing: 4px;
+  border-bottom: 1px dashed var(--gold);
+  padding-bottom: 10px; margin-bottom: 16px;
+}
+section.block h3 { font-size: 19px; margin: 18px 0 6px; letter-spacing: 2px; }
+section.block h3::before { content: "◆ "; color: var(--gold); font-size: 13px; vertical-align: 2px; }
+section.block p { text-indent: 2em; margin-bottom: 10px; text-align: justify; }
+section.block p.no-indent { text-indent: 0; }
+
+ul.plain { margin: 6px 0 6px 22px; }
+ul.plain li { margin-bottom: 6px; }
+.reading-route { margin: 8px 0 10px 24px; }
+.reading-route li { margin-bottom: 10px; padding-left: 4px; }
+.season-note { margin-top: 12px; padding: 10px 14px; background: var(--paper-dark); border-left: 3px solid var(--gold); }
+.detail-practical p { text-align: justify; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 4px; }
+.tags span {
+  background: var(--paper-dark); border: 1px solid var(--gold);
+  padding: 3px 14px; border-radius: 999px; font-size: 15px;
+}
+
+table.info { width: 100%; border-collapse: collapse; margin: 12px 0 4px; font-size: 15px; }
+table.info th, table.info td {
+  border: 1px solid var(--line); padding: 9px 12px; vertical-align: top; text-align: left;
+}
+table.info th { background: var(--paper-dark); color: var(--cinnabar-dark); letter-spacing: 2px; white-space: nowrap; }
+table.info tr:nth-child(even) td { background: rgba(181,138,60,0.05); }
+
+blockquote.comment {
+  border-left: 4px solid var(--gold);
+  background: var(--paper-dark);
+  padding: 14px 18px; margin: 10px 0;
+  color: var(--ink-light); font-style: italic;
+}
+.source-note { margin: 18px 0 0; padding: 14px 18px; border: 1px dashed var(--line); background: rgba(239,230,211,0.55); color: var(--ink-light); font-size: 13px; }
+.source-note p { margin: 3px 0; text-indent: 0; text-align: left; }
+.source-note b { color: var(--cinnabar-dark); }
+
+/* ---------- 上一页 / 下一页 ---------- */
+.pager { display: flex; justify-content: space-between; gap: 14px; margin-top: 40px; }
+.pager a {
+  flex: 1; text-align: center;
+  border: 1px solid var(--gold); padding: 12px 10px;
+  background: var(--card); color: var(--ink);
+  letter-spacing: 2px; transition: all 0.2s;
+}
+.pager a:hover { background: var(--cinnabar); border-color: var(--cinnabar); color: #fff; text-decoration: none; }
+.pager .mid { color: var(--cinnabar); font-weight: bold; }
+
+/* ---------- 索引页 ---------- */
+.index-hero {
+  text-align: center;
+  padding: 72px 24px 52px;
+  background: linear-gradient(180deg, rgba(158,43,37,0.09), transparent 90%);
+  border-bottom: 3px double var(--gold);
+}
+.index-hero h1 { font-size: 46px; letter-spacing: 14px; }
+.index-hero .sub { margin-top: 12px; font-size: 17px; color: var(--ink-light); letter-spacing: 4px; }
+
+.spot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+  margin-top: 8px;
+}
+.spot {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--cinnabar);
+  box-shadow: 2px 3px 10px rgba(43,38,32,0.10);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.spot:hover { transform: translateY(-4px); box-shadow: 3px 8px 18px rgba(43,38,32,0.18); }
+.spot img { width: 100%; height: 190px; object-fit: cover; display: block; }
+.spot-cover {
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--spot-color) 76%, #f6f1e5), #2b2620 145%),
+    var(--spot-color);
+  color: rgba(255,250,232,0.88);
+  letter-spacing: 12px;
+  font-size: 30px;
+  text-shadow: 2px 3px 8px rgba(0,0,0,0.35);
+}
+.spot-cover span { transform: translateX(6px); }
+.spot .body { padding: 14px 18px 18px; }
+.spot .name { font-size: 21px; color: var(--cinnabar); font-weight: bold; letter-spacing: 2px; }
+.spot .loc { font-size: 13.5px; color: var(--gold); margin: 2px 0 8px; letter-spacing: 1px; }
+.spot .desc { font-size: 14.5px; color: var(--ink-light); line-height: 1.8; }
+.spot .go { display: inline-block; margin-top: 10px; font-size: 14px; color: var(--cinnabar); }
+
+footer.site {
+  text-align: center; padding: 34px 20px 44px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-light); font-size: 14px; letter-spacing: 2px;
+}
+footer .picnote { font-size: 12.5px; opacity: 0.8; margin-top: 6px; }
+
+@media (max-width: 720px) {
+  .hero h1 { font-size: 32px; letter-spacing: 8px; }
+  .index-hero h1 { font-size: 32px; letter-spacing: 8px; }
+  .topnav { flex-direction: column; gap: 6px; }
+  .topnav .links a { margin: 0 8px; }
+  .spot img { height: 160px; }
+  .pager { flex-direction: column; }
+}
+
+/* ---------- 省份分区 ---------- */
+.region-title {
+  display: flex; align-items: center; gap: 16px;
+  margin: 34px 0 4px;
+}
+.region-title h2 {
+  font-size: 28px; color: var(--cinnabar); letter-spacing: 6px; white-space: nowrap;
+}
+.region-title .count {
+  font-size: 14px; color: var(--gold); letter-spacing: 2px;
+  border: 1px solid var(--gold); border-radius: 999px; padding: 2px 12px; white-space: nowrap;
+}
+.region-title .bar { flex: 1; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+.region-desc { font-size: 14.5px; color: var(--ink-light); margin: 4px 0 14px; letter-spacing: 1px; }
+
+/* ---------- 首页省份 / 类型筛选 ---------- */
+.filter-panel { background: var(--card); border: 1px solid var(--line); border-left: 5px solid var(--gold); padding: 18px 22px; margin: 26px 0 8px; box-shadow: 2px 3px 10px rgba(43,38,32,0.07); }
+.filter-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; color: var(--cinnabar); font-size: 21px; letter-spacing: 3px; }
+.filter-title small { color: var(--ink-light); font-size: 13px; letter-spacing: 1px; }
+.filter-controls { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 18px; margin-top: 12px; }
+.filter-controls label { display: flex; align-items: center; gap: 8px; color: var(--ink-light); font-size: 14px; }
+.filter-controls select, .filter-controls button { font: inherit; color: var(--ink); background: var(--paper); border: 1px solid var(--gold); padding: 7px 12px; border-radius: 2px; }
+.filter-controls select { min-width: 145px; }
+.filter-controls button { cursor: pointer; color: var(--cinnabar); }
+.filter-controls button:hover { background: var(--cinnabar); color: #fff; }
+.spot[hidden] { display: none; }
+.mk[hidden] { display: none; }
+.region-title[hidden], .region-desc[hidden] { display: none; }
+
+/* ---------- 中国地图与景点标记 ---------- */
+.map-wrap {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--cinnabar);
+  box-shadow: 2px 3px 10px rgba(43,38,32,0.08);
+  padding: 26px 30px;
+  margin-bottom: 12px;
+}
+.map-wrap h2 {
+  font-size: 26px; color: var(--cinnabar); letter-spacing: 4px;
+  border-bottom: 1px dashed var(--gold);
+  padding-bottom: 10px; margin-bottom: 6px;
+}
+.map-wrap .map-note { font-size: 14px; color: var(--ink-light); margin-bottom: 14px; }
+.map-stage { position: relative; margin: 0 auto; user-select: none; -webkit-user-select: none; -moz-user-select: none; }
+.map-stage svg, .map-stage text { user-select: none; -webkit-user-select: none; -moz-user-select: none; }
+.map-stage .basemap { width: 100%; display: block; }
+
+.legend {
+  display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: center;
+  margin-top: 16px; font-size: 14.5px; color: var(--ink-light);
+}
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend span::before {
+  content: ""; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--c);
+}
+
+.mk { position: absolute; transform: translate(-50%, -50%); z-index: 5; }
+.r-huabei  { --rc: #9e2b25; }
+.r-dongbei { --rc: #6b7c3a; }
+.r-huadong { --rc: #2e7d5b; }
+.r-huazhong{ --rc: #b58a3c; }
+.r-xinan   { --rc: #2b6a8f; }
+.r-xibei   { --rc: #8c5a2b; }
+
+.mk i {
+  display: block; width: 13px; height: 13px; border-radius: 50%;
+  background: var(--rc);
+  border: 2px solid #fdf6e3;
+  box-shadow: 0 0 4px rgba(0,0,0,0.35);
+  position: relative; cursor: pointer;
+  transition: transform 0.15s;
+}
+.mk i::after {
+  content: ""; position: absolute; inset: -7px; border-radius: 50%;
+  border: 2px solid var(--rc);
+  animation: mk-pulse 1.8s ease-out infinite;
+}
+@keyframes mk-pulse {
+  0%   { transform: scale(0.5); opacity: 0.9; }
+  70%  { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+.mk:hover i, .mk a:focus i { transform: scale(1.4); }
+
+.mk .tip {
+  position: absolute; bottom: 170%; left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  width: 188px; padding: 8px;
+  background: #fffdf4; border: 1px solid var(--gold);
+  box-shadow: 2px 4px 14px rgba(43,38,32,0.28);
+  text-align: center; pointer-events: none;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+  z-index: 30;
+}
+.mk:hover .tip, .mk a:focus-visible .tip {
+  opacity: 1; visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.mk .tip img {
+  width: 100%; height: 96px; object-fit: cover; display: block; margin-bottom: 6px;
+}
+.mk .tip b { display: block; font-size: 15px; color: var(--cinnabar); letter-spacing: 1px; }
+.mk .tip em { display: block; font-style: normal; font-size: 12.5px; color: var(--ink-light); }
+
+.mk.flip .tip { left: auto; right: -6px; transform: translateY(6px); }
+.mk.flip:hover .tip, .mk.flip a:focus-visible .tip { transform: translateY(0); }
+.mk.above .tip { bottom: auto; top: 170%; }
+.mk.above .tip { transform: translateX(-50%) translateY(-6px); }
+.mk.above:hover .tip, .mk.above a:focus-visible .tip { transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 720px) {
+  .mk i { width: 11px; height: 11px; }
+  .mk .tip { width: 150px; }
+}
+
+/* ---------- 中国地图标注 ---------- */
+.map-hero {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--cinnabar);
+  box-shadow: 2px 3px 12px rgba(43,38,32,0.10);
+  padding: 20px 24px 26px;
+  margin-bottom: 10px;
+}
+.map-head { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 10px; }
+.map-head h2 { font-size: 24px; color: var(--cinnabar); letter-spacing: 4px; }
+.map-head .map-stat {
+  font-size: 14px; color: var(--ink-light); letter-spacing: 1px;
+  background: var(--paper-dark); border: 1px solid var(--gold);
+  border-radius: 999px; padding: 2px 14px;
+}
+.map-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 6px 0 14px; }
+.map-legend .lg {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13.5px; color: var(--ink);
+  border: 1px solid var(--line); background: var(--paper);
+  border-radius: 999px; padding: 3px 12px; cursor: pointer;
+  transition: all 0.15s;
+}
+.map-legend .lg:hover { border-color: var(--gold); }
+.map-legend .lg.active { border-color: var(--cinnabar); background: var(--paper-dark); font-weight: bold; }
+.map-legend .lg i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.map-controls {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 0 0 8px; color: var(--ink-light); font-size: 13px;
+}
+.map-controls button {
+  border: 1px solid var(--gold); background: var(--paper); color: var(--ink);
+  border-radius: 999px; padding: 3px 12px; cursor: pointer; font: inherit;
+}
+.map-controls button:hover { background: var(--paper-dark); color: var(--cinnabar); }
+
+.map-stage {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 50% 40%, #eef4ef 0%, #e6eee6 55%, #dbe6dc 100%);
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+}
+.map-stage.is-dragging { cursor: grabbing; }
+.map-stage svg { display: block; width: 100%; height: auto; transform-origin: 0 0; will-change: viewBox; shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
+
+.mk { cursor: pointer; }
+/* 覆盖旧版 DIV 标记遗留规则（.mk {position:absolute; transform:translate(-50%,-50%)}），防止 SVG 标记整体位移 */
+svg g.mk { position: static; transform: none; }
+.mk circle.main {
+  fill: var(--c);
+  stroke: #fff;
+  stroke-width: 2;
+  transition: opacity 0.15s ease, stroke-width 0.15s ease;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+}
+.mk circle.ring {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 1.6;
+  opacity: 0.55;
+  animation: pulse 2.2s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes pulse {
+  0%   { r: 7;  opacity: 0.6; }
+  80%  { r: 16; opacity: 0; }
+  100% { r: 16; opacity: 0; }
+}
+.mk:hover circle.main { stroke-width: 2.5; }
+.mk.dim { opacity: 0.18; pointer-events: auto; }
+.mk.dim circle.ring { display: none; }
+.province-label { fill: #58685f; font: 10px "Microsoft YaHei", sans-serif; letter-spacing: 1px; pointer-events: none; paint-order: stroke; stroke: rgba(239,230,207,0.92); stroke-width: 3px; stroke-linejoin: round; }
+.cluster { cursor: pointer; }
+.cluster circle { fill: var(--cinnabar); fill-opacity: 0.9; stroke: #fff7e4; stroke-width: 2; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
+.cluster text { fill: #fff; font: bold 12px "Microsoft YaHei", sans-serif; pointer-events: none; }
+.cluster:hover circle { fill: var(--cinnabar-dark); stroke-width: 3; }
+
+#tooltip {
+  position: absolute;
+  display: none;
+  z-index: 30;
+  max-width: 230px;
+  background: rgba(38,35,29,0.95);
+  color: #f3ecd9;
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 9px 13px;
+  font-size: 13px; line-height: 1.6;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+#tooltip b { color: #ffd98e; font-size: 14px; letter-spacing: 1px; }
+#tooltip .tt-loc { color: #c9b98a; font-size: 12px; margin: 1px 0 4px; }
+#tooltip .tt-desc { color: #ddd2b4; font-size: 12px; }
+#tooltip .tt-go { color: #8fd3ff; font-size: 12px; }
+
+.map-note {
+  margin-top: 10px;
+  font-size: 12px; color: var(--ink-light); letter-spacing: 1px; opacity: 0.85;
+}
+@media (max-width: 720px) {
+  .map-head h2 { font-size: 19px; }
+  .spot-cover { height: 160px; }
+  .map-controls { font-size: 12px; }
+}
