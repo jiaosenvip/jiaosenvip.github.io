@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>行迹 · 中国旅行地图</title>
+<style>
+:root{--ink:#15253b;--muted:#718096;--line:#e7edf3;--blue:#2f80ed;--mint:#19a974;--orange:#f2994a;--red:#e5484d;--bg:#f6f8fb;--shadow:0 16px 40px rgba(40,63,89,.12)}*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink)}button,input,select{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:360px 1fr}.sidebar{background:#fff;padding:26px 24px;border-right:1px solid var(--line);z-index:5;overflow:auto;height:100vh}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:21px;letter-spacing:-.5px}.brand-mark{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,#246bfd,#77b7ff);color:#fff;display:grid;place-items:center;box-shadow:0 8px 16px #8dc1ff80}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--blue);font-weight:800;margin:38px 0 10px}.hero h1{font-size:30px;line-height:1.2;margin:0 0 12px;letter-spacing:-1px}.hero p{color:var(--muted);font-size:13px;line-height:1.75;margin:0 0 22px}.search{display:flex;gap:8px;margin-bottom:14px}.search input{flex:1;border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;background:#fbfcfe}.search input:focus{border-color:#8ab8ff;box-shadow:0 0 0 3px #dceaff}.add-box{position:relative;margin-bottom:6px}.add-box .search{margin-bottom:8px}.suggest{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 28px #2038541a;z-index:20;max-height:260px;overflow:auto;display:none}.suggest.open{display:block}.suggest-item{padding:11px 14px;cursor:pointer;border-bottom:1px solid #f3f6fa;display:flex;flex-direction:column;gap:3px}.suggest-item:last-child{border-bottom:0}.suggest-item:hover{background:#f5f9ff}.suggest-item strong{font-size:13px}.suggest-item small{font-size:11px;color:var(--muted)}.suggest-empty{padding:14px;color:var(--muted);font-size:12px;text-align:center}.btn{border:0;border-radius:11px;padding:11px 14px;cursor:pointer;font-weight:700}.btn-primary{background:var(--ink);color:#fff}.btn-blue{background:var(--blue);color:#fff}.btn-ghost{background:#f1f4f8;color:#526276}.btn-danger{background:#fdecea;color:#e5484d}.section-title{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;margin:18px 0 12px}.section-title span{color:var(--muted);font-size:11px;font-weight:600}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;color:#526276;font-size:12px;cursor:pointer}.chip.active{background:#e9f2ff;border-color:#b9d4ff;color:#1967d2;font-weight:700}.place-list{display:flex;flex-direction:column;gap:10px}.place{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:14px;padding:11px 12px;cursor:pointer;transition:.2s;position:relative}.place:hover{transform:translateY(-1px);box-shadow:0 8px 20px #20385412}.place-dot{width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 5px #e6f0ff;flex:none}.place-dot.city{background:var(--orange);box-shadow:0 0 0 5px #fff0df}.place strong{font-size:13px}.place small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.place-body{flex:1;min-width:0}.place-meta{color:#9aa8b8;font-size:11px;flex:none}.place-edit{flex:none;border:1px solid #dbe4ee;background:#fff;color:#4a6a8a;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;white-space:nowrap}.place-edit:hover{background:#eef4ff;border-color:#8ab8ff;color:var(--blue)}.main{position:relative;height:100vh;overflow:hidden}.topbar{position:absolute;top:24px;left:28px;right:28px;display:flex;justify-content:space-between;align-items:center;z-index:4;pointer-events:none}.topbar>*{pointer-events:auto}.stats{display:flex;gap:9px}.stat{background:#ffffffdc;backdrop-filter:blur(10px);border:1px solid #fff;border-radius:13px;padding:10px 14px;box-shadow:0 8px 20px #25405e18}.stat b{font-size:18px;margin-right:4px}.stat span{font-size:11px;color:var(--muted)}.share{background:var(--ink);color:#fff;border:0;border-radius:12px;padding:12px 18px;cursor:pointer;font-weight:800;box-shadow:0 8px 18px #15253b35}.share:active{transform:scale(.97)}.map-wrap{position:absolute;inset:0}.map-fallback{position:absolute;inset:0;background:radial-gradient(ellipse at 48% 44%,#fff 0,#eef4f7 42%,#dfe9eb 100%);overflow:hidden}.map-fallback:before{content:"";position:absolute;inset:-20%;background-image:linear-gradient(35deg,transparent 47%,#c9d9dc 48%,transparent 49%),linear-gradient(120deg,transparent 47%,#cfdddf 48%,transparent 49%),linear-gradient(10deg,transparent 48%,#d8e3e4 49%,transparent 50%);background-size:260px 180px,310px 230px,220px 280px;opacity:.55;transform:rotate(-10deg)}.map-label{position:absolute;color:#8ba0a5;font-size:12px;font-weight:700;letter-spacing:1px}.map-label.north{top:19%;left:55%}.map-label.west{top:45%;left:16%}.map-label.central{top:52%;left:54%}.map-label.south{top:75%;left:57%}.map{position:absolute;inset:0;z-index:1;cursor:crosshair}.legend{position:absolute;left:28px;bottom:26px;background:#ffffffed;backdrop-filter:blur(10px);border-radius:13px;padding:12px 15px;z-index:3;box-shadow:0 8px 22px #25405e18;font-size:11px;color:#637487}.legend div{display:flex;align-items:center;gap:7px;margin:5px 0}.legend i{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--blue)}.legend i.orange{background:var(--orange)}.empty{color:var(--muted);font-size:12px;padding:15px;text-align:center;display:none}
+/* 编辑卡片（非模态，浮于地图右缘） */
+.editor{position:absolute;top:24px;right:28px;width:300px;background:#fff;border-radius:18px;box-shadow:var(--shadow);z-index:6;padding:20px;transform:translateX(120%);transition:transform .28s cubic-bezier(.2,.8,.25,1)}.editor.open{transform:translateX(0)}.editor h3{margin:0 0 4px;font-size:16px}.editor .sub{color:var(--muted);font-size:12px;margin:0 0 14px;line-height:1.6}.editor .coord{background:#f2f6fb;border-radius:8px;padding:7px 10px;font-size:11px;color:#4a6a8a;margin-bottom:12px;font-weight:600}.editor label{display:block;font-size:11px;color:#637487;font-weight:700;margin:10px 0 5px}.editor input,.editor select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;outline:none}.editor input:focus,.editor select:focus{border-color:#8ab8ff;box-shadow:0 0 0 3px #e4efff}.editor .row{display:flex;gap:8px}.editor .row>*{flex:1}.editor .actions{display:flex;gap:8px;margin-top:16px}.editor .actions .btn{flex:1}.geo-status{font-size:11px;color:var(--muted);margin-top:8px;min-height:14px}.geo-status.ok{color:var(--mint)}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{height:auto}.main{height:60vh}.editor{width:260px;right:14px;top:14px}.topbar{left:14px;right:14px}.stats{display:none}.legend{left:14px}}
+</style>
+<script>window._TMapSecurityConfig={serviceHost:'http://127.0.0.1:__WB_HTTP_PORT__/_TMapService/_wbt/__WB_TMAP_SECRET__'};</script>
+<script src="https://map.qq.com/api/gljs?v=1.exp&libraries=service"></script>
+<script src="mapdata.js"></script>
+<script src="province_geo.js"></script>
+<script src="searchdata.js"></script>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<div class="brand"><div class="brand-mark">行</div>行迹 <span style="color:#9aa8b8;font-size:11px;font-weight:600">TRAVEL LOG</span></div>
+<div class="eyebrow">MY CHINA JOURNEY</div>
+<div class="hero"><h1>把走过的地方，<br>变成一张地图。</h1><p>搜索地名快速标记，或在地图上点一下。<br>完成后生成一张「中国足迹」分享卡片。</p></div>
+<div class="add-box"><div class="search"><input id="addInput" placeholder="搜索景点/城市，如：稻城亚丁"><button class="btn btn-primary" id="addSearchBtn">搜索</button></div><div class="suggest" id="suggest"></div></div>
+<div class="section-title">筛选 <span id="countText">0 个标记</span></div><div class="chips"><button class="chip active" data-filter="all">全部</button><button class="chip" data-filter="景点">景点</button><button class="chip" data-filter="城市">城市</button></div>
+<div class="section-title">我的足迹 <span id="provCount">0 个省份</span></div><div class="place-list" id="placeList"></div><div class="empty" id="empty">还没有足迹，搜索地名或点击地图开始标记吧</div>
+</aside>
+<main class="main">
+<div class="topbar"><div class="stats"><div class="stat"><b id="spotNum">0</b><span>已标注</span></div><div class="stat"><b id="cityNum">0</b><span>座城市</span></div><div class="stat"><b id="provNum">0</b><span>个省份</span></div></div><button class="share" id="shareBtn">⬇ 生成分享卡片</button></div>
+<div class="map-wrap"><div class="map-fallback"><span class="map-label north">华北</span><span class="map-label west">西北</span><span class="map-label central">华中</span><span class="map-label south">华南</span></div><div id="map" class="map"></div></div>
+<div class="legend"><div><i></i> 景点足迹</div><div><i class="orange"></i> 城市足迹</div></div>
+<div class="editor" id="editor"><h3 id="editorTitle">标记新地点</h3><p class="sub">已定位到你点选的位置，可拖动地图上的临时标记微调。</p><div class="coord" id="coordTag">坐标：—</div><label>地点名称</label><input id="nameInput" placeholder="例如：稻城亚丁"><div class="row"><div><label>类型</label><select id="typeInput"><option>景点</option><option>城市</option></select></div><div><label>日期</label><input id="dateInput" type="date"></div></div><div class="geo-status" id="geoStatus"></div><div class="actions"><button class="btn btn-danger" id="deleteBtn" style="display:none">删除</button><button class="btn btn-ghost" id="cancelBtn">取消</button><button class="btn btn-blue" id="saveBtn">保存标记</button></div></div>
+</main>
+</div>
+<script>
+let places=[],filter='all',map,markers,tempMarker,tempPos=null,geoCtx=null,editingIndex=null;
+
+const M=window.MAPDATA;
+const PROJ=M.proj;
+function project(lng,lat){const x=lng*20037508.34/180;const y=Math.log(Math.tan((90+lat)*Math.PI/360))/(Math.PI/180)*20037508.34/180;const tx=(x-PROJ.minx)*PROJ.scale+PROJ.pad+((PROJ.W-2*PROJ.pad)-(PROJ.maxx-PROJ.minx)*PROJ.scale)/2;const ty=(PROJ.maxy-y)*PROJ.scale+PROJ.pad+((PROJ.H-2*PROJ.pad)-(PROJ.maxy-PROJ.miny)*PROJ.scale)/2;return{x:tx,y:ty};}
+
+// 省份名匹配
+function provinceByName(str){if(!str)return null;for(const p of M.provinces){if(str.includes(p.short)||str.includes(p.name))return p;}return null;}
+// 最近邻省中心判断归属（兜底）
+function nearestProvince(lng,lat){let best=null,bd=1e18;for(const p of M.provinces){if(p.lng==null)continue;const d=(p.lng-lng)*(p.lng-lng)+(p.lat-lat)*(p.lat-lat);if(d<bd){bd=d;best=p;}}return best;}
+
+// 射线法：点是否在多边形环内
+function pointInRing(lng,lat,ring){let inside=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const xi=ring[i][0],yi=ring[i][1],xj=ring[j][0],yj=ring[j][1];if((yi>lat)!==(yj>lat)&&(lng<(xj-xi)*(lat-yi)/(yj-yi)+xi))inside=!inside;}return inside;}
+function pointInPoly(lng,lat,polys){let hits=0;for(const ring of polys){if(pointInRing(lng,lat,ring))hits++;}return hits>0;}
+// 精确省份判断（射线法，遍历省界多边形）
+function exactProvince(lng,lat){const GEO=window.PROVINCE_GEO;if(!GEO)return null;for(const p of GEO){if(pointInPoly(lng,lat,p.polys))return M.provinces.find(x=>x.name===p.name)||null;}return null;}
+
+function provinceOf(place){let p=provinceByName(place.region);if(!p)p=exactProvince(place.lng,place.lat);if(!p)p=nearestProvince(place.lng,place.lat);return p;}
+
+function distinctProvinces(){const s=new Set();for(const pl of places){const p=provinceOf(pl);if(p)s.add(p.name);}return [...s];}
+
+function render(){const data=places.filter(p=>(filter==='all'||p.type===filter));document.getElementById('placeList').innerHTML=data.map((p,i)=>{const prov=provinceOf(p);const d=p.date?p.date.slice(0,7):'';return `<div class="place" data-idx="${places.indexOf(p)}"><i class="place-dot ${p.type==='城市'?'city':''}"></i><div class="place-body"><strong>${p.name}</strong><small>${prov?prov.short:''}${d?' · '+d:''}</small></div><span class="place-meta">${p.type}</span><button class="place-edit" data-edit="${places.indexOf(p)}">修改</button></div>`}).join('');document.getElementById('empty').style.display=data.length?'none':'block';document.getElementById('empty').textContent=places.length?'该分类下暂无足迹':'还没有足迹，搜索地名或点击地图开始标记吧';document.getElementById('countText').textContent=places.length+' 个标记';document.getElementById('spotNum').textContent=places.length;document.getElementById('cityNum').textContent=places.filter(p=>p.type==='城市').length;const provs=distinctProvinces();document.getElementById('provNum').textContent=provs.length;document.getElementById('provCount').textContent=provs.length+' 个省份';
+document.querySelectorAll('.place').forEach(el=>{el.onclick=(e)=>{if(e.target.closest('.place-edit'))return;const p=places[+el.dataset.idx];if(map){map.setCenter(new TMap.LatLng(p.lat,p.lng));map.setZoom(9);}};});document.querySelectorAll('.place-edit').forEach(b=>b.onclick=(e)=>{e.stopPropagation();editPlace(+b.dataset.edit);});
+if(markers)markers.setGeometries(places.map((p,i)=>({id:String(i),styleId:p.type==='城市'?'city':'spot',position:new TMap.LatLng(p.lat,p.lng),properties:{title:p.name}})));}
+
+function initMap(){if(!window.TMap)return;map=new TMap.Map('map',{zoom:4,center:new TMap.LatLng(35.8617,104.1954)});
+const pin=(c)=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M12 1C6.5 1 3 5 3 9.5 3 15 12 23 12 23s9-8 9-13.5C21 5 17.5 1 12 1z" fill="${c}" stroke="white" stroke-width="3"/></svg>`);
+const tempPin='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"><circle cx="15" cy="15" r="15" fill="#19a974"/><circle cx="15" cy="15" r="7" fill="#fff"/></svg>');
+markers=new TMap.MultiMarker({map,styles:{spot:new TMap.MarkerStyle({width:24,height:24,anchor:{x:12,y:24},src:pin('#2f80ed')}),city:new TMap.MarkerStyle({width:24,height:24,anchor:{x:12,y:24},src:pin('#f2994a')})},geometries:[]});
+tempMarker=new TMap.MultiMarker({map,styles:{temp:new TMap.MarkerStyle({width:30,height:30,anchor:{x:15,y:15},src:tempPin})},geometries:[]});
+map.on('click',e=>{tempPos={lat:e.latLng.lat,lng:e.latLng.lng};tempMarker.setGeometries([{id:'tmp',styleId:'temp',position:new TMap.LatLng(tempPos.lat,tempPos.lng)}]);openEditor(tempPos);});render();}
+
+function openEditor(pos,prefill){tempPos=pos;geoCtx=prefill&&prefill.geo?prefill.geo:null;editingIndex=(prefill&&prefill.editing!==undefined)?prefill.editing:null;const isEdit=editingIndex!==null;document.getElementById('editorTitle').textContent=isEdit?'修改足迹':'标记新地点';document.getElementById('saveBtn').textContent=isEdit?'保存修改':'保存标记';document.getElementById('deleteBtn').style.display=isEdit?'block':'none';document.getElementById('coordTag').textContent='坐标：'+pos.lat.toFixed(4)+'，'+pos.lng.toFixed(4);document.getElementById('editor').classList.add('open');document.getElementById('nameInput').value=prefill&&prefill.name?prefill.name:'';document.getElementById('typeInput').value=prefill&&prefill.type?prefill.type:'景点';document.getElementById('dateInput').value=prefill&&prefill.date?prefill.date:new Date().toISOString().slice(0,10);document.getElementById('nameInput').focus();const st=document.getElementById('geoStatus');if(prefill&&prefill.geo){const g=prefill.geo;st.textContent='已识别：'+(g.province||'')+(g.city&&g.city!==g.province?' · '+g.city:'')+(g.district?' · '+g.district:'');st.className='geo-status ok';}else if(isEdit){st.textContent='修改后点击「保存修改」生效';st.className='geo-status';}else{st.textContent='正在识别地名…';st.className='geo-status';reverseGeocode(pos);}}
+function closeEditor(){document.getElementById('editor').classList.remove('open');tempPos=null;editingIndex=null;if(tempMarker)tempMarker.setGeometries([]);document.getElementById('geoStatus').textContent='';document.getElementById('deleteBtn').style.display='none';}
+function reverseGeocode(pos){if(!window.TMap||!TMap.service)return;const st=document.getElementById('geoStatus');new TMap.service.Geocoder({location:new TMap.LatLng(pos.lat,pos.lng)}).getAddress({}).then(res=>{if(res&&res.result){const a=res.result;const nm=a.formatted_addresses&&a.formatted_addresses.recommend||'';const prov=a.address_component&&a.address_component.province||'';const city=a.address_component&&a.address_component.city||'';const district=a.address_component&&a.address_component.district||'';geoCtx={province:prov,city:city,district:district};if(nm&&!document.getElementById('nameInput').value)document.getElementById('nameInput').value=nm;if(prov)st.textContent='识别为：'+prov+(city&&city!==prov?' · '+city:'')+(district?' · '+district:'');st.className='geo-status ok';}else{st.textContent='未识别到地名，可手动填写';}}).catch(()=>{st.textContent='未识别到地名，可手动填写';});}
+
+document.getElementById('cancelBtn').onclick=closeEditor;
+document.getElementById('saveBtn').onclick=()=>{const name=document.getElementById('nameInput').value.trim();if(!name)return document.getElementById('nameInput').focus();if(!tempPos)return;let region='';if(geoCtx&&geoCtx.province){const p=provinceByName(geoCtx.province);region=p?p.name:geoCtx.province;}else{const p=exactProvince(tempPos.lng,tempPos.lat)||nearestProvince(tempPos.lng,tempPos.lat);region=p?p.name:'';}const date=document.getElementById('dateInput').value||new Date().toISOString().slice(0,10);const obj={name,region,type:document.getElementById('typeInput').value,date,lat:tempPos.lat,lng:tempPos.lng};if(editingIndex!==null){places[editingIndex]=obj;}else{places.push(obj);}closeEditor();render();};
+document.getElementById('deleteBtn').onclick=()=>{if(editingIndex===null)return;places.splice(editingIndex,1);closeEditor();render();};
+function editPlace(idx){const p=places[idx];if(!p)return;const pos={lat:p.lat,lng:p.lng};if(map){map.setCenter(new TMap.LatLng(pos.lat,pos.lng));map.setZoom(10);}if(tempMarker)tempMarker.setGeometries([{id:'tmp',styleId:'temp',position:new TMap.LatLng(pos.lat,pos.lng)}]);openEditor(pos,{name:p.name,type:p.type,date:p.date,editing:idx,geo:{province:p.region||'',city:'',district:''}});}
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');filter=c.dataset.filter;render();});
+
+// —— 手动添加：搜索地名 → 候选 → 自动定位 ——
+let suggestTimer=null;
+
+// 本地数据库搜索（全国地级市 + 知名景点）
+function localSearch(keyword){const D=window.SEARCH_DATA||[];const kw=keyword.toLowerCase();const starts=[],contains=[];for(const it of D){const n=it.name.toLowerCase();if(n.startsWith(kw))starts.push(it);else if(n.includes(kw))contains.push(it);}return [...starts,...contains].slice(0,15);}
+
+// 统一渲染候选列表（本地与网络结果都转成 {name,sub,lat,lng,prov,city,type} 结构）
+function renderSuggest(items){const suggest=document.getElementById('suggest');suggest.className='suggest open';suggest.innerHTML=items.map((it,i)=>`<div class="suggest-item" data-i="${i}"><strong>${escapeXml(it.name)}</strong><small>${escapeXml(it.sub||'')}${it.type==='城市'?' · 城市':''}</small></div>`).join('');window.__suggestList=items;document.querySelectorAll('.suggest-item').forEach(el=>el.onclick=()=>pickSuggest(+el.dataset.i));}
+function showSuggestEmpty(msg){const suggest=document.getElementById('suggest');suggest.className='suggest open';suggest.innerHTML=`<div class="suggest-empty">${escapeXml(msg)}</div>`;window.__suggestList=[];}
+
+function searchPlaces(keyword){
+  // 1. 本地数据库优先（可靠、离线可用）
+  const local=localSearch(keyword);
+  if(local.length){renderSuggest(local.map(it=>({name:it.name,sub:(it.prov||'')+(it.city&&it.city!==it.prov?' · '+it.city:''),lat:it.lat,lng:it.lng,prov:it.prov,city:it.city,type:it.type})));return;}
+  // 2. 本地无结果，调腾讯地图全国搜索（不传 location，避免被限制在周边）
+  let svc=null;
+  try{ if(window.TMap&&TMap.service&&TMap.service.Search){ svc=new TMap.service.Search({pageSize:10}); } }catch(e){ svc=null; }
+  if(!svc||typeof svc.search!=='function'){ showSuggestEmpty('暂未收录，可手动在地图中添加'); return; }
+  try{
+    svc.search({keyword,pageSize:10}).then(res=>{
+      const list=(res&&res.data)||[];
+      if(!list.length){showSuggestEmpty('暂未收录，可手动在地图中添加');return;}
+      renderSuggest(list.map(poi=>{const ai=poi.ad_info||{};const loc=poi.location;return {name:poi.title,sub:poi.address||'',lat:loc.lat,lng:loc.lng,prov:ai.province||'',city:ai.city||'',type:'景点'};}));
+    }).catch(()=>showSuggestEmpty('暂未收录，可手动在地图中添加'));
+  }catch(e){ showSuggestEmpty('暂未收录，可手动在地图中添加'); }
+}
+
+function pickSuggest(i){const list=window.__suggestList;if(!list||!list[i])return;const it=list[i];const pos={lat:it.lat,lng:it.lng};const suggest=document.getElementById('suggest');suggest.className='suggest';document.getElementById('addInput').value=it.name;const geo={province:it.prov||'',city:it.city||''};if(map){map.setCenter(new TMap.LatLng(pos.lat,pos.lng));map.setZoom(12);}tempPos=pos;if(tempMarker)tempMarker.setGeometries([{id:'tmp',styleId:'temp',position:new TMap.LatLng(pos.lat,pos.lng)}]);openEditor(pos,{name:it.name,type:it.type,geo});}
+
+function onAddInput(){clearTimeout(suggestTimer);const kw=document.getElementById('addInput').value.trim();if(!kw){document.getElementById('suggest').className='suggest';return;}suggestTimer=setTimeout(()=>searchPlaces(kw),200);}
+document.getElementById('addInput').oninput=onAddInput;
+document.getElementById('addInput').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();const list=window.__suggestList;if(list&&list.length){pickSuggest(0);}else{searchPlaces(document.getElementById('addInput').value.trim());}}};
+document.getElementById('addSearchBtn').onclick=()=>{const kw=document.getElementById('addInput').value.trim();if(kw)searchPlaces(kw);};
+document.addEventListener('click',e=>{const box=document.querySelector('.add-box');if(box&&!box.contains(e.target))document.getElementById('suggest').className='suggest';});
+
+// —— 分享卡片：中国地图 + 省份高亮 + 城市红点 + 统计 + 足迹清单 ——
+function escapeXml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function buildShareSVG(){const provsSet=new Set();const cities=[];const spots=[];for(const pl of places){const p=provinceOf(pl);if(p)provsSet.add(p.name);if(pl.type==='城市')cities.push(pl);else spots.push(pl);}
+const provList=[...provsSet].map(n=>{const p=M.provinces.find(x=>x.name===n);return p?p.short:n;});
+// 地图区尺寸（原始投影 900x1000 缩放到宽 720）
+const scale=0.72,mapW=Math.round(M.viewW*scale),mapH=Math.round(M.viewH*scale);
+const marge=48; // 卡片左右边距
+const cardW=mapW+marge*2;
+const headerH=140; // 标题+统计区
+const footTop=headerH+mapH+40;
+// 足迹列表高度
+const items=places.map(p=>({name:p.name,type:p.type,short:(provinceOf(p)||{}).short||'',date:p.date?p.date.slice(0,7):''}));
+const lineH=34,lineW=Math.floor((cardW-20)/2);
+const rows=Math.max(1,Math.ceil(items.length/2));
+
+// 省份高亮 + 九段线
+const provPaths=M.provinces.map(p=>{const hl=provsSet.has(p.name);return `<path d="${p.path}" fill="${hl?'#ffd9b3':'#eef2f6'}" stroke="${hl?'#f2994a':'#d8e0e8'}" stroke-width="1.2" stroke-linejoin="round" transform="translate(${marge},${headerH}) scale(${scale})"/>`;}).join('');
+const jdPath=M.jd?`<path d="${M.jd}" fill="none" stroke="#d8e0e8" stroke-width="1" stroke-dasharray="4 3" transform="translate(${marge},${headerH}) scale(${scale})"/>`:'';
+// 城市红点（投影后乘 scale + 平移）
+const dots=cities.map(c=>{const pt=project(c.lng,c.lat);const x=marge+pt.x*scale,y=headerH+pt.y*scale;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5.5" fill="#e5484d" stroke="#fff" stroke-width="2"/>`;}).join('');
+// 景点小圆点
+const spotDots=spots.map(s=>{const pt=project(s.lng,s.lat);const x=marge+pt.x*scale,y=headerH+pt.y*scale;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4" fill="#2f80ed" stroke="#fff" stroke-width="1.8"/>`;}).join('');
+
+// 统计数字
+const stat=(num,label,cx,color)=>`<text x="${cx}" y="108" font-family="Arial,sans-serif" font-size="34" font-weight="800" fill="${color}" text-anchor="middle">${num}</text><text x="${cx}" y="132" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="13" fill="#718096" text-anchor="middle">${label}</text>`;
+const statCX=[cardW*0.28,cardW*0.5,cardW*0.72];
+
+// 省份清单（chip 样式，每行 6 个）
+const provPerRow=6,provRows=Math.max(1,Math.ceil(provList.length/provPerRow));
+const chips=provList.map((s,i)=>{const x=marge+10+(i%provPerRow)*((cardW-20)/provPerRow),y=footTop+40+Math.floor(i/provPerRow)*34;return `<text x="${x}" y="${y}" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="13" fill="#b45309">${escapeXml(s)}</text>`;}).join('');
+// 足迹明细起始 y
+const itemsTop=footTop+40+provRows*34+20;
+
+// 足迹列表（两列）
+const itemRows=items.map((it,i)=>{const col=i%2,row=Math.floor(i/2);const x=marge+14+col*lineW;const y=itemsTop+28+row*lineH;const c=it.type==='城市'?'#e5484d':'#2f80ed';return `<circle cx="${x}" cy="${y-4}" r="3.5" fill="${c}"/><text x="${x+11}" y="${y}" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="13" fill="#33465c">${escapeXml(it.name)}${it.short?' · '+escapeXml(it.short):''}${it.date?'  '+it.date:''}</text>`;}).join('');
+
+// 卡片总高（含足迹明细）
+const finalCardH=itemsTop+28+rows*lineH+40;
+
+return `<svg xmlns="http://www.w3.org/2000/svg" width="${cardW}" height="${finalCardH}" viewBox="0 0 ${cardW} ${finalCardH}"><rect width="${cardW}" height="${finalCardH}" fill="#ffffff"/>
+<text x="${marge}" y="44" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="28" font-weight="800" fill="#15253b">我的中国足迹</text>
+<text x="${marge}" y="70" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="13" fill="#718096">一路走来，点亮每一寸热爱</text>
+${stat(provList.length,'省份',statCX[0],'#e5484d')}${stat(cities.length,'城市',statCX[1],'#f2994a')}${stat(places.length,'足迹',statCX[2],'#2f80ed')}
+<g>${provPaths}${jdPath}</g><g>${dots}${spotDots}</g>
+<line x1="${marge}" y1="${footTop}" x2="${cardW-marge}" y2="${footTop}" stroke="#eef2f6" stroke-width="2"/>
+<text x="${marge}" y="${footTop+24}" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="14" font-weight="700" fill="#15253b">已点亮省份</text>
+${chips}
+<text x="${marge}" y="${itemsTop}" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="14" font-weight="700" fill="#15253b">足迹明细</text>
+${itemRows}
+<text x="${cardW-marge}" y="${finalCardH-18}" font-family="PingFang SC,Microsoft YaHei,Arial" font-size="11" fill="#c2ccd6" text-anchor="end">行迹 · ${new Date().getFullYear()}</text></svg>`;}
+
+function downloadPNG(svg,w,h){return new Promise((resolve,reject)=>{const blob=new Blob([svg],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob);const img=new Image();img.onload=()=>{const c=document.createElement('canvas');c.width=w*2;c.height=h*2;const ctx=c.getContext('2d');ctx.scale(2,2);ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);URL.revokeObjectURL(url);c.toBlob(b=>{if(b)resolve(b);else reject(new Error('导出失败'));},'image/png');};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('图片加载失败'));};img.src=url;});}
+
+document.getElementById('shareBtn').onclick=async()=>{try{const svg=buildShareSVG();const w=parseInt(svg.match(/width="(\d+)"/)[1]);const h=parseInt(svg.match(/height="(\d+)"/)[1]);const blob=await downloadPNG(svg,w,h);const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='我的中国足迹.png';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}catch(e){alert('生成失败：'+e.message);}};
+initMap();
+</script>
+</body>
+</html>
