@@ -2,7 +2,10 @@
   const current = location.pathname.split('/').pop() || 'index.html';
   const items = [
     ['/', '首页', current === '' || current === 'index.html'],
-    ['/tools.html', '在线工具', current === 'tools.html']
+    ['/tools.html', '在线工具', current === 'tools.html'],
+    ['/travel-china/index.html', '中国著名景点', false, true],
+    ['/travel-map/index.html', '中国旅行地图', false, true],
+    ['/game.html', '小游戏大合集', current === 'game.html', true]
   ];
   const engines = [
     ['yandex', '🔍 Yandex'], ['bing', '🔍 必应'], ['google', '🔍 谷歌'],
@@ -17,7 +20,7 @@
   shell.className = 'site-shell';
   shell.innerHTML = `
     <div class="site-shell-date"><a href="/">${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${weekdays[now.getDay()]}</a><span id="shellTime" class="site-shell-time"></span></div>
-    <nav class="site-shell-nav" aria-label="站点导航">${items.map(item => `<a href="${item[0]}"${item[2] ? ' aria-current="page"' : ''}>${item[1]}</a>`).join('')}</nav>
+    <nav class="site-shell-nav" aria-label="站点导航">${items.map(item => `<a href="${item[0]}"${item[2] ? ' aria-current="page"' : ''}${item[3] ? ' target="_blank" rel="noopener noreferrer"' : ''}>${item[1]}</a>`).join('')}</nav>
     <div class="site-shell-search" role="search">
       <input id="shellSearch" type="search" placeholder="请输入内容" autocomplete="off">
       <div class="site-shell-engine"><button id="shellEngine" type="button">🔍 百度⌄</button><div id="shellMenu" class="site-shell-menu">${engines.map(item => `<button type="button" data-engine="${item[0]}">${item[1]}</button>`).join('')}</div></div>
