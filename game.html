@@ -94,6 +94,21 @@ canvas.g{border-radius:16px;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px 
 @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes tin{from{transform:scale(.4)}to{transform:scale(1)}}
 @keyframes mup{from{transform:translateY(60%)}to{transform:none}}
+@media(max-width:767px){
+  #home,#gameview{padding-left:10px;padding-right:10px}
+  #gameview{max-width:100%;padding-top:10px}
+  .topbar{align-items:center;gap:7px}
+  .topbar h2{order:3;width:100%;font-size:18px!important;margin-top:2px!important}
+  #statsbar{order:4;width:100%;margin-left:0;justify-content:flex-start}
+  #restartbtn{margin-left:auto}
+  #toolbar{margin-top:8px}
+  #gamearea{width:100%;overflow:hidden}
+  .gwrap{max-width:100%}
+  canvas.g{height:auto;max-height:66vh}
+  .trow{max-width:100%;gap:6px}.tside{padding:7px}
+  .touchpad{gap:10px}.padgrid{grid-template-columns:repeat(3,48px);grid-auto-rows:48px}.pconf{width:56px;height:56px}
+  .ov-card{max-width:calc(100vw - 40px);padding:20px}
+}
 </style>
 </head>
 <body class="noselect">
@@ -405,7 +420,7 @@ function gMine(){
 
 /* ================= 2048 ================= */
 function g2048(){
-  var N=4,TS=['t2','t2','t2','t4','t4','t8','t16','t32','t64','t128','t256','t512','t1024','t2048'];
+  var N=4,TS=['','t2','t4','t8','t16','t32','t64','t128','t256','t512','t1024','t2048'];
   function cls(v){return v>2048?'tsuper':TS[Math.log2(v)]}
   var grid,wrap=el('div','gwrap'),box=el('div','ggrid');
   box.style.gridTemplateColumns='repeat('+N+',1fr)';box.style.width='min(92vw,380px)';box.style.background='#bbada0';box.style.gap='8px';box.style.padding='10px';
