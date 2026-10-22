@@ -1,70 +1,335 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
-  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; connect-src 'self' https:;" />
-  <title>恢复中...</title>
+  <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-7.0.1.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="assets/vendor/bootstrap-5.3.3.min.css" />
+  <link rel="Shortcut Icon" type="image/x-icon" href="assets/images/github.png" />
+  <link rel="stylesheet" href="assets/css/site-shell.css" />
+  <title>网址导航</title>
   <style>
-    html, body { margin: 0; height: 100%; }
-    body {
-      display: grid;
-      place-items: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #f5f5f5;
-      color: #333;
+    a {
+      outline: 0;
+      color: #555;
+      text-decoration: none;
     }
-    .box {
+
+    a:hover {
+      color: #f70;
+    }
+
+    .with-love {
+      color: #ff0000;
+      display: inline-block;
+      margin: 0 5px;
+      animation: iconAnimate 1.33s ease-in-out infinite;
+    }
+
+    @keyframes iconAnimate {
+      0%, 100% {
+        transform: scale(1);
+      }
+      10%, 30% {
+        transform: scale(0.9);
+      }
+      20%, 40%, 60%, 80% {
+        transform: scale(1.1);
+      }
+      50%, 70% {
+        transform: scale(1.1);
+      }
+    }
+
+    .content {
+      margin-top: 25px;
+      padding-left: 15px;
+    }
+
+    .content .btn-toolbar {
+      margin-bottom: 6px;
+      width: 100%;
+      min-height: 30px;
+    }
+
+    .content .btn-toolbar .btn-group {
+      margin-bottom: 9px;
+      width: 130px;
+    }
+
+    .content .btn-toolbar .btn-group .btn-warning:hover {
+      border-color: #ffc107;
+      background-color: #ffc107;
+    }
+
+    .content .btn-toolbar .btn-group .wn {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 15px;
+    }
+
+    .content .btn-toolbar .btn-group .dropdown-toggle {
+      color: #bbb;
+    }
+
+    .content .btn-toolbar .btn-group .t {
+      border: 1px dashed #ddd;
+      color: #999;
+    }
+
+    .content .btn-toolbar .btn-group .dropdown-menu {
+      min-width: 30px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .content .row .subs {
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+
+    .content .row .subs .tit {
+      margin-bottom: 10px;
+      padding: 5px 0;
+      border-bottom: 1px dashed #ddd;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .content .row .subs .col {
+      overflow: hidden;
+      height: 32px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 32px;
+    }
+
+    #musicPlayer { margin-top: 0.75rem; text-align: center; }
+    #musicToggle { border: 1px solid rgba(255,255,255,.45); border-radius: 4px; background: rgba(0,0,0,.18); color: #fff; padding: 0.25rem 0.65rem; cursor: pointer; }
+    #musicToggle:disabled { cursor: not-allowed; opacity: .7; }
+    #musicPlayer.music-hidden .aplayer,
+    #musicPlayer.music-unavailable .aplayer { display: none; }
+
+    .home-nav {
+      max-width: 960px;
+      margin: 8px auto 0;
+      padding: 0 15px;
       display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .home-nav a {
+      color: #fff;
+      padding: 6px 12px;
+      min-height: 44px;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 18px 22px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.88);
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      font-size: 13px;
     }
-    .spinner {
-      width: 18px; height: 18px; border: 2px solid #e6e6e6; border-top-color: #d00;
-      border-radius: 50%; display: inline-block; animation: spin .8s linear infinite;
+    .home-nav a:hover, .home-nav a[aria-current="page"] {
+      background: #fff;
+      color: #8d0000;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .home-filter {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 16px auto 18px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid #e3e6eb;
+      border-radius: 10px;
+      box-shadow: 0 5px 18px rgba(30,41,59,.08);
+    }
+    .home-filter-row { display:flex; align-items:center; gap:10px; }
+    .home-filter input {
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      padding: 7px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      color: #1f2937;
+      outline: none;
+    }
+    .home-filter input:focus { border-color:#ad0000; box-shadow:0 0 0 3px rgba(173,0,0,.1); }
+    .home-filter-count { color:#526174; white-space:nowrap; font-size:12px; }
+    .category-bar { display:flex; gap:6px; overflow-x:auto; padding-top:9px; scrollbar-width:thin; }
+    .category-chip { flex:0 0 auto; border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:999px; padding:5px 10px; cursor:pointer; font-size:12px; }
+    .category-chip:hover, .category-chip.active { border-color:#ad0000; background:#fff1f1; color:#8d0000; }
+    .content > .row { display:grid; grid-template-columns:1fr; gap:0; }
+    .content > .row > .subs { width:auto; max-width:none; flex:none; }
+    .content .subs > .row.row-cols-2 { margin-left:0; margin-right:0; }
+    .content .subs > .row.row-cols-2 > .col { padding-left:6px; padding-right:6px; text-align:center; justify-content:center; }
+    .content .subs > .row.row-cols-2 > .col > a { display:inline-block; max-width:100%; }
+    .content .row .subs .tit { color:#263241; }
+    .content .row .subs .col { color:#334155; }
+    .content .row .subs .col a { color:#334155; }
+    .content .row .subs .col a:hover { color:#ad0000; }
+    .content .row .subs .col a.text-danger { color:#b42318; }
+    .content .row .subs.is-hidden { display:none; }
+    .content .row .subs .col.is-hidden { display:none; }
+    .home-empty { display:none; margin:20px 0; padding:24px; text-align:center; color:#526174; border:1px dashed #cbd5e1; border-radius:8px; background:#fff; }
+    @media (min-width: 768px) { .content > .row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; } }
+    @media (min-width: 992px) { .content > .row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 24px; } }
+    @media (max-width: 767px) {
+      .home-nav { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px; }
+      .home-nav a { width:100%; }
+      .home-filter { margin:10px 8px 14px; }
+      .home-filter-row { flex-direction:column; align-items:stretch; }
+      .home-filter-count { text-align:right; }
+      .category-bar { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+      .category-chip { width:100%; }
+      .content { padding-left:0; }
+    }
   </style>
 </head>
-<body>
-  <div class="box"><span class="spinner"></span><span>正在恢复上一个可用首页…</span></div>
+
+<body class="" style="display: block;">
+  <div id="siteShell"></div>
+  <script src="assets/js/site-shell.js"></script>
+  <section class="container home-filter" id="site-filter" aria-label="主页筛选">
+    <div class="home-filter-row">
+      <input id="siteSearch" type="search" placeholder="输入关键词搜索站点" autocomplete="off">
+      <span id="siteCount" class="home-filter-count">0 个</span>
+    </div>
+    <div id="categoryBar" class="category-bar" aria-label="分类筛选"></div>
+  </section>
+  <div class="home-empty" aria-live="polite">暂无匹配结果</div>
+  <div class="container content" data-spy="scroll" data-target="#list-example" data-offset="0">
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
+      <div class="col subs">
+        <h5 class="tit"><i class="fa fa-th-large" style="color: #7ccd7c;"></i> 资讯</h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://weread.qq.com/" target="_blank" rel="noopener noreferrer" class="text-danger">微信读书</a></div>
+          <div class="col"><a href="https://www.xuexi.cn/" target="_blank" rel="noopener noreferrer" class="text-danger">学习强国</a></div>
+          <div class="col"><a href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer" class="text-danger">知乎</a></div>
+          <div class="col"><a href="https://www.douban.com/" target="_blank" rel="noopener noreferrer" class="text-danger">豆瓣</a></div>
+          <div class="col"><a href="https://www.ithome.com/" target="_blank" rel="noopener noreferrer" class="text-danger">IT之家</a></div>
+          <div class="col"><a href="https://www.oschina.net/" target="_blank" rel="noopener noreferrer" class="text-danger">开源中国</a></div>
+          <div class="col"><a href="https://ishare.i4.cn/loc/aiSImpleReport" target="_blank" rel="noopener noreferrer" class="text-danger">AI简报</a></div>
+          <div class="col"><a href="https://ishare.i4.cn/loc/3hoursNews" target="_blank" rel="noopener noreferrer" class="text-danger">AI 3小时新闻</a></div>
+          <div class="col"><a href="https://finance.ifeng.com/studio" target="_blank" rel="noopener noreferrer" class="text-danger">凤凰财经</a></div>
+          <div class="col"><a href="https://s.weibo.com/" target="_blank" rel="noopener noreferrer">微博</a></div>
+          <div class="col"><a href="https://www.thepaper.cn/" target="_blank" rel="noopener noreferrer">澎湃新闻</a></div>
+          <div class="col"><a href="https://www.163.com/" target="_blank" rel="noopener noreferrer">网易</a></div>
+          <div class="col"><a href="https://www.qq.com/" target="_blank" rel="noopener noreferrer">腾讯</a></div>
+          <div class="col"><a href="https://finance.sina.com.cn/3x24/" target="_blank" rel="noopener noreferrer">新浪财经</a></div>
+          <div class="col"><a href="http://www.people.com.cn/" target="_blank" rel="noopener noreferrer">人民网</a></div>
+          <div class="col"><a href="https://www.huanqiu.com/" target="_blank" rel="noopener noreferrer">环球网</a></div>
+          <div class="col"><a href="https://www.ifeng.com/" target="_blank" rel="noopener noreferrer">凤凰网</a></div>
+          <div class="col"><a href="https://www.caixin.com/" target="_blank" rel="noopener noreferrer">财新网</a></div>
+          <div class="col"><a href="https://www.cnbeta.com/" target="_blank" rel="noopener noreferrer">CnBeta</a></div>
+          <div class="col"><a href="https://www.36kr.com/" target="_blank" rel="noopener noreferrer">36氪</a></div>
+          <div class="col"><a href="https://www.jiemian.com/" target="_blank" rel="noopener noreferrer">界面新闻</a></div>
+          <div class="col"><a href="https://www.bjnews.com.cn/" target="_blank" rel="noopener noreferrer">新京报</a></div>
+        </div>
+      </div>
+
+      <div class="col subs">
+        <h5 class="tit"><i class="fa fa-code" style="color: #6ec3ff;"></i> 开发</h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="text-danger">GitHub</a></div>
+          <div class="col"><a href="https://gitee.com/" target="_blank" rel="noopener noreferrer" class="text-danger">Gitee</a></div>
+          <div class="col"><a href="https://npmjs.com/" target="_blank" rel="noopener noreferrer">npm</a></div>
+          <div class="col"><a href="https://www.npmjs.com.cn/" target="_blank" rel="noopener noreferrer">npm 中文</a></div>
+          <div class="col"><a href="https://stackoverflow.com/" target="_blank" rel="noopener noreferrer">Stack Overflow</a></div>
+          <div class="col"><a href="https://www.cnblogs.com/" target="_blank" rel="noopener noreferrer">博客园</a></div>
+          <div class="col"><a href="https://codepen.io/" target="_blank" rel="noopener noreferrer">CodePen</a></div>
+          <div class="col"><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener noreferrer">MDN</a></div>
+          <div class="col"><a href="https://juejin.cn/" target="_blank" rel="noopener noreferrer">掘金</a></div>
+          <div class="col"><a href="https://www.v2ex.com/" target="_blank" rel="noopener noreferrer">V2EX</a></div>
+          <div class="col"><a href="https://www.csdn.net/" target="_blank" rel="noopener noreferrer">CSDN</a></div>
+          <div class="col"><a href="https://www.segmentfault.com/" target="_blank" rel="noopener noreferrer">SegmentFault</a></div>
+          <div class="col"><a href="https://www.zhihu.com/" target="_blank" rel="noopener noreferrer">知乎</a></div>
+          <div class="col"><a href="https://cloud.tencent.com/" target="_blank" rel="noopener noreferrer">腾讯云</a></div>
+          <div class="col"><a href="https://www.aliyun.com/" target="_blank" rel="noopener noreferrer">阿里云</a></div>
+          <div class="col"><a href="https://www.qiniu.com/" target="_blank" rel="noopener noreferrer">七牛云</a></div>
+          <div class="col"><a href="https://www.nginx.com/" target="_blank" rel="noopener noreferrer">Nginx</a></div>
+          <div class="col"><a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a></div>
+          <div class="col"><a href="https://www.kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a></div>
+          <div class="col"><a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer">TensorFlow</a></div>
+          <div class="col"><a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer">PyTorch</a></div>
+          <div class="col"><a href="https://www.apache.org/" target="_blank" rel="noopener noreferrer">Apache</a></div>
+        </div>
+      </div>
+
+      <div class="col subs">
+        <h5 class="tit"><i class="fa fa-gamepad" style="color: #ff9c52;"></i> 娱乐</h5>
+        <div class="row row-cols-2">
+          <div class="col"><a href="https://www.bilibili.com/" target="_blank" rel="noopener noreferrer">Bilibili</a></div>
+          <div class="col"><a href="https://www.youku.com/" target="_blank" rel="noopener noreferrer">优酷</a></div>
+          <div class="col"><a href="https://www.iqiyi.com/" target="_blank" rel="noopener noreferrer">爱奇艺</a></div>
+          <div class="col"><a href="https://movie.douban.com/" target="_blank" rel="noopener noreferrer">豆瓣电影</a></div>
+          <div class="col"><a href="https://www.acfun.cn/" target="_blank" rel="noopener noreferrer">AcFun</a></div>
+          <div class="col"><a href="https://music.163.com/" target="_blank" rel="noopener noreferrer">网易云音乐</a></div>
+          <div class="col"><a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">YouTube</a></div>
+          <div class="col"><a href="https://www.netflix.com/" target="_blank" rel="noopener noreferrer">Netflix</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function () {
-      const lastKnownGood = 'https://raw.githubusercontent.com/jiaosenvip/jiaosenvip.github.io/4a76a391ab6905610b4b8eb71cc03fa42f8ee563/index.html';
+      const siteSearch = document.getElementById('siteSearch');
+      const siteCount = document.getElementById('siteCount');
+      const categoryBar = document.getElementById('categoryBar');
+      const content = document.querySelector('.content');
+      const allItems = Array.from(content.querySelectorAll('.subs'));
 
-      fetch(lastKnownGood, { cache: 'no-store' })
-        .then((response) => {
-          if (!response.ok) throw new Error('fetch failed');
-          return response.text();
-        })
-        .then((html) => {
-          const doc = new DOMParser().parseFromString(html, 'text/html');
-          const oldDoc = doc.documentElement;
-          if (!oldDoc) throw new Error('no html');
-          document.documentElement.innerHTML = oldDoc.innerHTML;
+      const categories = [
+        { name: '全部', value: 'all' },
+        { name: '资讯', value: '资讯' },
+        { name: '开发', value: '开发' },
+        { name: '娱乐', value: '娱乐' }
+      ];
 
-          const scripts = Array.from(doc.querySelectorAll('script'));
-          scripts.forEach((script) => {
-            const newScript = document.createElement('script');
-            if (script.src) {
-              newScript.src = script.src;
-            } else {
-              newScript.textContent = script.textContent;
-            }
-            document.body.appendChild(newScript);
+      function renderCategories() {
+        categoryBar.innerHTML = categories.map(cat => `
+          <button type="button" class="category-chip ${cat.value === 'all' ? 'active' : ''}" data-category="${cat.value}">${cat.name}</button>
+        `).join('');
+
+        categoryBar.querySelectorAll('.category-chip').forEach(button => {
+          button.addEventListener('click', () => {
+            const category = button.dataset.category;
+            categoryBar.querySelectorAll('.category-chip').forEach(item => item.classList.remove('active'));
+            button.classList.add('active');
+            filterSites(category, siteSearch.value.trim());
           });
-        })
-        .catch(() => {
-          document.body.innerHTML = '<main style="max-width:960px;margin:60px auto;padding:20px;font-family:sans-serif;color:#333;line-height:1.8;">' +
-            '<h1>网址导航</h1>' +
-            '<p>恢复失败，请稍后刷新。</p>' +
-            '<p>如果仍然失败，请手动切回 <code>4a76a391ab6905610b4b8eb71cc03fa42f8ee563</code> 版本。</p>' +
-            '</main>';
         });
+      }
+
+      function filterSites(category, keyword) {
+        let visible = 0;
+        allItems.forEach(group => {
+          const title = group.querySelector('.tit')?.textContent || '';
+          const matchesCategory = category === 'all' || title.includes(category);
+          const matchesSearch = !keyword || group.textContent.toLowerCase().includes(keyword.toLowerCase());
+          const show = matchesCategory && matchesSearch;
+          group.classList.toggle('is-hidden', !show);
+          if (show) visible += 1;
+        });
+
+        siteCount.textContent = `${visible} 个`;
+        const emptyState = document.querySelector('.home-empty');
+        emptyState.style.display = visible ? 'none' : 'block';
+      }
+
+      siteSearch.addEventListener('input', (event) => {
+        const keyword = event.target.value.trim();
+        filterSites(categoryBar.querySelector('.category-chip.active')?.dataset.category || 'all', keyword);
+      });
+
+      renderCategories();
+      filterSites('all', '');
     })();
   </script>
 </body>
