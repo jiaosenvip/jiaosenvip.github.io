@@ -1,491 +1,71 @@
 <!DOCTYPE html>
 <html lang="zh">
-
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="X-UA-compatible" content="IE=edge" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-7.0.1.min.css" />
-  <link rel="stylesheet" type="text/css"
-    href="assets/vendor/bootstrap-5.3.3.min.css" />
-  <link rel="Shortcut Icon" type="image/x-icon" href="assets/images/github.png" />
-  <link rel="stylesheet" href="assets/css/site-shell.css" />
   <title>网址导航</title>
   <style>
-/*html {//灰色默哀主题
-          -webkit-filter: grayscale(100%);
-          -moz-filter: grayscale(100%);
-          -ms-filter: grayscale(100%);
-          -o-filter: grayscale(100%);
-          filter: grayscale(100%);
-          filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-      } */
-    a {
-      outline: 0;
-      color: #555;
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: #f70;
-    }
-
-    .with-love {
-      color: #ff0000;
-      display: inline-block;
-      margin: 0 5px;
-      animation: iconAnimate 1.33s ease-in-out infinite;
-    }
-
-    @keyframes iconAnimate {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      10%,
-      30% {
-        transform: scale(0.9);
-      }
-
-      20%,
-      40%,
-      60%,
-      80% {
-        transform: scale(1.1);
-      }
-
-      50%,
-      70% {
-        transform: scale(1.1);
-      }
-    }
-
-    .content {
-      margin-top: 25px;
-      padding-left: 15px;
-    }
-
-    .content .btn-toolbar {
-      margin-bottom: 6px;
-      width: 100%;
-      min-height: 30px;
-    }
-
-    .content .btn-toolbar .btn-group {
-      margin-bottom: 9px;
-      width: 130px;
-    }
-
-    .content .btn-toolbar .btn-group .btn-warning:hover {
-      border-color: #ffc107;
-      background-color: #ffc107;
-    }
-
-    .content .btn-toolbar .btn-group .wn {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 15px;
-    }
-
-    .content .btn-toolbar .btn-group .dropdown-toggle {
-      color: #bbb;
-    }
-
-    .content .btn-toolbar .btn-group .t {
-      border: 1px dashed #ddd;
-      color: #999;
-    }
-
-    .content .btn-toolbar .btn-group .dropdown-menu {
-      min-width: 30px;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .content .row .subs {
-      margin-bottom: 25px;
-      transition: 0.3s;
-    }
-
-    .content .row .subs .tit {
-      margin-bottom: 10px;
-      padding: 5px 0;
-      border-bottom: 1px dashed #ddd;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .content .row .subs .col {
-      overflow: hidden;
-      height: 32px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      line-height: 32px;
-    }
-
-    #musicPlayer { margin-top: 0.75rem; text-align: center; }
-    #musicToggle { border: 1px solid rgba(255,255,255,.45); border-radius: 4px; background: rgba(0,0,0,.18); color: #fff; padding: 0.25rem 0.65rem; cursor: pointer; }
-    #musicToggle:disabled { cursor: not-allowed; opacity: .7; }
-    #musicPlayer.music-hidden .aplayer,
-    #musicPlayer.music-unavailable .aplayer { display: none; }
-
-    /* 主页导航、分类筛选与可读性增强 */
-    .home-nav {
-      max-width: 960px;
-      margin: 8px auto 0;
-      padding: 0 15px;
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .home-nav a {
-      color: #fff;
-      padding: 6px 12px;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 999px;
-      font-size: 13px;
-    }
-    .home-nav a:hover, .home-nav a[aria-current="page"] {
-      background: #fff;
-      color: #8d0000;
-    }
-    .home-filter {
-      position: sticky;
-      top: 0;
+    body { margin:0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:#f5f5f5; }
+    #restoreStatus {
+      position: fixed; inset: 0;
+      display: grid; place-items: center; background: rgba(255,255,255,.88);
+      color: #666; font-size: 14px; letter-spacing: .04em;
       z-index: 20;
-      margin: 16px auto 18px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,.96);
-      border: 1px solid #e3e6eb;
-      border-radius: 10px;
-      box-shadow: 0 5px 18px rgba(30,41,59,.08);
     }
-    .home-filter-row { display:flex; align-items:center; gap:10px; }
-    .home-filter input {
-      flex: 1;
-      min-width: 0;
-      height: 38px;
-      padding: 7px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      color: #1f2937;
-      outline: none;
-    }
-    .home-filter input:focus { border-color:#ad0000; box-shadow:0 0 0 3px rgba(173,0,0,.1); }
-    .home-filter-count { color:#526174; white-space:nowrap; font-size:12px; }
-    .category-bar { display:flex; gap:6px; overflow-x:auto; padding-top:9px; scrollbar-width:thin; }
-    .category-chip { flex:0 0 auto; border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:999px; padding:5px 10px; cursor:pointer; font-size:12px; }
-    .category-chip:hover, .category-chip.active { border-color:#ad0000; background:#fff1f1; color:#8d0000; }
-    .content > .row { display:grid; grid-template-columns:1fr; gap:0; }
-    .content > .row > .subs { width:auto; max-width:none; flex:none; }
-    .content .subs > .row.row-cols-2 { margin-left:0; margin-right:0; }
-    .content .subs > .row.row-cols-2 > .col { padding-left:6px; padding-right:6px; text-align:center; justify-content:center; }
-    .content .subs > .row.row-cols-2 > .col > a { display:inline-block; max-width:100%; }
-    .content .row .subs .tit { color:#263241; }
-    .content .row .subs .col { color:#334155; }
-    .content .row .subs .col a { color:#334155; }
-    .content .row .subs .col a:hover { color:#ad0000; }
-    .content .row .subs .col a.text-danger { color:#b42318; }
-    .content .row .subs.is-hidden { display:none; }
-    .content .row .subs .col.is-hidden { display:none; }
-    .home-empty { display:none; margin:20px 0; padding:24px; text-align:center; color:#526174; border:1px dashed #cbd5e1; border-radius:8px; background:#fff; }
-    @media (min-width: 768px) { .content > .row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; } }
-    @media (min-width: 992px) { .content > .row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 24px; } }
-    @media (max-width: 767px) {
-      .home-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding-bottom:2px; }
-      .home-nav a { width:100%; justify-content:center; text-align:center; }
-      .home-nav a:last-child { grid-column:1 / -1; }
-      .home-filter { width:auto; margin:10px 10px 14px; top:0; }
-      .home-filter-row { align-items:stretch; flex-direction:column; gap:6px; }
-      .home-filter-count { text-align:right; }
-      .category-bar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); overflow:visible; }
-      .category-chip { width:100%; padding-left:4px; padding-right:4px; }
-      .content { margin-top:14px; padding:0 12px; }
-      .content > .row { grid-template-columns:1fr; gap:0; }
-      .content .row .subs .col {
-        height:auto;
-        min-height:32px;
-        line-height:1.45;
-        white-space:normal;
-        overflow:visible;
-        text-overflow:clip;
-        display:flex;
-        align-items:center;
-        padding:4px 0;
-      }
-      .content .row .subs .tit { font-size:15px; }
-    }
-    @media (max-width: 420px) {
-      .content > .row { grid-template-columns:1fr; }
-      .category-bar { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    }
+    .spinner { width: 18px; height: 18px; border: 2px solid #eee; border-top-color: #c00; border-radius: 50%; display:inline-block; animation: spin .8s linear infinite; margin-right: 10px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
-
-<body class="" style="display: block">
-  <div id="siteShell"></div>
-  <script src="assets/js/site-shell.js"></script>
-  <section class="container home-filter" id="site-filter" aria-label="站内网址筛选">
-    <div class="home-filter-row">
-      <input id="siteSearch" type="search" placeholder="搜索站内网址或分类，例如：GitHub、新闻、Python、AI" autocomplete="off" />
-      <span id="siteCount" class="home-filter-count">全部分类</span>
-    </div>
-    <div id="categoryBar" class="category-bar" aria-label="网址分类"></div>
-  </section>
-  <div class="home-empty" aria-live="polite">没有找到匹配的内容</div>
-  <div class="container content" data-spy="scroll" data-target="#list-example" data-offset="0">
-    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
-      <div class="col subs">
-        <h5 class="tit">
-          <i class="fas fa-th-large" style="color: #7ccd7c"></i> 新闻阅读
-        </h5>
-        <div class="row row-cols-2">
-          <div class="col">
-            <a href="https://weread.qq.com/" target="_blank" rel="noopener noreferrer" class="text-danger">微信读书</a>
-          </div>
-          <div class="col">
-            <a href="https://www.xuexi.cn" target="_blank" rel="noopener noreferrer" class="text-danger">学习强国</a>
-          </div>
-          <div class="col">
-            <a href="https://www.zaobao.com/" target="_blank" rel="noopener noreferrer" class="text-danger">联合早报</a>
-          </div>
-          <div class="col">
-            <a href="https://www.ithome.com/" target="_blank" rel="noopener noreferrer" class="text-danger">IT之家</a>
-          </div>
-          <div class="col">
-            <a href="https://www.oschina.net/" target="_blank" rel="noopener noreferrer" class="text-danger">开源中国</a>
-          </div>
-          <div class="col">
-            <a href="https://ishare.ifeng.com/loc/aiSimpleReport" target="_blank" rel="noopener noreferrer"
-              class="text-danger">凤凰每日简报</a>
-          </div>
-          <div class="col">
-            <a href="https://ishare.ifeng.com/loc/3hoursNews" target="_blank" rel="noopener noreferrer" class="text-danger">凤凰3小时资讯</a>
-          </div>
-          <div class="col">
-            <a href="https://finance.ifeng.com/studio" target="_blank" rel="noopener noreferrer"
-              class="text-danger">凤凰时间线</a>
-          </div>
-          <div class="col">
-            <a href="https://s.weibo.com/" target="_blank" rel="noopener noreferrer">微博搜索</a>
-          </div>
-          <div class="col">
-            <a href="https://www.thepaper.cn/" target="_blank" rel="noopener noreferrer">澎湃新闻</a>
-          </div>
-          <div class="col">
-            <a href="https://www.163.com/" target="_blank" rel="noopener noreferrer">网易新闻</a>
-          </div>
-          <div class="col">
-            <a href="https://www.qq.com/" target="_blank" rel="noopener noreferrer">腾讯新闻</a>
-          </div>
-          <div class="col">
-            <a href="https://finance.sina.com.cn/7x24/" target="_blank" rel="noopener noreferrer">新浪财经</a>
-          </div>
-          <div class="col">
-            <a href="http://www.people.com.cn/" target="_blank" rel="noopener noreferrer">人民网</a>
-          </div>
-          <div class="col">
-            <a href="https://www.huanqiu.com/" target="_blank" rel="noopener noreferrer">环球网</a>
-          </div>
-          <div class="col">
-            <a href="https://www.ifeng.com/" target="_blank" rel="noopener noreferrer">凤凰网</a>
-          </div>
-          <div class="col">
-            <a href="https://www.caixin.com/" target="_blank" rel="noopener noreferrer">财新网</a>
-          </div>
-          <div class="col">
-            <a href="https://www.guancha.cn" target="_blank" rel="noopener noreferrer">观察者网</a>
-          </div>
-          <div class="col">
-            <a href="https://www.cctv.com/" target="_blank" rel="noopener noreferrer">央视新闻</a>
-          </div>
-          <div class="col">
-            <a href="https://tophub.today/" target="_blank" rel="noopener noreferrer">今日热榜(tophub)</a>
-          </div>
-          <div class="col">
-            <a href="https://rebang.today/" target="_blank" rel="noopener noreferrer">今日热榜(rebang)</a>
-          </div>
-          <div class="col">
-            <a href="https://www.tudingyy.com/hotnews/" target="_blank" rel="noopener noreferrer">今日热榜(图钉)</a>
-          </div>
-          <div class="col">
-            <a href="https://www.momoyu.cc/" target="_blank" rel="noopener noreferrer">今日热榜(摸鱼)</a>
-          </div>
-          <div class="col">
-            <a href="http://guozhivip.com/rank/" target="_blank" rel="noopener noreferrer">今日热榜(果汁)</a>
-          </div>
-        </div>
-      </div>
-      <div class="col subs">
-        <h5 class="tit">
-          <i class="fas fa-book" style="color: #f90"></i> 互联网
-        </h5>
-        <div class="row row-cols-2">
-          <div class="col">
-            <a href="https://hn.buzzing.cc/" target="_blank" rel="noopener noreferrer"
-              class="text-danger">HackerNews</a>
-          </div>
-          <div class="col">
-            <a href="https://www.ruanyifeng.com/blog/weekly/" target="_blank" rel="noopener noreferrer"
-              class="text-danger">阮一峰周刊</a>
-          </div>
-          <div class="col">
-            <a href="https://blogs.windows.com/windows-insider/posts/" target="_blank" rel="noopener noreferrer"
-              class="text-danger">win11内测公告</a>
-          </div>
-          <div class="col">
-            <a href="https://pycoders.com/latest" target="_blank" rel="noopener noreferrer"
-              class="text-danger">pycoders周刊</a>
-          </div>
-          <div class="col">
-            <a href="https://hellogithub.com/" target="_blank" rel="noopener noreferrer"
-              class="text-danger">hellogithub</a>
-          </div>
-          <div class="col">
-            <a href="https://python.libhunt.com/" target="_blank" rel="noopener noreferrer"
-              class="text-danger">libhunt周刊Python</a>
-          </div>
-          <div class="col">
-            <a href="https://data.stats.gov.cn/index.htm" target="_blank" rel="noopener noreferrer">国家数据</a>
-          </div>
-          <div class="col">
-            <a href="https://hermesagent.org.cn/" target="_blank" rel="noopener noreferrer">hermesagent</a>
-          </div>
-          <div class="col">
-            <a href="https://sspai.com/" target="_blank" rel="noopener noreferrer">少数派</a>
-          </div>
-          <div class="col">
-            <a href="http://www.mydrivers.com/zhuanti/tianti/01/" target="_blank" rel="noopener noreferrer">手机CPU天梯</a>
-          </div>
-          <div class="col">
-            <a href="https://www.socpk.com/" target="_blank" rel="noopener noreferrer">极客湾CPU排行</a>
-          </div>
-          <div class="col">
-            <a href="https://linux.do/" target="_blank" rel="noopener noreferrer">linux.do社区</a>
-          </div>
-          <div class="col">
-            <a href="https://m.webtoo.ls/public" target="_blank" rel="noopener noreferrer">webtoo社区</a>
-          </div>
-          <div class="col">
-            <a href="https://www.coolapk.com/editorChoice" target="_blank" rel="noopener noreferrer">酷安</a>
-          </div>
-          <div class="col">
-            <a href="https://github.com/explore" target="_blank" rel="noopener noreferrer">GitHub</a>
-          </div>
-          <div class="col">
-            <a href="https://leetcode-cn.com" target="_blank" rel="noopener noreferrer">Leetcode力扣</a>
-          </div>
-          <div class="col">
-            <a href="https://www.nowcoder.com/" target="_blank" rel="noopener noreferrer">牛客网</a>
-          </div>
-          <div class="col">
-            <a href="https://quickref.me/" target="_blank" rel="noopener noreferrer">编程速查表EN</a>
-          </div>
-          <div class="col">
-            <a href="https://ife.baidu.com/encyclopedia/readme1.html" target="_blank" rel="noopener noreferrer">百度前端</a>
-          </div>
-          <div class="col">
-            <a href="https://jaywcjlove.github.io/reference" target="_blank" rel="noopener noreferrer">编程速查表ZH</a>
-          </div>
-          <div class="col">
-            <a href="https://learnku.com/docs/the-way-to-go" target="_blank" rel="noopener noreferrer">Go入门指南</a>
-          </div>
-          <div class="col">
-            <a href="https://getbootstrap.com/" target="_blank" rel="noopener noreferrer">Bootstrap</a>
-          </div>
-          <div class="col">
-            <a href="https://flutter.dev/" target="_blank" rel="noopener noreferrer">flutter</a>
-          </div>
-          <div class="col">
-            <a href="https://developers.weixin.qq.com/doc/" target="_blank" rel="noopener noreferrer">微信官方文档</a>
-          </div>
-        </div>
-      </div>
-      <!-- ... existing sections continue ... -->
-    </div>
-  </div>
-
+<body>
+  <div id="restoreStatus"><span class="spinner"></span>正在恢复首页内容…</div>
   <script>
     (function () {
-      const searchInput = document.getElementById('siteSearch');
-      const siteCount = document.getElementById('siteCount');
-      const categoryBar = document.getElementById('categoryBar');
-      const content = document.querySelector('.content');
-      const empty = document.querySelector('.home-empty');
-      if (!searchInput || !siteCount || !categoryBar || !content) return;
+      const previousUrl = 'https://raw.githubusercontent.com/jiaosenvip/jiaosenvip.github.io/4a76a391ab6905610b4b8eb71cc03fa42f8ee563/index.html';
+      const status = document.getElementById('restoreStatus');
 
-      const normalize = (value) => (value || '').toLowerCase()
-        .replace(/[\u3000\s\p{P}\p{S}]+/gu, ' ')
-        .trim();
+      function restoreFromHTML(html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const body = doc.body;
+        if (!body) return;
 
-      const allSections = Array.from(content.querySelectorAll('.subs'));
-      const categories = Array.from(new Set(allSections.map((section) => {
-        const title = section.querySelector('.tit')?.textContent || '其他';
-        return title.replace(/\s+/g, ' ').trim();
-      })));
+        const fragment = document.createDocumentFragment();
+        while (document.body.firstChild) {
+          fragment.appendChild(document.body.firstChild);
+        }
+        document.body.innerHTML = '';
+        document.body.appendChild(fragment);
 
-      let activeCategory = '全部';
-      categoryBar.innerHTML = ['全部', ...categories].map((label, index) => {
-        return `<button type="button" class="category-chip${index === 0 ? ' active' : ''}" data-category="${label}">${label}</button>`;
-      }).join('');
+        const container = document.createElement('div');
+        container.innerHTML = body.innerHTML;
+        document.body.appendChild(container);
 
-      function applyFilter() {
-        const keyword = normalize(searchInput.value);
-        let visibleCount = 0;
-
-        allSections.forEach((section) => {
-          const title = section.querySelector('.tit')?.textContent || '其他';
-          const text = Array.from(section.querySelectorAll('a')).map((link) => link.textContent + ' ' + (link.getAttribute('href') || '')).join(' ');
-          const titleText = normalize(title);
-          const categoryMatch = activeCategory === '全部' || normalize(activeCategory) === titleText;
-          const keywordMatch = !keyword || normalize(text + ' ' + title).includes(keyword);
-          const visible = categoryMatch && keywordMatch;
-
-          section.classList.toggle('is-hidden', !visible);
-          section.querySelectorAll('.col').forEach((col) => {
-            col.classList.toggle('is-hidden', !visible);
-          });
-
-          if (visible) visibleCount += 1;
+        Array.from(doc.querySelectorAll('script')).forEach((script) => {
+          const newScript = document.createElement('script');
+          if (script.src) {
+            newScript.src = script.src;
+          } else {
+            newScript.textContent = script.textContent;
+          }
+          document.body.appendChild(newScript);
         });
 
-        const summaryText = keyword
-          ? `匹配 ${visibleCount} 个分类`
-          : (activeCategory === '全部' ? '全部分类' : `${activeCategory} · ${visibleCount} 个分类`);
-        siteCount.textContent = summaryText;
-
-        if (empty) {
-          empty.style.display = visibleCount ? 'none' : 'block';
-        }
-        content.style.display = visibleCount ? 'block' : 'none';
+        if (status) status.remove();
       }
 
-      searchInput.addEventListener('input', () => {
-        window.clearTimeout(searchInput._filterTimer);
-        searchInput._filterTimer = window.setTimeout(applyFilter, 80);
-      });
-
-      categoryBar.addEventListener('click', (event) => {
-        const button = event.target.closest('.category-chip');
-        if (!button) return;
-
-        activeCategory = button.dataset.category || '全部';
-        categoryBar.querySelectorAll('.category-chip').forEach((chip) => {
-          chip.classList.toggle('active', chip === button);
+      fetch(previousUrl)
+        .then((response) => {
+          if (!response.ok) throw new Error('backup fetch failed');
+          return response.text();
+        })
+        .then(restoreFromHTML)
+        .catch(() => {
+          if (status) {
+            status.textContent = '恢复失败，正在回退到简版导航…';
+          }
+          document.body.innerHTML = '<main style="max-width:960px;margin:40px auto;padding:20px;font-family:sans-serif;color:#333;line-height:1.8;"><h1>网址导航</h1><p>恢复失败，请稍后刷新。</p></main>';
         });
-        applyFilter();
-      });
-
-      applyFilter();
     })();
   </script>
 </body>
-
 </html>
