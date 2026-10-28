@@ -21,9 +21,54 @@
 .share-preview .actions button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
 .share-preview .actions button:hover{filter:brightness(.96)}
 
+
+/* mobile refinement */
+@media (max-width: 850px) {
+  body { font-size: 13px; }
+  .top { height: 58px; padding: 0 14px; }
+  .brand { gap: 9px; font-size: 16px; letter-spacing: .4px; }
+  .mark { width: 27px; height: 27px; font-size: 14px; }
+  .main { padding: 18px 14px 30px; }
+  .headrow { margin-bottom: 18px; }
+  h1 { font-size: 23px; letter-spacing: 0; }
+  .sub { margin-top: 6px; line-height: 1.55; }
+  .stats { margin-top: 16px; border-radius: 8px; overflow: hidden; }
+  .stat { min-height: 68px; padding: 11px 12px; display: flex; flex-direction: column; justify-content: center; }
+  .stat b { font-size: 19px; line-height: 1.1; }
+  .stat span { margin-top: 4px; font-size: 11px; }
+  .map-panel { height: 270px; border-radius: 8px; }
+  .map-toolbar { left: 10px; top: 10px; padding: 8px 10px; border-radius: 6px; }
+  .controls { display: block; margin: 20px 0 12px; }
+  .filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 9px; }
+  .filter { width: 100%; padding: 8px 5px; border-radius: 6px; }
+  .actions { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px; }
+  .search { min-width: 0; width: 100%; height: 36px; border-radius: 6px; }
+  .text-btn { height: 36px; padding: 0 8px; border-radius: 6px; white-space: nowrap; }
+  .table-wrap { border-radius: 8px; overflow: visible; background: transparent; border: 0; }
+  .attractions { display: block; min-width: 0; width: 100%; }
+  .attractions thead { display: none; }
+  .attractions tbody { display: grid; gap: 8px; }
+  .attractions tr { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; padding: 12px; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 3px 12px rgba(28,42,52,.04); }
+  .attractions td { display: none; padding: 0; border: 0; min-width: 0; }
+  .attractions td:first-child, .attractions td:nth-child(5), .attractions td:last-child { display: block; }
+  .attractions .name { font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+  .attractions .city { margin-top: 3px; }
+  .attractions .type-mobile { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+  .attractions .tag { white-space: nowrap; }
+  .check { padding: 7px 9px; border-radius: 6px; white-space: nowrap; }
+  .empty { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 24px 12px; text-align: center; }
+}
 </style>
 <script>window._TMapSecurityConfig={serviceHost:'http://127.0.0.1:__WB_HTTP_PORT__/_TMapService/_wbt/__WB_TMAP_SECRET__'};</script>
 <script src="https://map.qq.com/api/gljs?v=1.exp"></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+  <meta name="description" content="5A景区打卡地图 — 中国 5A 级旅游景区分布地图与打卡记录，旅行规划参考。" />
+  <meta name="keywords" content="5A景区,旅游景区,打卡地图,旅行规划,中国旅游" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="网址导航" />
+  <meta property="og:title" content="5A景区打卡地图" />
+  <meta property="og:description" content="5A景区打卡地图 — 中国 5A 级旅游景区分布地图与打卡记录，旅行规划参考。" />
+  <meta property="og:url" content="https://jiaosenvip.pages.dev/5a.html" />
 </head>
 <body data-page-node-id="DTAYxfl1szwaBP0SNutFrb">
 <div class="app" data-page-node-id="ROHRdxhUaPBACHGXA5A8gc">
@@ -108,7 +153,7 @@ function render() {
       ? '<span style="color:#697582;font-size:12px">分享视图</span>'
       : `<button class="check ${yes ? 'undo' : ''}" data-checkin-id="${s.id}">${yes ? '撤销' : '打卡'}</button>`;
     return `<tr>
-      <td><div class="name">${s.name}</div><div class="city">${s.province}</div></td>
+      <td><div class="name">${s.name}</div><div class="city">${s.province}</div><div class="type-mobile">${s.type}</div></td>
       <td><span class="grade a5">5A</span></td>
       <td>${s.province}</td>
       <td>${s.type}</td>

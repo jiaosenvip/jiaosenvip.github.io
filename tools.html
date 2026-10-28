@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="Shortcut Icon" type="image/x-icon" href="assets/images/github.png" />
+  <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.staticfile.org" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
   <link rel="stylesheet" href="assets/css/site-shell.css" />
   <title>在线工具</title>
   <style>
@@ -627,6 +629,13 @@
     @media (max-width: 900px) { .curl-workspace { grid-template-columns: 1fr; } .curl-panel textarea { min-height: 280px; } }
   </style>
 
+  <meta name="description" content="在线工具箱 — cURL 转 Python、二维码生成等实用工具合集，纯前端运行，即开即用。" />
+  <meta name="keywords" content="在线工具,工具箱,cURL转Python,二维码生成,开发者工具" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="网址导航" />
+  <meta property="og:title" content="在线工具" />
+  <meta property="og:description" content="在线工具箱 — cURL 转 Python、二维码生成等实用工具合集，纯前端运行，即开即用。" />
+  <meta property="og:url" content="https://jiaosenvip.pages.dev/tools.html" />
 </head>
 
 <body>
@@ -967,7 +976,9 @@
 
   <script src="assets/js/site-shell.js"></script>
   <script src="assets/js/curl2python-core.js"></script>
-  <script src="assets/vendor/qrcodejs-1.0.0.min.js"></script>
+  <!-- qrcodejs：BootCDN → Staticfile -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+    onerror="this.onerror=null;this.src='https://cdn.staticfile.org/qrcodejs/1.0.0/qrcode.min.js';"></script>
   <script>
 function setStatus(id, message, isError = false) {
       const el = document.getElementById(id);

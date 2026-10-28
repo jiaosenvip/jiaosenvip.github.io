@@ -3,10 +3,9 @@
   const items = [
     ['/', '首页', current === '' || current === 'index.html'],
     ['/tools.html', '在线工具', current === 'tools.html'],
-    ['/travel-china/index.html', '中国著名景点', false, true],
-    ['/travel-map/index.html', '中国旅行地图', false, true],
+    ['/travel-map.html', '行迹', current === 'travel-map.html', true],
     ['/5a.html', '5A景区', false, true],
-    ['/game.html', '小游戏大合集', current === 'game.html', true]
+    ['/game.html', '小游戏', current === 'game.html', true]
   ];
   const engines = [
     ['yandex', '🔍 Yandex'], ['bing', '🔍 必应'], ['google', '🔍 谷歌'],

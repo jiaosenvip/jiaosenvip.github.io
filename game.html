@@ -2,16 +2,23 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="description" content="小游戏大合集 - 12款经典怀旧小游戏，单文件纯HTML，手机电脑都能玩">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="description" content="小游戏大合集 - 15款经典怀旧小游戏，单文件纯HTML，手机电脑都能玩">
+<meta name="theme-color" content="#ad0000">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>小游戏大合集</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23ff6b4a'/%3E%3Ccircle cx='50' cy='50' r='22' fill='%23faf7f2'/%3E%3Ccircle cx='57' cy='44' r='6' fill='%231a1d29'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="assets/css/site-shell.css">
 <style>
 :root{--acc:#ff6b4a}
 *{box-sizing:border-box}
+html{ -webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{margin:0;padding:0}
-body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#1a1d29;background:#faf7f2;background-image:radial-gradient(rgba(26,29,41,.05) 1px,transparent 1px);background-size:24px 24px;-webkit-tap-highlight-color:transparent}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#1a1d29;background:#faf7f2;background-image:radial-gradient(rgba(26,29,41,.05) 1px,transparent 1px);background-size:24px 24px;-webkit-tap-highlight-color:transparent;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+body.playing{overscroll-behavior:contain}
 .noselect{user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .hidden{display:none!important}
 #home{max-width:1000px;margin:0 auto;padding:36px 16px 48px}
@@ -94,9 +101,27 @@ canvas.g{border-radius:16px;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px 
 @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @keyframes tin{from{transform:scale(.4)}to{transform:scale(1)}}
 @keyframes mup{from{transform:translateY(60%)}to{transform:none}}
+
+/* ===== 移动端：游戏进行时折叠站点壳，把首屏让给游戏 ===== */
+body.playing .site-shell{min-height:0;padding-bottom:0}
+body.playing .site-shell-date,
+body.playing .site-shell-search,
+body.playing .site-shell-poem{display:none}
+body.playing .site-shell-nav{display:flex;flex-wrap:nowrap;justify-content:flex-start;margin:0;padding:8px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px}
+body.playing .site-shell-nav::-webkit-scrollbar{display:none}
+body.playing .site-shell-nav a{flex:0 0 auto;width:auto;min-height:34px;padding:4px 11px;font-size:12px;white-space:nowrap}
+body.playing .site-shell-nav a:last-child{grid-column:auto}
+body.playing .site-shell a[aria-current="page"]{background:rgba(255,255,255,.22);color:#fff}
+/* 游戏区高度预算：给 canvas 留位，保证触控方向键进首屏 */
+body.playing canvas.g{max-height:calc(100vh - 320px);max-height:calc(100svh - 320px)}
+body.playing .topbar{position:sticky;top:0;z-index:20;background:#faf7f2;padding:8px 0 6px;margin:0}
+body.playing #statsbar{margin-top:2px}
+body.playing .stat{padding:4px 10px}
+body.playing .stat b{font-size:14px}
+
 @media(max-width:767px){
   #home,#gameview{padding-left:10px;padding-right:10px}
-  #gameview{max-width:100%;padding-top:10px}
+  #gameview{max-width:100%;padding-top:8px;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
   .topbar{align-items:center;gap:7px}
   .topbar h2{order:3;width:100%;font-size:18px!important;margin-top:2px!important}
   #statsbar{order:4;width:100%;margin-left:0;justify-content:flex-start}
@@ -104,12 +129,40 @@ canvas.g{border-radius:16px;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px 
   #toolbar{margin-top:8px}
   #gamearea{width:100%;overflow:hidden}
   .gwrap{max-width:100%}
-  canvas.g{height:auto;max-height:66vh}
-  .trow{max-width:100%;gap:6px}.tside{padding:7px}
-  .touchpad{gap:10px}.padgrid{grid-template-columns:repeat(3,48px);grid-auto-rows:48px}.pconf{width:56px;height:56px}
-  .ov-card{max-width:calc(100vw - 40px);padding:20px}
+  canvas.g{height:auto;max-height:58vh}
+  body.playing canvas.g{max-height:calc(100vh - 300px);max-height:calc(100svh - 300px)}
+  .trow{max-width:100%;gap:6px;flex-wrap:wrap;justify-content:center}
+  .tside{padding:7px}
+  .touchpad{gap:10px;margin-top:12px;padding-bottom:env(safe-area-inset-bottom)}
+  .padgrid{grid-template-columns:repeat(3,52px);grid-auto-rows:52px}
+  .pbtn{border-radius:14px}
+  .pconf{width:58px;height:58px;font-size:13px}
+  .ov-card{max-width:calc(100vw - 40px);padding:20px 18px}
+  .ov-t{font-size:20px}
+  .ov-btn{padding:12px 30px;font-size:15px;min-height:44px}
+  .btn{padding:11px 14px;min-height:44px}
+  .mcell{font-size:13px}
+  #instructions{font-size:11px;padding:0 4px}
+  /* 首页卡片：加大点击热区与可读性 */
+  .card{padding:15px 13px}
+  .cname{font-size:16px}
+  .cdesc{font-size:11px}
+  .cicon{width:46px;height:46px;border-radius:14px}
+  .cicon svg{width:24px;height:24px}
+  #cards{gap:10px;margin-top:24px}
+  #home{padding-top:24px}
+  .logo{width:54px;height:54px;border-radius:18px}
+  h1{font-size:clamp(26px,7vw,36px)}
+  .sub{font-size:12px;line-height:1.6}
 }
 </style>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+  <meta name="keywords" content="小游戏,网页游戏,经典小游戏,怀旧游戏,HTML游戏" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="网址导航" />
+  <meta property="og:title" content="小游戏大合集" />
+  <meta property="og:description" content="小游戏大合集 - 15款经典怀旧小游戏，单文件纯HTML，手机电脑都能玩" />
+  <meta property="og:url" content="https://jiaosenvip.pages.dev/game.html" />
 </head>
 <body class="noselect">
 <div id="siteShell"></div>
@@ -117,7 +170,7 @@ canvas.g{border-radius:16px;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px 
   <header>
     <div class="logo"><svg viewBox="0 0 24 24" width="36" height="36"><circle cx="12" cy="13" r="6.5" fill="#faf7f2"/><circle cx="14.2" cy="11" r="1.6" fill="#1a1d29"/><path d="M6.5 12.2c.6-.5 1.2-.5 1.8 0M6.5 15c.6-.5 1.2-.5 1.8 0" fill="none" stroke="#1a1d29" stroke-width="1.2" stroke-linecap="round"/></svg></div>
     <h1>小游戏大合集</h1>
-    <p class="sub">12 款经典怀旧小游戏 · 电脑手机都能玩 · 最高分自动保存</p>
+    <p class="sub">15 款经典怀旧小游戏 · 电脑手机都能玩 · 最高分自动保存</p>
   </header>
   <main id="cards"></main>
   <footer>单文件纯 HTML · 离线可玩 · 数据仅保存在本机浏览器</footer>
@@ -196,10 +249,12 @@ var CUR=null;
 function startGame(def){
   runCleanup();$('#gamearea').innerHTML='';setToolbar(null);
   $('#home').classList.add('hidden');$('#gameview').classList.remove('hidden');
+  document.body.classList.add('playing');
   CUR=def;document.documentElement.style.setProperty('--acc',def.accent);
   $('#gtitle').textContent=def.name;def.fn();
+  window.scrollTo(0,0);
 }
-function goHome(){runCleanup();$('#gameview').classList.add('hidden');$('#home').classList.remove('hidden');renderBest()}
+function goHome(){runCleanup();$('#gameview').classList.add('hidden');$('#home').classList.remove('hidden');document.body.classList.remove('playing');renderBest();window.scrollTo(0,0)}
 function restart(){runCleanup();$('#gamearea').innerHTML='';setToolbar(null);CUR.fn()}
 </script>
 <script>
@@ -1191,6 +1246,256 @@ function gPacman(){
 }
 </script>
 <script>
+/* ================= Flappy 小鸟 ================= */
+function gFlappy(){
+  var W=360,H=520,GAP=148,PW=64,GRAV=.42,FLAP=-7.2,SPD=2.3;
+  var wrap=el('div','gwrap'),cv=mkCanvas(W,H);
+  cv.style.width='min(92vw,380px)';wrap.appendChild(cv);
+  $('#gamearea').appendChild(wrap);curWrap=wrap;
+  var ctx=cv.getContext('2d');
+  var bird,pipes,score=0,best=store.getBest('flappy'),status='idle',t=0,vy=0;
+  function stat(){setStats([{label:'得分',value:score},{label:'最佳',value:best}])}
+  function draw(){
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#4dc9f6');g.addColorStop(1,'#87ceeb');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,.75)';
+    for(var i=0;i<5;i++){
+      var cx=((i*130+t*18)%(W+120))-60,cy=60+(i%3)*48;
+      ctx.beginPath();ctx.ellipse(cx,cy,34,14,0,0,7);ctx.fill();
+    }
+    pipes.forEach(function(p){
+      ctx.fillStyle='#2e9e44';
+      ctx.beginPath();ctx.roundRect(p.x,0,PW,p.top,6);ctx.fill();
+      ctx.beginPath();ctx.roundRect(p.x,p.top+GAP,PW,H-p.top-GAP-40,6);ctx.fill();
+      ctx.fillStyle='#237a33';
+      ctx.beginPath();ctx.roundRect(p.x-5,p.top-22,PW+10,22,6);ctx.fill();
+      ctx.beginPath();ctx.roundRect(p.x-5,p.top+GAP,PW+10,22,6);ctx.fill();
+    });
+    ctx.fillStyle='#8b5e3c';ctx.fillRect(0,H-40,W,40);
+    ctx.fillStyle='#6b4526';
+    for(var x2=0;x2<W;x2+=28)ctx.fillRect(x2,H-40,14,6);
+    ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(Math.max(-.5,Math.min(.9,vy*.06)));
+    ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.ellipse(0,0,20,15,0,0,7);ctx.fill();
+    ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.ellipse(-4,2,11,8,0,0,7);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(9,-5,5,0,7);ctx.fill();
+    ctx.fillStyle='#1a1d29';ctx.beginPath();ctx.arc(11,-5,2.4,0,7);ctx.fill();
+    ctx.fillStyle='#f97316';ctx.beginPath();ctx.moveTo(18,-1);ctx.lineTo(30,2);ctx.lineTo(18,5);ctx.closePath();ctx.fill();
+    ctx.restore();
+    ctx.fillStyle='rgba(255,255,255,.9)';ctx.font='800 42px ui-monospace,Menlo,monospace';
+    ctx.textAlign='center';ctx.fillText(score,W/2,72);
+  }
+  function flap(){
+    if(status!=='playing')return;
+    vy=FLAP;
+  }
+  function start(){
+    bird={x:88,y:H/2-40};pipes=[];vy=0;score=0;t=0;status='playing';
+    for(var i=0;i<3;i++)pipes.push({x:W+60+i*210,top:60+rnd(160),passed:false});
+    stat();draw();
+  }
+  function loop(){
+    if(status!=='playing')return;
+    t+=1/60;vy+=GRAV;bird.y+=vy;
+    pipes.forEach(function(p){p.x-=SPD});
+    if(pipes.length&&pipes[0].x<-PW-10)pipes.shift();
+    var last=pipes[pipes.length-1];
+    if(last&&last.x<W-160)pipes.push({x:last.x+210,top:60+rnd(160),passed:false});
+    for(var i=0;i<pipes.length;i++){
+      var p=pipes[i];
+      if(!p.passed&&p.x+PW<bird.x){p.passed=true;score++;stat()}
+      if(bird.x+18>p.x&&bird.x-18<p.x+PW&&(bird.y-13<p.top||bird.y+13>p.top+GAP)){
+        if(store.best('flappy',score))best=score;
+        status='over';stat();draw();
+        overlay('撞到管道了','得分 '+score+' · 最佳 '+best,'再飞一次',start);return;
+      }
+    }
+    if(bird.y>H-53||bird.y<-10){
+      if(store.best('flappy',score))best=score;
+      status='over';stat();draw();
+      overlay('掉下去了','得分 '+score+' · 最佳 '+best,'再飞一次',start);return;
+    }
+    draw();
+  }
+  raf(function(){if(status==='playing')loop()});
+  cv.addEventListener('pointerdown',function(e){e.preventDefault();flap()});
+  onKey(function(e){
+    if(e.key===' '||e.key==='ArrowUp'||e.key==='w'){e.preventDefault();
+      if(status==='playing')flap();else if(status==='idle'||status==='over')start()}
+  });
+  setInst('点击屏幕 / 按空格让小鸟扇翅上升，穿过管道缝隙得分，撞管或落地即结束。');
+  bird={x:88,y:H/2-40};pipes=[];draw();stat();
+  overlay('Flappy 小鸟','点一下就飞，穿过管缝','开始游戏',start);
+}
+
+/* ================= 接金币 ================= */
+function gCatch(){
+  var W=360,H=500,BW=84,PH=14;
+  var wrap=el('div','gwrap'),cv=mkCanvas(W,H);
+  cv.style.width='min(92vw,380px)';wrap.appendChild(cv);
+  $('#gamearea').appendChild(wrap);curWrap=wrap;
+  var ctx=cv.getContext('2d');
+  var items,paddleX,score=0,lives=3,best=store.getBest('catch'),status='idle',t=0,spawnCd=0;
+  function stat(){setStats([{label:'得分',value:score},{label:'生命',value:lives},{label:'最佳',value:best}])}
+  function draw(){
+    var g=ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#1e1b4b');g.addColorStop(1,'#312e81');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(255,255,255,.22)';
+    for(var i=0;i<30;i++){var sx=(i*127)%W,sy=(i*89+t*40*(1+(i%3)*.4))%H;ctx.fillRect(sx,sy,1.8,1.8)}
+    items.forEach(function(it){
+      if(it.type==='coin'){
+        ctx.fillStyle='#fbbf24';ctx.beginPath();ctx.arc(it.x,it.y,11,0,7);ctx.fill();
+        ctx.fillStyle='#f59e0b';ctx.beginPath();ctx.arc(it.x,it.y,7,0,7);ctx.fill();
+        ctx.fillStyle='#fde68a';ctx.font='800 11px monospace';ctx.textAlign='center';ctx.fillText('$',it.x,it.y+4);
+      }else{
+        ctx.fillStyle='#334155';ctx.beginPath();ctx.arc(it.x,it.y,11,0,7);ctx.fill();
+        ctx.fillStyle='#ef4444';
+        ctx.beginPath();ctx.moveTo(it.x,it.y-14);ctx.quadraticCurveTo(it.x+8,it.y-22,it.x+2,it.y-16);ctx.fill();
+        ctx.fillStyle='#f8fafc';ctx.font='800 12px monospace';ctx.textAlign='center';ctx.fillText('!',it.x,it.y+4);
+      }
+    });
+    ctx.fillStyle='#38bdf8';ctx.beginPath();ctx.roundRect(paddleX,H-32,BW,PH,7);ctx.fill();
+    ctx.fillStyle='rgba(255,255,255,.35)';ctx.beginPath();ctx.roundRect(paddleX+12,H-32,BW-24,4,2);ctx.fill();
+  }
+  function start(){
+    items=[];score=0;lives=3;t=0;spawnCd=0;paddleX=(W-BW)/2;status='playing';stat();draw();
+  }
+  function loop(){
+    t+=1/60;
+    spawnCd--;
+    if(spawnCd<=0){
+      spawnCd=Math.max(16,42-Math.floor(t*.9));
+      items.push({x:20+rnd(W-40),y:-16,vy:2.1+Math.min(3.2,t*.05)+(Math.random()*.8),type:Math.random()<.22?'bomb':'coin'});
+    }
+    var py=H-32;
+    for(var i=items.length-1;i>=0;i--){
+      var it=items[i];it.y+=it.vy;
+      if(it.y>py-14&&it.y<py+PH+6&&it.x>paddleX-10&&it.x<paddleX+BW+10){
+        items.splice(i,1);
+        if(it.type==='coin'){score+=10;stat()}
+        else{
+          lives--;stat();
+          if(lives<=0){
+            if(store.best('catch',score))best=score;
+            status='over';draw();
+            overlay('被炸弹砸中了','得分 '+score+' · 最佳 '+best,'再来一局',start);return;
+          }
+        }
+      }else if(it.y>H+20){items.splice(i,1)}
+    }
+    draw();
+  }
+  raf(function(){if(status==='playing')loop()});
+  function movePad(cx){
+    var rect=cv.getBoundingClientRect(),x=(cx-rect.left)/rect.width*W;
+    paddleX=Math.max(0,Math.min(W-BW,x-BW/2));
+    if(status!=='playing')draw();
+  }
+  cv.addEventListener('mousemove',function(e){movePad(e.clientX)});
+  cv.addEventListener('touchstart',function(e){movePad(e.touches[0].clientX)},{passive:true});
+  cv.addEventListener('touchmove',function(e){e.preventDefault();movePad(e.touches[0].clientX)},{passive:false});
+  onKey(function(e){
+    if(e.key==='ArrowLeft'||e.key==='a'){paddleX=Math.max(0,paddleX-30);draw()}
+    if(e.key==='ArrowRight'||e.key==='d'){paddleX=Math.min(W-BW,paddleX+30);draw()}
+  });
+  setInst('移动鼠标 / 手指或左右方向键控制篮子，接住金币 +10 分，躲开炸弹（3 条命），下落会越来越快。');
+  items=[];paddleX=(W-BW)/2;draw();stat();
+  overlay('接金币','接住金币，躲开炸弹','开始游戏',start);
+}
+
+/* ================= 推箱子 ================= */
+function gSokoban(){
+  var LEVELS=[
+    ['#####','#   #','#.$@#','#   #','#####'],
+    ['######','#    #','# .. #','# $$ #','#  @ #','######'],
+    ['#######','#     #','# $ $ #','# . . #','#  @  #','#######']
+  ];
+  var wrap=el('div','gwrap'),grid=el('div','ggrid');
+  grid.style.width='min(92vw,380px)';grid.style.gap='3px';grid.style.background='#7c2d12';grid.style.padding='10px';
+  wrap.appendChild(grid);$('#gamearea').appendChild(wrap);curWrap=wrap;
+  var lv=0,map,man,moves,pushes,total,done;
+  var best=store.num('gamehub.best.sokoban');
+  function stat(){setStats([{label:'关卡',value:(lv+1)+'/'+LEVELS.length},{label:'步数',value:moves},{label:'推箱',value:pushes},{label:'最少总步',value:best||'-'}])}
+  function parse(){
+    var rows=LEVELS[lv];map=[];man=null;
+    for(var y=0;y<rows.length;y++){
+      var row=[];
+      for(var x=0;x<rows[y].length;x++){
+        var ch=rows[y][x],v=0;
+        if(ch==='#')v=1;else if(ch==='.')v=2;else if(ch==='$')v=3;else if(ch==='*')v=4;
+        else if(ch==='@'){man=[x,y];v=0}else if(ch==='+'){man=[x,y];v=2}
+        row.push(v);
+      }
+      map.push(row);
+    }
+  }
+  function render(){
+    grid.innerHTML='';
+    grid.style.gridTemplateColumns='repeat('+map[0].length+',1fr)';
+    for(var y=0;y<map.length;y++)for(var x=0;x<map[y].length;x++){
+      var v=map[y][x],c=el('div');
+      c.style.cssText='aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font:800 16px ui-monospace,Menlo,monospace';
+      if(v===1){c.style.background='#9a3412'}
+      else if(v===2){c.style.background='#fef3c7';c.innerHTML='<span style="color:#d97706">·</span>'}
+      else if(v===3){c.style.background='#f59e0b';c.style.boxShadow='inset 0 -4px 0 rgba(0,0,0,.18)'}
+      else if(v===4){c.style.background='#22c55e';c.style.boxShadow='inset 0 -4px 0 rgba(0,0,0,.18)'}
+      else{c.style.background='#fde68a'}
+      if(man[0]===x&&man[1]===y){
+        c.innerHTML='<svg viewBox="0 0 24 24" width="62%" height="62%"><circle cx="12" cy="8" r="4.2" fill="#b45309"/><path d="M6 20c0-3.6 2.7-6 6-6s6 2.4 6 6" fill="#d97706"/></svg>';
+      }
+      grid.appendChild(c);
+    }
+  }
+  function at(x,y){return map[y][x]}
+  function set(x,y,v){map[y][x]=v}
+  function won(){
+    for(var y=0;y<map.length;y++)for(var x=0;x<map[y].length;x++)if(map[y][x]===2)return false;
+    return true;
+  }
+  function move(d){
+    if(done)return;
+    var D={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]},v=D[d];
+    var nx=man[0]+v[0],ny=man[1]+v[1];
+    if(nx<0||ny<0||ny>=map.length||nx>=map[0].length)return;
+    var t=at(nx,ny);
+    if(t===1)return;
+    if(t===3||t===4){
+      var bx=nx+v[0],by=ny+v[1];
+      if(bx<0||by<0||by>=map.length||bx>=map[0].length)return;
+      var bt=at(bx,by);
+      if(bt!==0&&bt!==2)return;
+      set(bx,by,t===3?3:4);
+      set(nx,ny,t===4?2:0);
+      pushes++;
+    }
+    man=[nx,ny];moves++;stat();render();
+    if(won()){
+      done=true;total+=moves;
+      if(lv<LEVELS.length-1){
+        overlay('第 '+(lv+1)+' 关完成！','步数 '+moves+'，下一关箱子更多','下一关',function(){
+          lv++;parse();moves=0;pushes=0;done=false;stat();render();
+        });
+      }else{
+        if(!best||total<best){best=total;store.set('gamehub.best.sokoban',total)}
+        stat();
+        overlay('全部通关！','总步数 '+total+(best===total?' · 新纪录！':''),'再玩一遍',function(){
+          lv=0;parse();moves=0;pushes=0;total=0;done=false;stat();render();
+        });
+      }
+    }
+  }
+  onKey(function(e){
+    var m={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'};
+    var d=m[e.key];if(!d)return;e.preventDefault();move(d);
+  });
+  swipe(grid,function(d){move(d)});
+  $('#gamearea').appendChild(pad({dir:move}));
+  function start(){lv=0;parse();moves=0;pushes=0;total=0;done=false;stat();render()}
+  setInst('方向键 / 滑动 / 虚拟键移动小人，把所有箱子推到金色目标点上；只能推不能拉，注意别把箱子推进死角。');
+  start();
+}
+
 /* ================= 注册表与初始化 ================= */
 var svgw='width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"';
 var GAMES=[
@@ -1217,7 +1522,13 @@ var GAMES=[
   {id:'jigsaw',name:'拼图',tagline:'交换图块，还原画面',accent:'#84cc16',tag:'益智',fn:gJigsaw,
    icon:'<svg '+svgw+'><path d="M5 5h6v3.5a1.8 1.8 0 1 0 3.6 0V5H19v6h-3.5a1.8 1.8 0 1 0 0 3.6H19V19h-6v-3.5a1.8 1.8 0 1 0-3.6 0V19H5v-6h3.5a1.8 1.8 0 1 0 0-3.6H5z"/></svg>'},
   {id:'pacman',name:'吃豆人',tagline:'吃完豆子，躲开幽灵',accent:'#facc15',tag:'街机',fn:gPacman,
-   icon:'<svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 12L21 7a10 10 0 1 0 0 10z" fill="currentColor"/></svg>'}
+   icon:'<svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 12L21 7a10 10 0 1 0 0 10z" fill="currentColor"/></svg>'},
+  {id:'flappy',name:'Flappy 小鸟',tagline:'点击起飞，穿过管缝',accent:'#f97316',tag:'街机',fn:gFlappy,
+   icon:'<svg width="28" height="28" viewBox="0 0 24 24"><ellipse cx="11" cy="12" rx="7" ry="5.5" fill="currentColor"/><circle cx="15" cy="10" r="1.6" fill="#faf7f2"/><path d="M18 12l4 1.5-4 1.5z" fill="currentColor"/><path d="M8 16l-2 3M12 17l-1 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'},
+  {id:'catch',name:'接金币',tagline:'接住金币，躲开炸弹',accent:'#eab308',tag:'休闲',fn:gCatch,
+   icon:'<svg width="28" height="28" viewBox="0 0 24 24"><circle cx="12" cy="8" r="5" fill="currentColor"/><text x="12" y="10.5" text-anchor="middle" font-size="6" font-weight="800" fill="#faf7f2">$</text><path d="M4 14h16l-2 7H6z" fill="currentColor" opacity=".55"/></svg>'},
+  {id:'sokoban',name:'推箱子',tagline:'推箱入位，别进死角',accent:'#06b6d4',tag:'益智',fn:gSokoban,
+   icon:'<svg width="28" height="28" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5" fill="currentColor" opacity=".8"/><rect x="8.5" y="8.5" width="7" height="7" rx="1.2" fill="none" stroke="#faf7f2" stroke-width="1.8"/><path d="M12 14.5v4M10 16.5l2 2 2-2" stroke="#faf7f2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>'}
 ];
 function renderCards(){
   var box=$('#cards');box.innerHTML='';
@@ -1241,6 +1552,13 @@ function renderBest(){
 $('#backbtn').onclick=goHome;
 $('#restartbtn').onclick=restart;
 renderCards();
+/* ?play=<游戏id> 直达指定游戏，方便分享链接与测试 */
+(function(){
+  var qs=new URLSearchParams(location.search).get('play');
+  if(!qs)return;
+  var hit=GAMES.filter(function(g){return g.id===qs})[0];
+  if(hit)startGame(hit);
+})();
 </script>
 </body>
 </html>

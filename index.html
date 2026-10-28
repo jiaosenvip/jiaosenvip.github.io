@@ -5,10 +5,17 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="X-UA-compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome-7.0.1.min.css" />
+  <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.staticfile.org" />
+  <!-- Font Awesome 7.0.1：BootCDN → Staticfile -->
   <link rel="stylesheet" type="text/css"
-    href="assets/vendor/bootstrap-5.3.3.min.css" />
-  <link rel="Shortcut Icon" type="image/x-icon" href="assets/images/github.png" />
+    href="https://cdn.bootcdn.net/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    onerror="this.onerror=null;this.href='https://cdn.staticfile.org/font-awesome/7.0.1/css/all.min.css';" />
+  <!-- Bootstrap 5.3.3：BootCDN → Staticfile -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css"
+    onerror="this.onerror=null;this.href='https://cdn.staticfile.org/bootstrap/5.3.3/css/bootstrap.min.css';" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
   <link rel="stylesheet" href="assets/css/site-shell.css" />
   <title>网址导航</title>
   <style>
@@ -126,12 +133,6 @@
       line-height: 32px;
     }
 
-    #musicPlayer { margin-top: 0.75rem; text-align: center; }
-    #musicToggle { border: 1px solid rgba(255,255,255,.45); border-radius: 4px; background: rgba(0,0,0,.18); color: #fff; padding: 0.25rem 0.65rem; cursor: pointer; }
-    #musicToggle:disabled { cursor: not-allowed; opacity: .7; }
-    #musicPlayer.music-hidden .aplayer,
-    #musicPlayer.music-unavailable .aplayer { display: none; }
-
     /* 主页导航、分类筛选与可读性增强 */
     .home-nav {
       max-width: 960px;
@@ -227,6 +228,13 @@
       .category-bar { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
   </style>
+  <meta name="description" content="个人网址导航 — 精选新闻资讯、社交媒体、开发者资源、视频娱乐等常用网站快捷入口，支持站内搜索，让上网更快捷。" />
+  <meta name="keywords" content="网址导航,网站导航,常用网站,网址大全,导航站,书签" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="网址导航" />
+  <meta property="og:title" content="网址导航" />
+  <meta property="og:description" content="个人网址导航 — 精选新闻资讯、社交媒体、开发者资源、视频娱乐等常用网站快捷入口，支持站内搜索，让上网更快捷。" />
+  <meta property="og:url" content="https://jiaosenvip.pages.dev/" />
 </head>
 
 <body class="" style="display: block">
@@ -1388,10 +1396,9 @@
             <a href="/tools.html" target="_blank" rel="noopener noreferrer" class="text-danger">工具库</a>
           </div>
           <div class="col">
-            <a href="travel-china/index.html" target="_blank" rel="noopener noreferrer" class="text-danger">中国著名景点</a>
-          </div>
+            </div>
           <div class="col">
-            <a href="travel-map/index.html" target="_blank" rel="noopener noreferrer" class="text-danger">中国旅行地图</a>
+            <a href="travel-map.html" target="_blank" rel="noopener noreferrer" class="text-danger">中国旅行地图</a>
           </div>
           <div class="col">
             <a href="/5a.html" target="_blank" rel="noopener noreferrer" class="text-danger">5A景区</a>
@@ -1446,56 +1453,6 @@
         document.getElementById('year').textContent = currentYear;
   </script>
     </div>
-    <div id="musicPlayer" aria-label="可选背景音乐">
-      <button type="button" id="musicToggle" aria-expanded="false">开启背景音乐</button>
-      <span id="musicStatus" class="music-status" aria-live="polite"></span>
-    </div>
-    <script>
-(() => {
-  const player = document.getElementById('musicPlayer');
-  const toggle = document.getElementById('musicToggle');
-  const status = document.getElementById('musicStatus');
-  if (!player || !toggle) return;
-  let loading = false;
-  const loadScript = src => new Promise((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = src;
-    script.onload = resolve;
-    script.onerror = reject;
-    document.body.appendChild(script);
-  });
-  toggle.addEventListener('click', async () => {
-    if (loading || player.querySelector('meting-js')) return;
-    loading = true;
-    toggle.disabled = true;
-    if (status) status.textContent = '正在加载…';
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = 'assets/vendor/aplayer-1.10.1.min.css';
-    document.head.appendChild(css);
-    try {
-      await loadScript('assets/vendor/aplayer-1.10.1.min.js');
-      await loadScript('assets/vendor/meting-2.0.1.min.js');
-      const meting = document.createElement('meting-js');
-      meting.setAttribute('id', '4955014375');
-      meting.setAttribute('server', 'netease');
-      meting.setAttribute('order', 'random');
-      meting.setAttribute('type', 'playlist');
-      meting.setAttribute('fixed', 'true');
-      player.appendChild(meting);
-      toggle.textContent = '关闭背景音乐';
-      toggle.setAttribute('aria-expanded', 'true');
-      if (status) status.textContent = '';
-    } catch (error) {
-      toggle.textContent = '背景音乐暂不可用';
-      if (status) status.textContent = '网络加载失败';
-    } finally {
-      loading = false;
-      toggle.disabled = false;
-    }
-  });
-})();
-  </script> <!-- 鼠标特效 -->
     <script>
 const siteSearch = document.getElementById('siteSearch');
       const categoryBar = document.getElementById('categoryBar');
