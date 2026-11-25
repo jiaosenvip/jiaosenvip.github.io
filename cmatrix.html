@@ -1,40 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
 	<meta charset="UTF-8">
 	<title>cmatrix</title>
 	<link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<style>
-/* Calligraffitti：国内镜像（fonts.loli.net / gstatic.loli.net），本地 fonts/ 路径已失效 */
-@font-face {
-			font-family: 'calligraffittiregular';
-			src: url("https://gstatic.loli.net/s/calligraffitti/v20/46k2lbT3XjDVqJw3DCmCFjE0vnFZ.ttf") format('truetype');
-			font-display: swap;
-		}
-
-		* {
-			margin: 0;
-			padding: 0;
-		}
-
-		body {
-			overflow: hidden;
-		}
-
-		#content {
-			position: absolute;
-			color: white;
-			top: 30%;
-			left: 50%;
-			margin-left: -121px;
-		}
-
-		p {
-			font-family: calligraffittiregular, 'Segoe Script', 'Brush Script MT', cursive
-		}
-  </style>
+	  <link rel="stylesheet" href="assets/css/cmatrix.css" />
 	<meta name="generator" content="Hexo 4.2.0">
 </head>
 
@@ -43,48 +15,7 @@
 </body>
 
 
-<script>
-window.onload = function () {
-		var color_array = ['#00FF00',];//'#00FF99', '#00FFCC', '#00FFFF', '#00BBFF', '#0066FF', '#0000FF', '#5500FF', '#7700FF', '#9900FF', '#CC00FF', '#FF00FF'];
-		var i = 0;
-		var color;
-		function changColor() {
-			color = color_array[i];
-			console.log(i++);
-			console.log(color);
-			if (i > color_array.length - 1) {
-				i = 0;
-			}
-			setTimeout(changColor, 2000);
-		}
+  <script src="assets/js/cmatrix.js" defer></script>
 
-		var hacker = document.getElementById("hacker");
-		var width = hacker.width = screen.width;
-		var height = hacker.height = screen.height;
-		var ctx = hacker.getContext('2d');
-		var num = Math.ceil(width / 12);
-		var y = Array(num).join(0).split('');
-		var draw = function () {
-			ctx.fillStyle = 'rgba(0,0,0,.05)';
-			ctx.fillRect(0, 0, width, height);
-			ctx.fillStyle = color;
-			ctx.font = '12px Microsoft YaHei';
-			y.map(function (y1, i) {
-				var text = String.fromCharCode(65 + Math.random() * 62);
-				var x = i * 12;
-				var y1 = y[i];
-				ctx.fillText(text, x, y1);
-				y[i] = (y1 > Math.random() * 10 * height ? 0 : parseInt(y[i]) + 12);
-			})
-		}
-
-		Run();
-
-		function Run() {
-			changColor();
-			Game_Interval = setInterval(draw, 50);
-		}
-	}
-  </script>
 
 </html>

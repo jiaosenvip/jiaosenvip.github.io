@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 术语手册 · 人工智能常用关键词详解</title>
+<meta name="description" content="收录人工智能、机器学习、深度学习与大语言模型常用术语，点击任意词条查看定义、原理、要点与相关概念。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#home" id="brandLink" title="回到首页">
+      <span class="brand-mark">AI</span>
+      <span class="brand-text"><strong>AI 术语手册</strong><small>The AI Glossary</small></span>
+    </a>
+    <nav class="topnav">
+      <a href="#home" id="navHome">全部词条</a>
+      <a href="#guide" id="navGuide">阅读指南</a>
+    </nav>
+    <div class="top-actions">
+      <span class="count-badge" id="topCount">— 个词条</span>
+      <button class="icon-btn" id="themeToggle" type="button" title="切换深浅主题" aria-label="切换深浅主题">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.6 6.6 0 0 0 9.8 9.8z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ 首页视图 ============ -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>人工智能 · 关键词图解词典</div>
+        <h1>把 AI 的<span class="accent">黑话</span>讲清楚</h1>
+        <p class="hero-sub">从「梯度下降」到「思维链」，<span id="heroCount">上百</span>个核心术语，按 7 大分类整理。点击任意词条，查看它是什么、为什么重要、以及和谁有关。</p>
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+          <input id="searchInput" type="search" placeholder="搜索术语，试试 Transformer / 幻觉 / RLHF / 过拟合" autocomplete="off" spellcheck="false">
+          <kbd class="search-kbd">/</kbd>
+          <button class="search-clear" id="searchClear" type="button" hidden aria-label="清空搜索">×</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b id="statTerms">—</b><span>个术语</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><b>7</b><span>大分类</span></div>
+          <div class="stat-sep"></div>
+          <div class="stat"><b id="statLinks">—</b><span>条概念关联</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="guide" class="guide-strip">
+        <div class="guide-icon">✳</div>
+        <div class="guide-text">
+          <strong>怎么用这本手册</strong>
+          <span>用搜索框按中文名、英文名或缩写查找；点分类标签缩小范围；点开词条后，可通过「相关词条」顺藤摸瓜，也能用浏览器前进/后退在概念之间来回跳转。按 <kbd>/</kbd> 快速聚焦搜索，<kbd>Esc</kbd> 返回词条列表。</span>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2>分类浏览</h2>
+          <p>点选一个分类，或直接在下方查看全部词条</p>
+        </div>
+        <div class="result-hint" id="resultHint"></div>
+      </div>
+
+      <div class="cat-cards" id="catCards"></div>
+
+      <div class="section-head term-list-head">
+        <div><h2>全部词条</h2><p id="listSub">按分类顺序排列</p></div>
+      </div>
+
+      <div class="term-grid" id="termGrid"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <div class="empty-icon">⌕</div>
+        <h3>没有找到匹配的词条</h3>
+        <p>换个关键词试试，或者<button type="button" id="resetBtn">清空筛选条件</button></p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div><strong>AI 术语手册</strong><span> · 一份可离线阅读的人工智能关键词词典</span></div>
+        <div class="footer-note">内容用于学习与科普，概念释义会随技术演进而更新 · <span id="footerCount"></span></div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============ 词条详情视图 ============ -->
+  <section class="view" id="view-term" hidden>
+    <div class="container detail-container">
+      <div class="detail-topbar">
+        <button class="back-btn" id="backBtn" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          返回词条列表
+        </button>
+        <button class="copy-btn" id="copyBtn" type="button" title="复制本词条链接">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+          <span>复制链接</span>
+        </button>
+      </div>
+      <nav class="breadcrumb" id="breadcrumb"></nav>
+      <article id="termArticle"></article>
+      <nav class="term-pager" id="termPager"></nav>
+      <div class="detail-bottom">
+        <button class="back-btn" id="backBtn2" type="button">← 回到全部词条</button>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div><strong>AI 术语手册</strong><span> · 一份可离线阅读的人工智能关键词词典</span></div>
+        <div class="footer-note"><a href="/" style="color:inherit;text-decoration:underline;opacity:.8">← 返回网址导航</a> · 点「相关词条」继续探索 · <span id="footerCount2"></span></div>
+      </div>
+    </footer>
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="data/00-common.js"></script>
+<script src="data/01-fundamentals.js"></script>
+<script src="data/02-architectures.js"></script>
+<script src="data/03-llm.js"></script>
+<script src="data/03b-llm-practice.js"></script>
+<script src="data/04-training.js"></script>
+<script src="data/05-evaluation.js"></script>
+<script src="data/06-applications.js"></script>
+<script src="data/07-ethics.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

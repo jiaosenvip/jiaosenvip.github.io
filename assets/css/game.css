@@ -1,0 +1,143 @@
+/* game.css：自页面内联样式迁移，视觉保持一致。 */
+:root{--acc:#ff6b4a}
+*{box-sizing:border-box}
+html{ -webkit-text-size-adjust:100%;text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:#1a1d29;background:#faf7f2;background-image:radial-gradient(rgba(26,29,41,.05) 1px,transparent 1px);background-size:24px 24px;-webkit-tap-highlight-color:transparent;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
+body.playing{overscroll-behavior:contain}
+.noselect{user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.hidden{display:none!important}
+#home{max-width:1000px;margin:0 auto;padding:36px 16px 48px}
+header{text-align:center}
+.logo{width:64px;height:64px;border-radius:24px;background:#ff6b4a;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 8px 24px rgba(26,29,41,.16)}
+h1{font-size:clamp(30px,6vw,44px);font-weight:800;margin:18px 0 0;letter-spacing:-1px}
+.sub{color:#6b7280;font-size:14px;margin:10px 0 0}
+#cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:36px}
+@media(min-width:640px){#cards{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){#cards{grid-template-columns:repeat(4,1fr)}}
+.card{background:#fff;border:0;border-radius:20px;padding:18px;text-align:left;cursor:pointer;box-shadow:0 2px 4px rgba(26,29,41,.04),0 8px 24px rgba(26,29,41,.08);transition:transform .2s,box-shadow .2s;font:inherit;animation:cardin .5s cubic-bezier(.22,1,.36,1) both}
+.card:hover{transform:translateY(-6px);box-shadow:0 4px 8px rgba(26,29,41,.06),0 16px 40px rgba(26,29,41,.14)}
+.card:active{transform:scale(.98)}
+.cicon{width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;transition:transform .2s}
+.card:hover .cicon{transform:rotate(6deg) scale(1.1)}
+.cicon svg{width:28px;height:28px}
+.cname{font-weight:800;font-size:17px;margin-top:14px}
+.cdesc{font-size:12px;color:#6b7280;margin-top:2px;line-height:1.5}
+.cmeta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.ctag{font-size:11px;font-weight:600;padding:2px 10px;border-radius:999px}
+.cbest{font:600 11px ui-monospace,Menlo,monospace;color:#9ca3af}
+footer{text-align:center;font-size:11px;color:#9ca3af;margin-top:44px}
+#gameview{max-width:760px;margin:0 auto;padding:16px 16px 40px;animation:fadein .28s ease-out}
+.topbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.btn{border:0;cursor:pointer;font:inherit;font-weight:700;border-radius:12px;padding:10px 16px;background:#fff;color:#1a1d29;box-shadow:0 2px 4px rgba(26,29,41,.04),0 8px 24px rgba(26,29,41,.08);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 4px 8px rgba(26,29,41,.06),0 14px 34px rgba(26,29,41,.13)}
+.btn:active{transform:scale(.95)}
+.btn.primary{color:#fff;background:var(--acc)}
+#statsbar{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap;align-items:center}
+.stat{background:#fff;border-radius:12px;padding:5px 12px;text-align:center;box-shadow:0 2px 4px rgba(26,29,41,.04),0 8px 24px rgba(26,29,41,.08)}
+.stat span{display:block;font-size:10px;color:#6b7280;font-weight:600;letter-spacing:.5px}
+.stat b{font:700 15px ui-monospace,Menlo,monospace}
+#toolbar{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+#gamearea{margin-top:16px;display:flex;flex-direction:column;align-items:center}
+#instructions{margin-top:14px;font-size:12px;color:#6b7280;text-align:center;line-height:1.7;max-width:520px}
+.gwrap{position:relative;display:inline-block}
+canvas.g{border-radius:16px;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px rgba(26,29,41,.12);touch-action:none;max-width:100%;display:block}
+.overlay{position:absolute;inset:0;background:rgba(26,29,41,.45);display:flex;align-items:center;justify-content:center;border-radius:16px;z-index:5}
+.ov-card{background:#fff;border-radius:16px;padding:24px 32px;text-align:center;box-shadow:0 4px 16px rgba(26,29,41,.2);animation:pop .3s cubic-bezier(.34,1.56,.64,1)}
+.ov-t{margin:0;font-size:22px;font-weight:800}
+.ov-s{margin:5px 0 0;font-size:13px;color:#6b7280}
+.ov-btn{margin-top:14px;border:0;background:#1a1d29;color:#fff;font:inherit;font-weight:700;border-radius:12px;padding:10px 26px;cursor:pointer;transition:transform .15s}
+.ov-btn:hover{transform:scale(1.05);background:#333850}
+.ov-btn:active{transform:scale(.95)}
+.touchpad{display:flex;gap:20px;align-items:center;justify-content:center;margin-top:16px}
+@media(min-width:768px){.touchpad{display:none}}
+.padgrid{display:grid;grid-template-columns:repeat(3,56px);grid-auto-rows:56px;gap:6px}
+.pbtn{background:#fff;border:0;border-radius:16px;box-shadow:0 2px 4px rgba(26,29,41,.05),0 8px 24px rgba(26,29,41,.1);cursor:pointer;touch-action:none;display:flex;align-items:center;justify-content:center;color:#1a1d29}
+.pbtn:active{transform:scale(.9)}
+.pconf{width:64px;height:64px;border-radius:50%;border:0;background:var(--acc);color:#fff;font:700 14px inherit;font-weight:700;box-shadow:0 4px 12px rgba(26,29,41,.15);cursor:pointer;touch-action:none}
+.pconf:active{transform:scale(.9)}
+.trow{display:flex;gap:12px;align-items:flex-start}
+.tside{background:#fff;border-radius:16px;padding:12px;box-shadow:0 2px 4px rgba(26,29,41,.04),0 8px 24px rgba(26,29,41,.08)}
+.nlab{margin:0 0 8px;font-size:10px;font-weight:700;color:#6b7280;letter-spacing:1px}
+.ggrid{display:grid;gap:5px;background:#fff;padding:10px;border-radius:16px;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px rgba(26,29,41,.12)}
+.mcell{aspect-ratio:1;border:0;border-radius:8px;background:#e8e4da;font:700 15px ui-monospace,Menlo,monospace;color:#1a1d29;cursor:pointer;padding:0;transition:background .1s}
+.mcell:hover{background:#dcd6c8}
+.mcell:active{transform:scale(.93)}
+.mcell.open{background:#f6f3ec;cursor:default}
+.mcell.boom{background:#ef4444;color:#fff}
+.mcell.flag{background:#fde8cd}
+.t2{background:#eee4da;color:#776e65}.t4{background:#ede0c8;color:#776e65}.t8{background:#f2b179;color:#fff}
+.t16{background:#f59563;color:#fff}.t32{background:#f67c5f;color:#fff}.t64{background:#f65e3b;color:#fff}
+.t128{background:#edcf72;color:#fff}.t256{background:#edcc61;color:#fff}.t512{background:#edc850;color:#fff}
+.t1024{background:#edc53f;color:#fff}.t2048{background:#edc22e;color:#fff}.tsuper{background:#3c3a32;color:#fff}
+.flip{perspective:600px;cursor:pointer;background:none;border:0;padding:0;aspect-ratio:1}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .4s;transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;justify-content:center;border-radius:12px;box-shadow:0 2px 4px rgba(26,29,41,.04),0 8px 24px rgba(26,29,41,.08)}
+.face.b{transform:rotateY(180deg)}
+.tile-in{animation:tin .18s ease-out}
+.mole-up{animation:mup .15s ease-out}
+.hole{position:relative;border:0;border-radius:16px;background:linear-gradient(#d9f99d,#bef264);cursor:pointer;padding:0;overflow:hidden;aspect-ratio:1;box-shadow:0 1px 2px rgba(26,29,41,.05),0 12px 32px rgba(26,29,41,.12)}
+.hole:active{transform:scale(.95)}
+.holepit{position:absolute;bottom:10px;left:12%;right:12%;height:24px;border-radius:999px;background:rgba(120,53,15,.55)}
+.snum{background:rgba(26,29,41,.35);color:#fff;font:700 10px ui-monospace,monospace;padding:1px 6px;border-radius:6px;position:absolute;bottom:4px;right:6px}
+.popfx{position:absolute;bottom:40px;left:0;right:0;text-align:center;font:800 18px inherit;color:#16a34a;animation:pop .4s ease-out;pointer-events:none;z-index:4}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes cardin{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes tin{from{transform:scale(.4)}to{transform:scale(1)}}
+@keyframes mup{from{transform:translateY(60%)}to{transform:none}}
+
+/* ===== 移动端：游戏进行时折叠站点壳，把首屏让给游戏 ===== */
+body.playing .site-shell{min-height:0;padding-bottom:0}
+body.playing .site-shell-date,
+body.playing .site-shell-search,
+body.playing .site-shell-poem{display:none}
+body.playing .site-shell-nav{display:flex;flex-wrap:nowrap;justify-content:flex-start;margin:0;padding:8px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:6px}
+body.playing .site-shell-nav::-webkit-scrollbar{display:none}
+body.playing .site-shell-nav a{flex:0 0 auto;width:auto;min-height:34px;padding:4px 11px;font-size:12px;white-space:nowrap}
+body.playing .site-shell-nav a:last-child{grid-column:auto}
+body.playing .site-shell a[aria-current="page"]{background:rgba(255,255,255,.22);color:#fff}
+/* 游戏区高度预算：给 canvas 留位，保证触控方向键进首屏 */
+body.playing canvas.g{max-height:calc(100vh - 320px);max-height:calc(100svh - 320px)}
+body.playing .topbar{position:sticky;top:0;z-index:20;background:#faf7f2;padding:8px 0 6px;margin:0}
+body.playing #statsbar{margin-top:2px}
+body.playing .stat{padding:4px 10px}
+body.playing .stat b{font-size:14px}
+
+@media(max-width:767px){
+  #home,#gameview{padding-left:10px;padding-right:10px}
+  #gameview{max-width:100%;padding-top:8px;padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+  .topbar{align-items:center;gap:7px}
+  .topbar h2{order:3;width:100%;font-size:18px!important;margin-top:2px!important}
+  #statsbar{order:4;width:100%;margin-left:0;justify-content:flex-start}
+  #restartbtn{margin-left:auto}
+  #toolbar{margin-top:8px}
+  #gamearea{width:100%;overflow:hidden}
+  .gwrap{max-width:100%}
+  canvas.g{height:auto;max-height:58vh}
+  body.playing canvas.g{max-height:calc(100vh - 300px);max-height:calc(100svh - 300px)}
+  .trow{max-width:100%;gap:6px;flex-wrap:wrap;justify-content:center}
+  .tside{padding:7px}
+  .touchpad{gap:10px;margin-top:12px;padding-bottom:env(safe-area-inset-bottom)}
+  .padgrid{grid-template-columns:repeat(3,52px);grid-auto-rows:52px}
+  .pbtn{border-radius:14px}
+  .pconf{width:58px;height:58px;font-size:13px}
+  .ov-card{max-width:calc(100vw - 40px);padding:20px 18px}
+  .ov-t{font-size:20px}
+  .ov-btn{padding:12px 30px;font-size:15px;min-height:44px}
+  .btn{padding:11px 14px;min-height:44px}
+  .mcell{font-size:13px}
+  #instructions{font-size:11px;padding:0 4px}
+  /* 首页卡片：加大点击热区与可读性 */
+  .card{padding:15px 13px}
+  .cname{font-size:16px}
+  .cdesc{font-size:11px}
+  .cicon{width:46px;height:46px;border-radius:14px}
+  .cicon svg{width:24px;height:24px}
+  #cards{gap:10px;margin-top:24px}
+  #home{padding-top:24px}
+  .logo{width:54px;height:54px;border-radius:18px}
+  h1{font-size:clamp(26px,7vw,36px)}
+  .sub{font-size:12px;line-height:1.6}
+}

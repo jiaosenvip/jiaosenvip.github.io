@@ -3,7 +3,6 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <meta http-equiv="X-UA-compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin />
   <link rel="dns-prefetch" href="https://cdn.staticfile.org" />
@@ -18,216 +17,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
   <link rel="stylesheet" href="assets/css/site-shell.css" />
   <title>网址导航</title>
-  <style>
-/*html {//灰色默哀主题
-          -webkit-filter: grayscale(100%);
-          -moz-filter: grayscale(100%);
-          -ms-filter: grayscale(100%);
-          -o-filter: grayscale(100%);
-          filter: grayscale(100%);
-          filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
-      } */
-    a {
-      outline: 0;
-      color: #555;
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: #f70;
-    }
-
-    .with-love {
-      color: #ff0000;
-      display: inline-block;
-      margin: 0 5px;
-      animation: iconAnimate 1.33s ease-in-out infinite;
-    }
-
-    @keyframes iconAnimate {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      10%,
-      30% {
-        transform: scale(0.9);
-      }
-
-      20%,
-      40%,
-      60%,
-      80% {
-        transform: scale(1.1);
-      }
-
-      50%,
-      70% {
-        transform: scale(1.1);
-      }
-    }
-
-    .content {
-      margin-top: 25px;
-      padding-left: 15px;
-    }
-
-    .content .btn-toolbar {
-      margin-bottom: 6px;
-      width: 100%;
-      min-height: 30px;
-    }
-
-    .content .btn-toolbar .btn-group {
-      margin-bottom: 9px;
-      width: 130px;
-    }
-
-    .content .btn-toolbar .btn-group .btn-warning:hover {
-      border-color: #ffc107;
-      background-color: #ffc107;
-    }
-
-    .content .btn-toolbar .btn-group .wn {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 15px;
-    }
-
-    .content .btn-toolbar .btn-group .dropdown-toggle {
-      color: #bbb;
-    }
-
-    .content .btn-toolbar .btn-group .t {
-      border: 1px dashed #ddd;
-      color: #999;
-    }
-
-    .content .btn-toolbar .btn-group .dropdown-menu {
-      min-width: 30px;
-      text-align: center;
-      font-size: 13px;
-    }
-
-    .content .row .subs {
-      margin-bottom: 25px;
-      transition: 0.3s;
-    }
-
-    .content .row .subs .tit {
-      margin-bottom: 10px;
-      padding: 5px 0;
-      border-bottom: 1px dashed #ddd;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .content .row .subs .col {
-      overflow: hidden;
-      height: 32px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      line-height: 32px;
-    }
-
-    /* 主页导航、分类筛选与可读性增强 */
-    .home-nav {
-      max-width: 960px;
-      margin: 8px auto 0;
-      padding: 0 15px;
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-    .home-nav a {
-      color: #fff;
-      padding: 6px 12px;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 999px;
-      font-size: 13px;
-    }
-    .home-nav a:hover, .home-nav a[aria-current="page"] {
-      background: #fff;
-      color: #8d0000;
-    }
-    .home-filter {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      margin: 16px auto 18px;
-      padding: 12px 14px;
-      background: rgba(255,255,255,.96);
-      border: 1px solid #e3e6eb;
-      border-radius: 10px;
-      box-shadow: 0 5px 18px rgba(30,41,59,.08);
-    }
-    .home-filter-row { display:flex; align-items:center; gap:10px; }
-    .home-filter input {
-      flex: 1;
-      min-width: 0;
-      height: 38px;
-      padding: 7px 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 6px;
-      color: #1f2937;
-      outline: none;
-    }
-    .home-filter input:focus { border-color:#ad0000; box-shadow:0 0 0 3px rgba(173,0,0,.1); }
-    .home-filter-count { color:#526174; white-space:nowrap; font-size:12px; }
-    .category-bar { display:flex; gap:6px; overflow-x:auto; padding-top:9px; scrollbar-width:thin; }
-    .category-chip { flex:0 0 auto; border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:999px; padding:5px 10px; cursor:pointer; font-size:12px; }
-    .category-chip:hover, .category-chip.active { border-color:#ad0000; background:#fff1f1; color:#8d0000; }
-    .content > .row { display:grid; grid-template-columns:1fr; gap:0; }
-    .content > .row > .subs { width:auto; max-width:none; flex:none; }
-    .content .subs > .row.row-cols-2 { margin-left:0; margin-right:0; }
-    .content .subs > .row.row-cols-2 > .col { padding-left:6px; padding-right:6px; text-align:center; justify-content:center; }
-    .content .subs > .row.row-cols-2 > .col > a { display:inline-block; max-width:100%; }
-    .content .row .subs .tit { color:#263241; }
-    .content .row .subs .col { color:#334155; }
-    .content .row .subs .col a { color:#334155; }
-    .content .row .subs .col a:hover { color:#ad0000; }
-    .content .row .subs .col a.text-danger { color:#b42318; }
-    .content .row .subs.is-hidden { display:none; }
-    .content .row .subs .col.is-hidden { display:none; }
-    .home-empty { display:none; margin:20px 0; padding:24px; text-align:center; color:#526174; border:1px dashed #cbd5e1; border-radius:8px; background:#fff; }
-    @media (min-width: 768px) { .content > .row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; } }
-    @media (min-width: 992px) { .content > .row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 24px; } }
-    @media (max-width: 767px) {
-      .home-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding-bottom:2px; }
-      .home-nav a { width:100%; justify-content:center; text-align:center; }
-      .home-nav a:last-child { grid-column:1 / -1; }
-      .home-filter { width:auto; margin:10px 10px 14px; top:0; }
-      .home-filter-row { align-items:stretch; flex-direction:column; gap:6px; }
-      .home-filter-count { text-align:right; }
-      .category-bar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); overflow:visible; }
-      .category-chip { width:100%; padding-left:4px; padding-right:4px; }
-      .content { margin-top:14px; padding:0 12px; }
-      .content > .row { grid-template-columns:1fr; gap:0; }
-      .content .row .subs .col {
-        height:auto;
-        min-height:32px;
-        line-height:1.45;
-        white-space:normal;
-        overflow:visible;
-        text-overflow:clip;
-        display:flex;
-        align-items:center;
-        padding:4px 0;
-      }
-      .content .row .subs .tit { font-size:15px; }
-    }
-    @media (max-width: 420px) {
-      .content > .row { grid-template-columns:1fr; }
-      .category-bar { grid-template-columns:repeat(2,minmax(0,1fr)); }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/home.css" />
   <meta name="description" content="个人网址导航 — 精选新闻资讯、社交媒体、开发者资源、视频娱乐等常用网站快捷入口，支持站内搜索，让上网更快捷。" />
   <meta name="keywords" content="网址导航,网站导航,常用网站,网址大全,导航站,书签" />
   <meta property="og:type" content="website" />
@@ -660,6 +450,9 @@
           <i class="fas fa-search" style="color: #00ced1"></i> AI工具
         </h5>
         <div class="row row-cols-2">
+          <div class="col">
+            <a href="/ai-glossary/" target="_blank" rel="noopener noreferrer" class="text-danger">AI术语手册</a>
+          </div>
           <div class="col">
             <a href="https://www.toolify.ai/zh/" target="_blank" rel="noopener noreferrer">AI导航(toolify)</a>
           </div>
@@ -1396,7 +1189,8 @@
             <a href="/tools.html" target="_blank" rel="noopener noreferrer" class="text-danger">工具库</a>
           </div>
           <div class="col">
-            </div>
+            <a href="/ai-glossary/" target="_blank" rel="noopener noreferrer" class="text-danger">AI术语手册</a>
+          </div>
           <div class="col">
             <a href="travel-map.html" target="_blank" rel="noopener noreferrer" class="text-danger">中国旅行地图</a>
           </div>
@@ -1446,59 +1240,8 @@
           target="_blank" rel="noopener noreferrer">jiaosenvip</a></span>
       <span class="with-love"><i class="fa fa-heart"></i></span>
       <span itemprop="copyrightYear"><a href="/cmatrix.html" id="year">2026</a></span>
-      <script>
-// 获取当前年份
-        const currentYear = new Date().getFullYear();
-        // 将年份写入到id为"year"的元素中
-        document.getElementById('year').textContent = currentYear;
-  </script>
     </div>
-    <script>
-const siteSearch = document.getElementById('siteSearch');
-      const categoryBar = document.getElementById('categoryBar');
-      const siteCount = document.getElementById('siteCount');
-      const homeGroups = Array.from(document.querySelectorAll('.content > .row > .subs'));
-      let activeCategory = '全部';
-      const categoryRules = [
-        ['技术开发', /互联网|开发|Python|爬虫|开源|镜像|编程/i],
-        ['AI 工具', /AI|人工智能/i],
-        ['资讯阅读', /新闻|阅读|资讯|周刊|热榜/i],
-        ['影音娱乐', /影视|游戏|独自升级/i],
-        ['生活服务', /购物|旅游|生活/i],
-        ['安全工具', /安全|工具/i]
-      ];
-      const getCategory = title => (categoryRules.find(item => item[1].test(title)) || [null, null])[0] || '其他';
-      homeGroups.forEach(group => { group.dataset.homeCategory = getCategory(group.querySelector('.tit')?.textContent || ''); });
-      const categories = ['全部', ...new Set(homeGroups.map(group => group.dataset.homeCategory))];
-      categoryBar.innerHTML = categories.map(category => `<button type="button" class="category-chip${category === '全部' ? ' active' : ''}" data-category="${category}">${category}</button>`).join('');
-      function updateHomeFilter() {
-        const keyword = siteSearch.value.trim().toLowerCase();
-        let visibleGroups = 0; let visibleLinks = 0;
-        homeGroups.forEach(group => {
-          const categoryMatched = activeCategory === '全部' || group.dataset.homeCategory === activeCategory;
-          const links = Array.from(group.querySelectorAll('.row.row-cols-2 > .col'));
-          let groupLinks = 0;
-          links.forEach(link => {
-            const matched = !keyword || link.textContent.toLowerCase().includes(keyword);
-            link.classList.toggle('is-hidden', !matched);
-            if (matched) groupLinks += 1;
-          });
-          const groupMatched = categoryMatched && (!keyword ? true : groupLinks > 0);
-          group.classList.toggle('is-hidden', !groupMatched);
-          if (groupMatched) { visibleGroups += 1; visibleLinks += groupLinks; }
-        });
-        categoryBar.querySelectorAll('.category-chip').forEach(chip => chip.classList.toggle('active', chip.dataset.category === activeCategory));
-        siteCount.textContent = keyword || activeCategory !== '全部' ? `${visibleGroups} 个分类 · ${visibleLinks} 个网址` : `${homeGroups.length} 个分类 · ${visibleLinks} 个网址`;
-      }
-      siteSearch.addEventListener('input', updateHomeFilter);
-      categoryBar.addEventListener('click', event => {
-        const chip = event.target.closest('.category-chip');
-        if (!chip) return;
-        activeCategory = chip.dataset.category;
-        updateHomeFilter();
-      });
-      updateHomeFilter();
-  </script>
+    <script src="assets/js/home.js" defer></script>
   </footer>
 </body>
 

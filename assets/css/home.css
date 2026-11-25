@@ -1,0 +1,209 @@
+/* 首页专用样式：自 index.html 内联样式迁移，视觉与顺序保持一致。 */
+/*html {//灰色默哀主题
+          -webkit-filter: grayscale(100%);
+          -moz-filter: grayscale(100%);
+          -ms-filter: grayscale(100%);
+          -o-filter: grayscale(100%);
+          filter: grayscale(100%);
+          filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+      } */
+    a {
+      outline: 0;
+      color: #555;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #f70;
+    }
+
+    .with-love {
+      color: #ff0000;
+      display: inline-block;
+      margin: 0 5px;
+      animation: iconAnimate 1.33s ease-in-out infinite;
+    }
+
+    @keyframes iconAnimate {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      10%,
+      30% {
+        transform: scale(0.9);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: scale(1.1);
+      }
+
+      50%,
+      70% {
+        transform: scale(1.1);
+      }
+    }
+
+    .content {
+      margin-top: 25px;
+      padding-left: 15px;
+    }
+
+    .content .btn-toolbar {
+      margin-bottom: 6px;
+      width: 100%;
+      min-height: 30px;
+    }
+
+    .content .btn-toolbar .btn-group {
+      margin-bottom: 9px;
+      width: 130px;
+    }
+
+    .content .btn-toolbar .btn-group .btn-warning:hover {
+      border-color: #ffc107;
+      background-color: #ffc107;
+    }
+
+    .content .btn-toolbar .btn-group .wn {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 15px;
+    }
+
+    .content .btn-toolbar .btn-group .dropdown-toggle {
+      color: #bbb;
+    }
+
+    .content .btn-toolbar .btn-group .t {
+      border: 1px dashed #ddd;
+      color: #999;
+    }
+
+    .content .btn-toolbar .btn-group .dropdown-menu {
+      min-width: 30px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .content .row .subs {
+      margin-bottom: 25px;
+      transition: 0.3s;
+    }
+
+    .content .row .subs .tit {
+      margin-bottom: 10px;
+      padding: 5px 0;
+      border-bottom: 1px dashed #ddd;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .content .row .subs .col {
+      overflow: hidden;
+      height: 32px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 32px;
+    }
+
+    /* 主页导航、分类筛选与可读性增强 */
+    .home-nav {
+      max-width: 960px;
+      margin: 8px auto 0;
+      padding: 0 15px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .home-nav a {
+      color: #fff;
+      padding: 6px 12px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .home-nav a:hover, .home-nav a[aria-current="page"] {
+      background: #fff;
+      color: #8d0000;
+    }
+    .home-filter {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin: 16px auto 18px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.96);
+      border: 1px solid #e3e6eb;
+      border-radius: 10px;
+      box-shadow: 0 5px 18px rgba(30,41,59,.08);
+    }
+    .home-filter-row { display:flex; align-items:center; gap:10px; }
+    .home-filter input {
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      padding: 7px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      color: #1f2937;
+      outline: none;
+    }
+    .home-filter input:focus { border-color:#ad0000; box-shadow:0 0 0 3px rgba(173,0,0,.1); }
+    .home-filter-count { color:#526174; white-space:nowrap; font-size:12px; }
+    .category-bar { display:flex; gap:6px; overflow-x:auto; padding-top:9px; scrollbar-width:thin; }
+    .category-chip { flex:0 0 auto; border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:999px; padding:5px 10px; cursor:pointer; font-size:12px; }
+    .category-chip:hover, .category-chip.active { border-color:#ad0000; background:#fff1f1; color:#8d0000; }
+    .content > .row { display:grid; grid-template-columns:1fr; gap:0; }
+    .content > .row > .subs { width:auto; max-width:none; flex:none; }
+    .content .subs > .row.row-cols-2 { margin-left:0; margin-right:0; }
+    .content .subs > .row.row-cols-2 > .col { padding-left:6px; padding-right:6px; text-align:center; justify-content:center; }
+    .content .subs > .row.row-cols-2 > .col > a { display:inline-block; max-width:100%; }
+    .content .row .subs .tit { color:#263241; }
+    .content .row .subs .col { color:#334155; }
+    .content .row .subs .col a { color:#334155; }
+    .content .row .subs .col a:hover { color:#ad0000; }
+    .content .row .subs .col a.text-danger { color:#b42318; }
+    .content .row .subs.is-hidden { display:none; }
+    .content .row .subs .col.is-hidden { display:none; }
+    .home-empty { display:none; margin:20px 0; padding:24px; text-align:center; color:#526174; border:1px dashed #cbd5e1; border-radius:8px; background:#fff; }
+    @media (min-width: 768px) { .content > .row { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 20px; } }
+    @media (min-width: 992px) { .content > .row { grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 24px; } }
+    @media (max-width: 767px) {
+      .home-nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding-bottom:2px; }
+      .home-nav a { width:100%; justify-content:center; text-align:center; }
+      .home-nav a:last-child { grid-column:1 / -1; }
+      .home-filter { width:auto; margin:10px 10px 14px; top:0; }
+      .home-filter-row { align-items:stretch; flex-direction:column; gap:6px; }
+      .home-filter-count { text-align:right; }
+      .category-bar { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); overflow:visible; }
+      .category-chip { width:100%; padding-left:4px; padding-right:4px; }
+      .content { margin-top:14px; padding:0 12px; }
+      .content > .row { grid-template-columns:1fr; gap:0; }
+      .content .row .subs .col {
+        height:auto;
+        min-height:32px;
+        line-height:1.45;
+        white-space:normal;
+        overflow:visible;
+        text-overflow:clip;
+        display:flex;
+        align-items:center;
+        padding:4px 0;
+      }
+      .content .row .subs .tit { font-size:15px; }
+    }
+    @media (max-width: 420px) {
+      .content > .row { grid-template-columns:1fr; }
+      .category-bar { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }

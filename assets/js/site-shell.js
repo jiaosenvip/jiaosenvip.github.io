@@ -1,8 +1,10 @@
 (function () {
-  const current = location.pathname.split('/').pop() || 'index.html';
+  // 去掉尾部斜杠后取最后一段，子目录页面（如 /ai-glossary/）也能正确高亮
+  const current = location.pathname.replace(/\/+$/, '').split('/').pop() || 'index.html';
   const items = [
-    ['/', '首页', current === '' || current === 'index.html'],
+    ['/', '首页', current === 'index.html'],
     ['/tools.html', '在线工具', current === 'tools.html'],
+    ['/ai-glossary/', 'AI术语', current === 'ai-glossary', true],
     ['/travel-map.html', '行迹', current === 'travel-map.html', true],
     ['/5a.html', '5A景区', false, true],
     ['/game.html', '小游戏', current === 'game.html', true]
@@ -13,6 +15,15 @@
     ['nami', '🤖 纳米 AI 搜索'], ['tiangong', '🤖 天工 AI 搜索'],
     ['metaso', '🤖 秘塔 AI 搜索'], ['wiki', '📖 维基百科'], ['github', '📖 GitHub']
   ];
+  // 各引擎的搜索地址，提前建好，避免每次搜索重复构造
+  const urls = {
+    baidu:'https://www.baidu.com/s?wd=', bing:'https://www.bing.com/search?q=',
+    google:'https://www.google.com/search?q=', yandex:'https://yandex.com/search/?text=',
+    sogou:'https://www.sogou.com/web?query=', github:'https://github.com/search?type=repositories&q=',
+    baiduai:'https://chat.baidu.com/search?word=', nami:'https://n.cn/?q=',
+    tiangong:'https://tiangong.cn/result/?q=', metaso:'https://metaso.cn/?q=',
+    wiki:'https://zh.wikipedia.org/wiki/'
+  };
   const shell = document.getElementById('siteShell');
   if (!shell) return;
   const now = new Date();
@@ -27,35 +38,32 @@
       <button id="shellSearchButton" type="button">搜索</button>
     </div>
     <div class="site-shell-poem"><div id="shellPoem"></div><div id="shellPoemInfo"></div></div>`;
+  // 一次性缓存所有需要反复访问的节点
   const time = document.getElementById('shellTime');
+  const engineButton = document.getElementById('shellEngine');
+  const menu = document.getElementById('shellMenu');
+  const searchInput = document.getElementById('shellSearch');
+  const searchButton = document.getElementById('shellSearchButton');
+  const poemEl = document.getElementById('shellPoem');
+  const poemInfoEl = document.getElementById('shellPoemInfo');
   const updateTime = () => { time.textContent = new Date().toLocaleTimeString(); };
   updateTime(); window.setInterval(updateTime, 1000);
   let engine = 'baidu';
-  const menu = document.getElementById('shellMenu');
-  document.getElementById('shellEngine').addEventListener('click', () => menu.classList.toggle('is-open'));
+  engineButton.addEventListener('click', () => menu.classList.toggle('is-open'));
   menu.querySelectorAll('[data-engine]').forEach(button => button.addEventListener('click', () => {
-    engine = button.dataset.engine; document.getElementById('shellEngine').textContent = button.textContent + '⌄'; menu.classList.remove('is-open');
+    engine = button.dataset.engine; engineButton.textContent = button.textContent + '⌄'; menu.classList.remove('is-open');
   }));
   function search() {
-    const query = document.getElementById('shellSearch').value.trim(); if (!query) return;
-    const encoded = encodeURIComponent(query);
-    const urls = {
-      baidu:`https://www.baidu.com/s?wd=${encoded}`, bing:`https://www.bing.com/search?q=${encoded}`,
-      google:`https://www.google.com/search?q=${encoded}`, yandex:`https://yandex.com/search/?text=${encoded}`,
-      sogou:`https://www.sogou.com/web?query=${encoded}`, github:`https://github.com/search?type=repositories&q=${encoded}`,
-      baiduai:`https://chat.baidu.com/search?word=${encoded}`, nami:`https://n.cn/?q=${encoded}`,
-      tiangong:`https://tiangong.cn/result/?q=${encoded}`, metaso:`https://metaso.cn/?q=${encoded}`,
-      wiki:`https://zh.wikipedia.org/wiki/${encoded}`
-    };
-    window.open(urls[engine] || urls.baidu, '_blank', 'noopener');
+    const query = searchInput.value.trim(); if (!query) return;
+    window.open((urls[engine] || urls.baidu) + encodeURIComponent(query), '_blank', 'noopener');
   }
-  document.getElementById('shellSearchButton').addEventListener('click', search);
-  document.getElementById('shellSearch').addEventListener('keydown', event => { if (event.key === 'Enter') search(); });
+  searchButton.addEventListener('click', search);
+  searchInput.addEventListener('keydown', event => { if (event.key === 'Enter') search(); });
   const poemScript = document.createElement('script');
   poemScript.src = 'https://sdk.jinrishici.com/v2/browser/jinrishici.js';
   poemScript.onload = () => window.jinrishici?.load(result => {
-    document.getElementById('shellPoem').textContent = result.data.content;
-    document.getElementById('shellPoemInfo').textContent = `【${result.data.origin.dynasty}】${result.data.origin.author}《${result.data.origin.title}》`;
+    poemEl.textContent = result.data.content;
+    poemInfoEl.textContent = `【${result.data.origin.dynasty}】${result.data.origin.author}《${result.data.origin.title}》`;
   });
   document.head.appendChild(poemScript);
 })();

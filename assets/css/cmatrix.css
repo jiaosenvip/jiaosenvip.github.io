@@ -1,0 +1,29 @@
+/* cmatrix 页面样式：自 cmatrix.html 内联样式迁移，视觉保持一致。 */
+/* Calligraffitti：国内镜像（fonts.loli.net / gstatic.loli.net），本地 fonts/ 路径已失效 */
+@font-face {
+			font-family: 'calligraffittiregular';
+			src: url("https://gstatic.loli.net/s/calligraffitti/v20/46k2lbT3XjDVqJw3DCmCFjE0vnFZ.ttf") format('truetype');
+			font-display: swap;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			overflow: hidden;
+		}
+
+		#content {
+			position: absolute;
+			color: white;
+			top: 30%;
+			left: 50%;
+			margin-left: -121px;
+		}
+
+		p {
+			font-family: calligraffittiregular, 'Segoe Script', 'Brush Script MT', cursive
+		}
+  
